@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+  }
+  
+  .container {
+    position: relative;
+    height: 100vh;
+    display: flex;
+  }
+  
+  .hr-container {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 20%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .breathing-hr {
+    width: 20%;
+    height: 5px;
+    background-color: black;
+    border: none;
+    animation: breathing 2s ease-in-out infinite;
+  }
+  
+  .left {
+    width: 40%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .left img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+  }
+  
+  .right {
+    width: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .content {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  .content-visible {
+    opacity: 1;
+  }
+  
+  /* Slide-in effect for the paragraph */
+  .slide-in {
+    opacity: 0;
+    transform: translateY(100%); /* Start below the screen */
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+  }
+  
+  .slide-in-visible {
+    opacity: 1;
+    transform: translateY(0); /* Slide into place */
+  }
+  
+  /* Fade-in effect for the button */
+  .discover-btn {
+    opacity: 0; /* Start hidden */
+    transition: opacity 1.2s ease-in-out; /* Delay for smooth fade-in */
+  }
+  
+  .fade-in {
+    opacity: 1; /* Fade in effect */
+  }
+  
+  h1 {
+    font-size: 15rem;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .discover-btn {
+    margin-top: 20px;
+    padding: 10px 0;
+    border-bottom: 3px solid black;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    color: #333;
+    cursor: pointer;
+    font-size: 3rem;
+    transition: background-color 0.3s;
+  }
+  
+  /* Keyframe for the horizontal line animation */
+  @keyframes breathing {
+    0% {
+      width: 12%;
+    }
+    50% {
+      width: 13%;
+    }
+    100% {
+      width: 12%;
+    }
+  }
+  

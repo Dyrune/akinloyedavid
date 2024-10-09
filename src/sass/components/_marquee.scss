@@ -20,10 +20,7 @@ $move-final: calc(-50%);
     }
   }
   .row-title {
-    padding: 0 8vw;
-    @media (min-width: $layout-breakpoint-large) {
-      padding: 0 10vw;
-    }
+    padding: 0 22vw;
   }
 }
 

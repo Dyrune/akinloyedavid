@@ -1,5 +1,6 @@
 .banner {
   z-index: 100;
+  margin-top: 140px;
   position: relative;
   .banner-row {
     overflow: hidden;
@@ -22,11 +23,13 @@
     }
     .row-title,
     .row-letter {
-      font-size: 18rem;
+      font-size: 16rem;
       font-weight: 500;
       position: relative;
       letter-spacing: -0.8rem;
-      display: inline-block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       white-space: nowrap;
       @media (max-width: $layout-breakpoint-xsmall) {
         font-size: 13rem;
@@ -58,6 +61,7 @@
     }
     .scroll {
       height: 40px;
+      cursor: pointer;
       width: 80px;
       border-bottom: 5px solid black;
       position: absolute;

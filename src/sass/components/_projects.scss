@@ -1,0 +1,136 @@
+.projects-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 108px;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  /* Full-width header */
+  .header-row {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  
+  .header-row h1 {
+    font-size: 10rem;
+    color: #333;
+  }
+  
+  /* Two-column layout for the content */
+  .content-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .left-column {
+    width: 40%;
+    justify-content: space-between;
+    flex-direction: column;
+    display: flex;
+    padding-right: 20px;
+    height: 50vh;
+}
+  
+  .left-column p {
+    font-size: 2.2rem;
+    line-height: 1.5;
+    padding-right: 20px;
+    color: #555;
+  }
+  
+  .discovered {
+    width: max-content;
+    margin-top: 20px;
+    padding: 5px;
+    border-bottom: 3px solid black;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    color: #333;
+    cursor: pointer;
+    font-size: 3rem;
+    transition: background-color 0.3s;
+}
+
+  .right-column {
+    width: 65%;
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; /* Allows images to wrap on smaller screens */
+  }
+  
+  .project {
+    position: relative;
+    width: 30%; /* Each project takes up 30% of the row */
+    margin-bottom: 20px;
+    overflow: hidden; /* Ensures images stay within their containers */
+  }
+  
+  /* Grayscale and scale-out effect on images */
+  .project img {
+    width: 100%;
+    height: 250px; /* Set fixed height for uniformity */
+    object-fit: cover; /* Ensures aspect ratio is preserved */
+    filter: grayscale(100%);
+    transition: all 0.4s ease; /* Smooth scaling and grayscale transition */
+  }
+  
+  .project:hover img {
+    filter: grayscale(0);
+    cursor: pointer;
+    transform: scale(1.01); /* Scale up image smoothly on hover */
+  }
+  
+  /* Project brief with fade-in and slide-up effect */
+  .project p {
+    margin-top: 10px;
+    font-size: 1.5rem;
+    color: #777;
+    opacity: 0; /* Initially hidden */
+    transform: translateY(20px); /* Initially moved down */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Fade-in and slide-up transition */
+  }
+  
+  /* Show the brief on hover */
+  .project:hover p {
+    opacity: 1;
+    transform: translateY(0); /* Slide-up to normal position */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 900px) {
+    .content-row {
+      flex-direction: column;
+    }
+  
+    .left-column,
+    .right-column {
+      width: 100%;
+    }
+  
+    .header-row h1 {
+      font-size: 2rem;
+    }
+  
+    .left-column p {
+      text-align: center;
+    }
+  
+    .project {
+      text-align: center;
+      width: 100%; /* Projects take full width on smaller screens */
+    }
+  
+    .project img {
+      height: auto; /* Let images adapt their height on small screens */
+    }
+  }
+  

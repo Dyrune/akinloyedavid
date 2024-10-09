@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Arial', sans-serif;
+}
+
+.contact-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  height: 100vh; /* Full viewport height */
+  padding: 86px 50px; /* Add some horizontal padding */
+}
+
+/* Each column style */
+.contact-column2 {
+  width: 100%;
+  padding: 30px;
+}
+
+.contact-column {
+  display: flex;
+  text-align: -webkit-right;
+  padding: 20px 116px;
+  flex-direction: column;
+}
+.contact-column h1 {
+  font-size: 14rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.contact-column p {
+  font-size: 3rem;
+  color: #555;
+  margin: 10px 0;
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+  .contact-page {
+    flex-direction: column;
+    padding: 0 20px;
+  }
+
+  .contact-column {
+    margin-bottom: 20px;
+  }
+
+  .contact-column h1 {
+    font-size: 3rem;
+  }
+
+  .contact-column p {
+    font-size: 1.2rem;
+  }
+}
+
+.contact-column2 a {
+  text-decoration: none;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  color: #555;
+  font-size: 2.3rem;
+  margin: 0px 10px;
+  transition: color 0.3s;
+}
+
+.contact-column2 a:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+.social-icons a {
+  margin: 10px; /* Space between icons */
+  margin-right: 5px;
+}
+
+.social-icons svg {
+  margin-right: 10px; /* Space between the icon and text */
+  font-size: 1.3rem; /* Adjust the icon size */
+}
+
+.froo {
+  display: flex;
+  margin: 20px 0;
+  width: 430px;
+  flex-direction: row;
+}
+
+.social-icons {
+  display: flex;
+  flex-direction: column;
+}
+
+.fp-is-overflow .fp-overflow.fp-auto-height-responsive, .fp-is-overflow .fp-overflow.fp-auto-height, .fp-is-overflow > .fp-overflow {
+  overflow-y: hidden !important;
+}

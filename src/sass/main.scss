@@ -4,7 +4,42 @@
 @import "base/typography";
 
 @import "components/header";
+@import "components/about";
+@import "components/modal";
 @import "components/banner";
+@import "components/contact";
+@import "components/projects";
 @import "components/marquee";
 @import "components/loader";
 @import './_mixins';  // Make sure the path is correct
+
+html, body {
+    overflow: hidden;  // Disable scrolling overflow
+    height: 100%;
+  }
+  
+  #fullpage-wrapper {
+    height: 100%;  // Set the fullpage wrapper to be 80% of the viewport height
+  }
+  
+  .section {
+    overflow: hidden !important;  // Ensure no overflow or scroll bars appear
+  }
+  
+  .slide {
+    height: 100%;  // Ensure each slide takes up the full height within the section
+  }
+  .fp-table {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100% !important;
+    width: 100%;
+}
+
+.fp-watermark {
+    z-index: 9999999;
+    position: absolute;
+    bottom: 0;
+    display: none !important;
+}

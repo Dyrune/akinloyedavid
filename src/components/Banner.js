@@ -32,10 +32,10 @@ const Banner = () => {
 
   return (
     <motion.div className="banner" variants={banner}>
-      <BannerRowTop title={"Architecture"} />
+      <BannerRowTop title={"Architecture,"} />
       {/* This will render the middle text statically without animation */}
-      <BannerRowCenter title={"Planning"} playMarquee={playMarquee} />
-      <BannerRowBottom title={"Solutions"} />
+      <BannerRowCenter title={"Planning,"} playMarquee={playMarquee} />
+      <BannerRowBottom title={"Solutions."} />
     </motion.div>
   );
 };
@@ -78,8 +78,7 @@ const BannerRowTop = ({ title }) => {
         className="row-col"
       >
         <span className="row-message">
-          We are specialised in setting up the foundation of your brand and
-          setting you up for success.
+        I designs buildings and structures, balancing aesthetics, functionality, and safety. They create detailed plans and collaborate with clients and engineers to bring their visions to life.
         </span>
       </motion.div>
     </div>
