@@ -99,7 +99,3 @@ html, body {
   display: flex;
   flex-direction: column;
 }
-
-.fp-is-overflow .fp-overflow.fp-auto-height-responsive, .fp-is-overflow .fp-overflow.fp-auto-height, .fp-is-overflow > .fp-overflow {
-  overflow-y: hidden !important;
-}

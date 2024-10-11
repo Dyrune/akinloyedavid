@@ -1,103 +1,131 @@
 import React, { useEffect, useState, useRef } from "react";
-import fullpage from "fullpage.js";  // Import fullpage.js
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import fullpage from "fullpage.js"; // Import fullpage.js
 import "./sass/main.scss";
-import "fullpage.js/dist/fullpage.css";  // Import fullpage.js CSS
+import "fullpage.js/dist/fullpage.css"; // Import fullpage.js CSS
 
 // Components
 import Header from "./components/Header";
 import Banner from "./components/Banner";
-import About from "./components/About";  // About section
-import Projects from "./components/Projects";  // Projects section
-import Contact from "./components/Contact";  // Contact section
-import Loader from "./components/Loader";  // Loader component
+import About from "./components/About";
+import Projects from "./components/Projects";
+import Contact from "./components/Contact";
+import Loader from "./components/Loader";
+import MoreInfo from "./components/aboutinfo"; // New page for "Discover More"
+import Modal from "./components/aboutinfo"; // Modal component
 
 function App() {
-  const [loading, setLoading] = useState(true);  // State to track loading
-  const fullpageRef = useRef(null);  // Reference for fullPage.js wrapper
-  const fullpageApi = useRef(null);  // Reference for fullpage API
+  const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
+  const fullpageRef = useRef(null);
+  const fullpageApi = useRef(null);
 
-  // Handle the loading effect and toggle the body's loading class
-  useEffect(() => {
-    if (loading) {
-      document.querySelector("body").classList.add("loading");
-    } else {
-      document.querySelector("body").classList.remove("loading");
-    }
-  }, [loading]);
+  // Modal open/close handler
+  const closeModal = () => setIsModalOpen(false);
 
-  // Initialize fullPage.js after loading completes
+  // Initialize or destroy fullPage.js depending on modal state
   useEffect(() => {
+    // Initialize fullpage.js
     if (!loading && fullpageRef.current) {
-      setTimeout(() => {
-        try {
-          // Initialize fullPage.js and store the API instance
-          fullpageApi.current = new fullpage(fullpageRef.current, {
-            autoScrolling: true,         // Enable auto scrolling
-            scrollHorizontally: true,     // Enable horizontal scrolling
-            navigation: true,             // Display navigation dots
-            scrollingSpeed: 1000,         // Smooth scrolling speed
-            responsiveWidth: 900,         // Adjust for smaller screens
-            slidesNavigation: true,       // Show dots for each slide
-            controlArrows: false,         // Disable control arrows
-            scrollBar: false,             // Disable scroll bars
-          });
-
-          // Handle horizontal mouse wheel scrolling
-          const handleWheel = (event) => {
-            if (fullpageApi.current) {
-              // Get the current section index
-              const activeSection = fullpageApi.current.getActiveSection().index;
-
-              if (event.deltaY > 0) {
-                // Scroll right if the wheel scrolls down, stop at last section
-                if (activeSection !== 3) {  // Assuming the Contact section is the 4th one
-                  fullpageApi.current.moveSlideRight();
-                }
-              } else if (event.deltaY < 0) {
-                // Scroll left if the wheel scrolls up, stop at first section
-                if (activeSection !== 0) {  // Assuming the Banner section is the first
-                  fullpageApi.current.moveSlideLeft();
-                }
-              }
-            }
-          };
-
-          // Add event listener for mouse wheel scroll
-          window.addEventListener("wheel", handleWheel);
-
-          // Cleanup on component unmount
-          return () => {
-            window.removeEventListener("wheel", handleWheel);
-            if (fullpageApi.current) {
-              fullpageApi.current.destroy();  // Properly destroy the fullPage.js instance
-              fullpageApi.current = null;
-            }
-          };
-        } catch (error) {
-          console.error("Error initializing fullpage.js:", error);
+      try {
+        fullpageApi.current = new fullpage(fullpageRef.current, {
+          autoScrolling: true,
+          scrollHorizontally: true,
+          navigation: true,
+          scrollingSpeed: 1000,
+          responsiveWidth: 900,
+          slidesNavigation: true,
+          controlArrows: false,
+          scrollBar: true,
+        });
+      } catch (error) {
+        console.error("Error initializing fullpage.js:", error);
+      }
+  
+      // Add horizontal scrolling (wheel event)
+      const handleWheel = (event) => {
+        if (fullpageApi.current) {
+          const activeSection = fullpageApi.current.getActiveSection().index;
+  
+          if (event.deltaY > 0) {
+            if (activeSection !== 3) fullpageApi.current.moveSlideRight();
+          } else if (event.deltaY < 0) {
+            if (activeSection !== 0) fullpageApi.current.moveSlideLeft();
+          }
         }
-      }, 500);  // Delay ensures smooth transition from loader to fullPage
+      };
+  
+      // Add mouse wheel event listener
+      window.addEventListener("wheel", handleWheel);
+  
+      // Cleanup function
+      return () => {
+        window.removeEventListener("wheel", handleWheel);
+        if (fullpageApi.current) {
+          fullpageApi.current.destroy();
+          fullpageApi.current = null;
+        }
+      };
     }
-  }, [loading]);
+  }, [loading]); // Only run when loading changes
+  
+  useEffect(() => {
+    // Destroy fullpage.js instance when modal opens
+    if (isModalOpen && fullpageApi.current) {
+      fullpageApi.current.destroy();
+      fullpageApi.current = null;
+    }
+  }, [isModalOpen]); // Run when modal state changes
+  
 
   return (
-    <>
-      {/* Animate Presence to handle loader and transitions */}
+    <Router>
       {loading ? (
-        <Loader setLoading={setLoading} />  // Show loader while loading is true
+        <Loader setLoading={setLoading} />
       ) : (
-        <div id="fullpage-wrapper" ref={fullpageRef}>
-          <div className="section">
-            <Header />
-            {/* Horizontal Slides */}
-            <div className="slide"> <Banner /> </div>  {/* Section 1: Banner */}
-            <div className="slide"> <About /> </div>   {/* Section 2: About */}
-            <div className="slide"> <Projects /> </div> {/* Section 3: Projects */}
-            <div className="slide"> <Contact /> </div> {/* Section 4: Contact */}
-          </div>
-        </div>
+        <>
+          {/* Modal Component */}
+          {isModalOpen && (
+            <Modal onClose={closeModal}>
+              <h2>Modal Header</h2>
+              <p>This is the modal content for the About page</p>
+              <button onClick={closeModal}>Close Modal</button>
+            </Modal>
+          )}
+
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <div id="fullpage-wrapper" ref={fullpageRef}>
+                  <div className="section">
+                    <Header />
+                    <div className="slide">
+                      <Banner />
+                    </div>
+                    {/* Section 1: Banner */}
+                    <div className="slide">
+                      <About openModal={() => setIsModalOpen(true)} />
+                    </div>
+                    {/* Section 2: About */}
+                    <div className="slide">
+                      <Projects />
+                    </div>
+                    {/* Section 3: Projects */}
+                    <div className="slide">
+                      <Contact />
+                    </div>
+                    {/* Section 4: Contact */}
+                  </div>
+                </div>
+              }
+            />
+            {/* New route for the More Info page */}
+            <Route path="/more-info" element={<MoreInfo />} />
+          </Routes>
+        </>
       )}
-    </>
+    </Router>
   );
 }
 

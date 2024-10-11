@@ -5,7 +5,7 @@
 
 @import "components/header";
 @import "components/about";
-@import "components/modal";
+@import "components/aboutinfo";
 @import "components/banner";
 @import "components/contact";
 @import "components/projects";
@@ -13,33 +13,18 @@
 @import "components/loader";
 @import './_mixins';  // Make sure the path is correct
 
-html, body {
-    overflow: hidden;  // Disable scrolling overflow
-    height: 100%;
-  }
-  
-  #fullpage-wrapper {
-    height: 100%;  // Set the fullpage wrapper to be 80% of the viewport height
-  }
-  
-  .section {
-    overflow: hidden !important;  // Ensure no overflow or scroll bars appear
-  }
-  
-  .slide {
-    height: 100%;  // Ensure each slide takes up the full height within the section
-  }
-  .fp-table {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100% !important;
-    width: 100%;
+/* Prevent FOUC (Flash of Unstyled Content) by hiding the page until it's ready */
+body.loading #fullpage-wrapper {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out; /* Smooth fade-in */
 }
 
-.fp-watermark {
-    z-index: 9999999;
-    position: absolute;
-    bottom: 0;
-    display: none !important;
+body:not(.loading) #fullpage-wrapper {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fp-watermark a {
+  display: none !important;
 }

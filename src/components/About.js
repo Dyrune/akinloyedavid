@@ -1,6 +1,7 @@
+
 import React, { useEffect, useState } from "react";
 
-function About() {
+const About = ({ openModal }) => {
   const [isVisible, setIsVisible] = useState(false); // Track visibility state
 
   // Trigger visibility when component is mounted
@@ -36,13 +37,13 @@ function About() {
           <p className={`slide-in ${isVisible ? "slide-in-visible" : ""}`}>
             We are a company that specializes in delivering high-quality services and more...
           </p>
-          <button className={`discover-btn ${isVisible ? "fade-in" : ""}`}>
+          <button className={`discover-btn ${isVisible ? "fade-in" : ""}`} onClick={openModal}>
             Discover More
           </button>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default About;
+export default About; 
