@@ -11,7 +11,7 @@ import About from "./components/About";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Loader from "./components/Loader";
-import MoreInfo from "./components/aboutinfo"; // New page for "Discover More"
+import MoreInfo from "./components/MoreInfo"; // New page for "Discover More"
 import Modal from "./components/aboutinfo"; // Modal component
 
 function App() {
@@ -29,14 +29,17 @@ function App() {
     if (!loading && fullpageRef.current) {
       try {
         fullpageApi.current = new fullpage(fullpageRef.current, {
-          autoScrolling: true,
-          scrollHorizontally: true,
           navigation: true,
           scrollingSpeed: 1000,
           responsiveWidth: 900,
           slidesNavigation: true,
-          controlArrows: false,
-          scrollBar: true,
+          controlArrows: false, // Disable default arrows, we will add custom ones
+          onLeave: function(origin, destination, direction){
+            updateArrowVisibility(destination.index);
+          },
+          afterSlideLoad: function(section, origin, destination){
+            updateArrowVisibility(destination.index);
+          }
         });
       } catch (error) {
         console.error("Error initializing fullpage.js:", error);
@@ -76,7 +79,25 @@ function App() {
       fullpageApi.current = null;
     }
   }, [isModalOpen]); // Run when modal state changes
-  
+
+  const updateArrowVisibility = (index) => {
+    // Show or hide arrows based on slide index (if needed)
+    const totalSlides = document.querySelectorAll('.slide').length;
+    const leftArrow = document.getElementById('arrow-left');
+    const rightArrow = document.getElementById('arrow-right');
+
+    if (index === 0) {
+      leftArrow.style.display = 'none'; // Hide left arrow on the first slide
+    } else {
+      leftArrow.style.display = 'block';
+    }
+
+    if (index === totalSlides - 1) {
+      rightArrow.style.display = 'none'; // Hide right arrow on the last slide
+    } else {
+      rightArrow.style.display = 'block';
+    }
+  }
 
   return (
     <Router>
@@ -123,6 +144,14 @@ function App() {
             {/* New route for the More Info page */}
             <Route path="/more-info" element={<MoreInfo />} />
           </Routes>
+
+          {/* Custom Navigation Arrows */}
+          <div id="arrow-left" className="custom-arrow" onClick={() => fullpageApi.current.moveSlideLeft()}>
+            &#9664; {/* Left Arrow */}
+          </div>
+          <div id="arrow-right" className="custom-arrow" onClick={() => fullpageApi.current.moveSlideRight()}>
+            &#9654; {/* Right Arrow */}
+          </div>
         </>
       )}
     </Router>

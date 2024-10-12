@@ -15,7 +15,7 @@ const About = ({ openModal }) => {
   }, []);
 
   return (
-    <div className="container">
+    <div className="containerr">
       {/* Left section with full-height image */}
       <div className="left">
         <img 
@@ -33,9 +33,9 @@ const About = ({ openModal }) => {
       <div className="right">
         {/* Corrected dynamic class usage */}
         <div className={`content ${isVisible ? "content-visible" : ""}`}>
-          <h1>About Us</h1>
+          <h1>About Me</h1>
           <p className={`slide-in ${isVisible ? "slide-in-visible" : ""}`}>
-            We are a company that specializes in delivering high-quality services and more...
+            We are a company that specializes in delivering high-quality services and more than you expect, come to me and i will give you the unexpected...
           </p>
           <button className={`discover-btn ${isVisible ? "fade-in" : ""}`} onClick={openModal}>
             Discover More

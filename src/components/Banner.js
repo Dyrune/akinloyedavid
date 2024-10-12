@@ -78,7 +78,7 @@ const BannerRowTop = ({ title }) => {
         className="row-col"
       >
         <span className="row-message">
-        I designs buildings and structures, balancing aesthetics, functionality, and safety. They create detailed plans and collaborate with clients and engineers to bring their visions to life.
+       " I designs buildings and structures, balancing aesthetics, functionality, and safety. They create detailed plans and collaborate with clients and engineers to bring their visions to life."
         </span>
       </motion.div>
     </div>

@@ -1,9 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Trochut:wght@400&display=swap');
-
-.logo {
-  font-family: 'Trochut', sans-serif;
-}
-
 .header {
   position: fixed;
   top: 0;
@@ -16,96 +10,71 @@
   justify-content: center;
   padding: 0 108px;
   color: $black;
-  
-  @media (max-width: $layout-breakpoint-medium) {
-    padding: 0 72px;
-    font-size: 1.6rem;
-  }
-  
-  @media (max-width: $layout-breakpoint-xsmall) {
-    padding: 0 12px;
-    height: 96px;
-    font-size: 1.2rem;
-  }
-  
+
   .header-inner {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
 
-    .logo {
-      font-weight: 700;
-      font-size: 3.6rem;
-      
-      @media (max-width: $layout-breakpoint-medium) {
-        font-size: 3.2rem;
-        flex: 4;
-      }
-    }
+  .logo {
+    font-family: 'Trochut', sans-serif;
+    font-weight: 700;
+    font-size: 3.6rem;
+  }
 
-    .nav {
-      @media (max-width: $layout-breakpoint-medium) {
-        display: none;
-      }
-      display: none;
-      align-items: center;
-      justify-content: center;
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+  .nav {
+    display: none; /* Initially hide the nav menu */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+    justify-content: center;
+    list-style: none;
 
-      li {
-        list-style: none;
-        margin: 0 40px;
-        a {
-          text-decoration: none;
-          color: $black;
-          white-space: nowrap;
-        }
-      }
-    }
-
-    .contact {
+    li {
+      margin: 0 40px;
 
       a {
-        color: $black;
         text-decoration: none;
-        border-bottom: 2px solid $black;
-        padding-bottom: 12px;
+        color: $black;
         white-space: nowrap;
-        
-        @media (max-width: $layout-breakpoint-xsmall) {
-          border: none;
-        }
-      }
-    }
-
-    .hamburger-menu {
-      height: 56px;
-      width: 56px;
-      border-radius: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      transition: 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
-      cursor: pointer;
-
-      &:hover {
-        background: darken($white, 12%);
-      }
-
-      span {
-        width: 20px;
-        height: 3px;
-        margin: 2px 0;
-        background: $black;
-        display: block;
       }
     }
   }
+
+  .nav.open {
+    display: flex; /* Show the menu when open */
+  }
+
+  .contact a {
+    color: $black;
+    text-decoration: none;
+    border-bottom: 2px solid $black;
+    padding-bottom: 12px;
+    white-space: nowrap;
+  }
+
+  .hamburger-menu {
+    height: 56px;
+    width: 56px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    cursor: pointer;
+
+    span {
+      width: 20px;
+      height: 3px;
+      margin: 2px 0;
+      background: $black;
+    }
+  }
 }
+
 
 /* Styling for the main content wrapper */
 .app-content {

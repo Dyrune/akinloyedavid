@@ -67,10 +67,15 @@ html, body {
   display: flex;
   width: 100%;
   align-items: center;
+  font-family: sans-serif;
   color: #555;
   font-size: 2.3rem;
-  margin: 0px 10px;
+  margin: 20px 10px;
   transition: color 0.3s;
+}
+
+.contact-column2 a svg {
+  margin-right: 20px;
 }
 
 .contact-column2 a:hover {

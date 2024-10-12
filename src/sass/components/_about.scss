@@ -3,14 +3,16 @@
     padding: 0;
     box-sizing: border-box;
   }
-  
+
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&display=swap');
+
   html, body {
     height: 100%;
     font-family: Arial, sans-serif;
     overflow: hidden;
   }
   
-  .container {
+  .containerr {
     position: relative;
     height: 100vh;
     display: flex;
@@ -18,7 +20,7 @@
   
   .hr-container {
     position: absolute;
-    top: 50%;
+    top: 85%;
     left: 0;
     right: 20%;
     display: flex;
@@ -50,7 +52,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 30px 110px;
   }
   
   .content {
@@ -86,26 +88,31 @@
   }
   
   h1 {
-    font-size: 15rem;
+    font-size: 10rem;
+  font-family: 'EB Garamond', serif;
+    color: #333;
     margin-bottom: 20px;
   }
   
   p {
-    font-size: 2rem;
-    margin-bottom: 30px;
-    color: #333;
+    font-size: 1.8rem;
+    line-height: 1.5;
+    padding-right: 20px;
+    font-family: 'EB Garamond', serif;
+    color: #555;
   }
   
   .discover-btn {
+    font-family: 'EB Garamond', serif;
     margin-top: 20px;
     padding: 10px 0;
-    border-bottom: 3px solid black;
+    border-bottom: 1px solid black;
     border-left: none;
     border-right: none;
     border-top: none;
     color: #333;
     cursor: pointer;
-    font-size: 3rem;
+    font-size: 2.5rem;
     transition: background-color 0.3s;
   }
   

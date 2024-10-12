@@ -15,7 +15,7 @@
       justify-content: center;
       text-align: center;
       .row-letter {
-        left: 0;
+        left: 10vh;
       }
     }
     &.right {
@@ -23,7 +23,7 @@
     }
     .row-title,
     .row-letter {
-      font-size: 16rem;
+      font-size: 13rem;
       font-weight: 500;
       position: relative;
       letter-spacing: -0.8rem;
@@ -56,6 +56,7 @@
         font-weight: 500;
         font-size: 1.8rem;
         line-height: 2.6rem;
+        font-family: 'EB Garamond', serif;
         width: 320px;
       }
     }
