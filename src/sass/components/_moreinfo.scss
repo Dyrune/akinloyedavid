@@ -1,0 +1,192 @@
+/* File: Modal.css */
+.modal-overlay2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: hidden;
+  }
+  
+  .modal-content2 {
+    background-color: white;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateY(100%);
+  }
+  /* Header */
+.modal-header2 {
+    height: 156px;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    font-size: 4.5rem;
+    font-weight: bold;
+}
+
+.contactt {
+    margin-left: 50px;
+}
+
+.close-btn2 {
+    font-size: 4.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+
+.header-title sup {
+    font-size: 1.5rem;
+    vertical-align: super;
+  }
+
+/* Filter Buttons */
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    background: none;
+    border: 2px solid black;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: black;
+    color: white;
+}
+
+/* Horizontal grid styling */
+.project-grid-horizontal {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 70px 108px;
+    align-items: flex-end; /* Ensures items align at the bottom */
+}
+
+/* Hide scrollbar */
+.project-grid-horizontal::-webkit-scrollbar {
+    display: none;
+}
+
+.project-grid-horizontal {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.project-item-horizontal {
+    flex: 0 0 auto;
+    margin-right: 20px;
+    position: relative;
+    max-width: 450px;
+}
+
+.project-item-horizontal:hover {
+    cursor: pointer;
+}
+
+/* Ensure images maintain aspect ratio and are larger */
+.project-image-horizontal {
+    width: 100%;
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+/* Position hover-text on top of the image */
+.hover-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    background-color: black;
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    display: none;
+    z-index: 999;
+    white-space: nowrap;
+    transition: transform 0.1s ease;
+}
+
+/* Show hover-text on hover */
+.project-item-horizontal:hover .hover-text {
+    display: block;
+}
+
+/* Project number positioning */
+.project-number {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: black;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+/* Title and dynamic project info */
+.title-and-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 108px;
+    bottom: 0;
+    width: 100%;
+    position: fixed;
+}
+  
+  .header-title {
+    font-size: 10rem;
+  }
+
+  .header-title sup {
+    font-size: 1.5rem;
+  }
+  
+  .project-info-panel {
+    text-align: left;
+    width: 350px;
+  }
+  
+  .project-info-panel h2 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  .project-info-panel p {
+    font-size: 1.2rem;
+    color: gray;
+  }
+  
+  

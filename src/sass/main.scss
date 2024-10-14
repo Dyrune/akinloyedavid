@@ -7,6 +7,7 @@
 @import "components/about";
 @import "components/aboutinfo";
 @import "components/banner";
+@import "components/moreinfo";
 @import "components/contact";
 @import "components/projects";
 @import "components/marquee";
@@ -28,14 +29,6 @@ body:not(.loading) #fullpage-wrapper {
 .fp-watermark a {
   display: none !important;
 }
-
-
-
-
-
-
-
-
 
 
 

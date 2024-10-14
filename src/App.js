@@ -17,50 +17,58 @@ import Modal from "./components/aboutinfo"; // Modal component
 function App() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
+  const [isMoreInfoModalOpen, setIsMoreInfoModalOpen] = useState(false); // Modal state for More Info
   const fullpageRef = useRef(null);
   const fullpageApi = useRef(null);
 
-  // Modal open/close handler
+  // Modal open/close handlers
+  const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // Initialize or destroy fullPage.js depending on modal state
+  const closeMoreInfoModal = () => setIsMoreInfoModalOpen(false);
+
+  // Initialize fullPage.js
   useEffect(() => {
-    // Initialize fullpage.js
     if (!loading && fullpageRef.current) {
       try {
+        // Initialize fullPage.js
         fullpageApi.current = new fullpage(fullpageRef.current, {
           navigation: true,
           scrollingSpeed: 1000,
           responsiveWidth: 900,
           slidesNavigation: true,
-          controlArrows: false, // Disable default arrows, we will add custom ones
-          onLeave: function(origin, destination, direction){
+          controlArrows: false, // Disable default arrows
+          onLeave: function (origin, destination, direction) {
             updateArrowVisibility(destination.index);
           },
-          afterSlideLoad: function(section, origin, destination){
+          afterSlideLoad: function (section, origin, destination) {
             updateArrowVisibility(destination.index);
-          }
+          },
         });
       } catch (error) {
         console.error("Error initializing fullpage.js:", error);
       }
-  
-      // Add horizontal scrolling (wheel event)
+
+      // Mouse wheel event for horizontal scrolling
       const handleWheel = (event) => {
         if (fullpageApi.current) {
           const activeSection = fullpageApi.current.getActiveSection().index;
-  
+
+          // Scroll right on wheel down
           if (event.deltaY > 0) {
-            if (activeSection !== 3) fullpageApi.current.moveSlideRight();
-          } else if (event.deltaY < 0) {
-            if (activeSection !== 0) fullpageApi.current.moveSlideLeft();
+            fullpageApi.current.moveSlideRight();
+          }
+
+          // Scroll left on wheel up
+          if (event.deltaY < 0) {
+            fullpageApi.current.moveSlideLeft();
           }
         }
       };
-  
+
       // Add mouse wheel event listener
       window.addEventListener("wheel", handleWheel);
-  
+
       // Cleanup function
       return () => {
         window.removeEventListener("wheel", handleWheel);
@@ -70,34 +78,38 @@ function App() {
         }
       };
     }
-  }, [loading]); // Only run when loading changes
-  
+  }, [loading]);
+
+  // Disable/enable scrolling when modal is open/closed
   useEffect(() => {
-    // Destroy fullpage.js instance when modal opens
-    if (isModalOpen && fullpageApi.current) {
-      fullpageApi.current.destroy();
-      fullpageApi.current = null;
+    if (fullpageApi.current) {
+      if (isModalOpen || isMoreInfoModalOpen) {
+        fullpageApi.current.setAllowScrolling(false); // Disable scrolling when modal is open
+      } else {
+        fullpageApi.current.setAllowScrolling(true); // Re-enable scrolling when modal is closed
+      }
     }
-  }, [isModalOpen]); // Run when modal state changes
+  }, [isModalOpen, isMoreInfoModalOpen]);
 
   const updateArrowVisibility = (index) => {
-    // Show or hide arrows based on slide index (if needed)
-    const totalSlides = document.querySelectorAll('.slide').length;
-    const leftArrow = document.getElementById('arrow-left');
-    const rightArrow = document.getElementById('arrow-right');
+    const totalSlides = document.querySelectorAll(".slide").length;
+    const leftArrow = document.getElementById("arrow-left");
+    const rightArrow = document.getElementById("arrow-right");
 
+    // Hide left arrow on the first slide
     if (index === 0) {
-      leftArrow.style.display = 'none'; // Hide left arrow on the first slide
+      leftArrow.style.display = "none";
     } else {
-      leftArrow.style.display = 'block';
+      leftArrow.style.display = "block";
     }
 
+    // Hide right arrow on the last slide
     if (index === totalSlides - 1) {
-      rightArrow.style.display = 'none'; // Hide right arrow on the last slide
+      rightArrow.style.display = "none";
     } else {
-      rightArrow.style.display = 'block';
+      rightArrow.style.display = "block";
     }
-  }
+  };
 
   return (
     <Router>
@@ -108,10 +120,19 @@ function App() {
           {/* Modal Component */}
           {isModalOpen && (
             <Modal onClose={closeModal}>
-              <h2>Modal Header</h2>
-              <p>This is the modal content for the About page</p>
+              <h2>About Modal</h2>
+              <p>This is the modal content for the About page.</p>
               <button onClick={closeModal}>Close Modal</button>
             </Modal>
+          )}
+
+          {/* More Info Modal */}
+          {isMoreInfoModalOpen && (
+            <MoreInfo onClose={closeMoreInfoModal}>
+              <h2>More Info Modal</h2>
+              <p>This is the modal content for the More Info section.</p>
+              <button onClick={closeMoreInfoModal}>Close Modal</button>
+            </MoreInfo>
           )}
 
           <Routes>
@@ -126,11 +147,12 @@ function App() {
                     </div>
                     {/* Section 1: Banner */}
                     <div className="slide">
-                      <About openModal={() => setIsModalOpen(true)} />
+                      <About openModal={openModal} />
                     </div>
                     {/* Section 2: About */}
                     <div className="slide">
-                      <Projects />
+                      {/* Pass setIsMoreInfoModalOpen to the Projects component */}
+                      <Projects setIsMoreInfoModalOpen={setIsMoreInfoModalOpen} />
                     </div>
                     {/* Section 3: Projects */}
                     <div className="slide">
