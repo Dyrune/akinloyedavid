@@ -1,4 +1,3 @@
-/* File: Modal.css */
 .modal-overlay2 {
     position: fixed;
     top: 0;
@@ -9,19 +8,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 1001;
     overflow: hidden;
-  }
-  
-  .modal-content2 {
+}
+
+.modal-content2 {
     background-color: white;
     width: 100%;
     height: 100vh;
     position: relative;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transform: translateY(100%);
-  }
-  /* Header */
+}
+
+/* Header */
 .modal-header2 {
     height: 156px;
     width: 100%;
@@ -37,7 +37,7 @@
 }
 
 .logo {
-    font-size: 4.5rem;
+    font-size: 3.6rem;
     font-weight: bold;
 }
 
@@ -54,11 +54,10 @@
     transition: opacity 0.3s ease;
 }
 
-
 .header-title sup {
     font-size: 1.5rem;
     vertical-align: super;
-  }
+}
 
 /* Filter Buttons */
 .filter-buttons {
@@ -120,6 +119,13 @@
     max-height: 500px;
     object-fit: cover;
     transition: transform 0.3s ease;
+    will-change: transform; /* Optimize animation performance */
+}
+
+.ehr {
+    width: 8px;
+    height: 8px;
+    background-color: red;
 }
 
 /* Position hover-text on top of the image */
@@ -131,7 +137,7 @@
     pointer-events: none;
     background-color: black;
     color: white;
-    padding: 10px;
+    padding: 20px 40px;
     font-size: 14px;
     display: none;
     z-index: 999;
@@ -141,7 +147,7 @@
 
 /* Show hover-text on hover */
 .project-item-horizontal:hover .hover-text {
-    display: block;
+    display: flex;
 }
 
 /* Project number positioning */
@@ -166,27 +172,42 @@
     position: fixed;
 }
   
-  .header-title {
+.header-title {
     font-size: 10rem;
-  }
+}
 
-  .header-title sup {
+.header-title sup {
     font-size: 1.5rem;
-  }
-  
-  .project-info-panel {
+}
+
+.project-info-panel {
     text-align: left;
     width: 350px;
-  }
-  
-  .project-info-panel h2 {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  
-  .project-info-panel p {
-    font-size: 1.2rem;
+}
+
+.project-info-panel h2 {
+    font-size: 3rem;
+    padding-bottom: 5px;
+    font-family: 'EB Garamond', serif;
+}
+
+.project-info-panel p {
+    font-size: 1.8rem;
     color: gray;
-  }
-  
-  
+}
+
+/* Progress Bar */
+.progress-bar {
+    position: relative;
+    width: 80%;
+    height: 2px;
+    background-color: #e0e0e0; /* Light gray background */
+    margin-top: 10px;
+}
+
+.progress {
+    height: 100%;
+    background-color: black; /* Progress color */
+    width: 0;
+    transition: width 0.2s ease; /* Smooth progress update */
+}

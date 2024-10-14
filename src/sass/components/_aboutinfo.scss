@@ -48,7 +48,7 @@ body {
 .close-btn {
   background-color: transparent;
   border: none;
-  font-size: 7rem;
+  font-size: 4.5rem;
   cursor: pointer;
   color: #999;
   transition: color 0.3s;
@@ -59,7 +59,7 @@ body {
 }
 
 .modal-body {
-  padding: 118px 190px;
+  padding: 0px 190px;
 }
 
 .modal-body h2 {
@@ -130,7 +130,7 @@ body {
   font-size: 2.8rem;
   flex: 1;
   padding-right: 20px;
-  font-weight: bolder;
+  font-weight: 500;
 }
 
 .education-content {
@@ -180,7 +180,7 @@ body {
   font-size: 2.8rem; /* Same as education header */
   flex: 1;
   padding-right: 20px;
-  font-weight: bolder;
+  font-weight: 500;
 }
 
 .process-content {
@@ -246,7 +246,7 @@ body {
   font-size: 2.8rem; /* Same as education header */
   flex: 1;
   padding-right: 20px;
-  font-weight: bolder;
+  font-weight: 500;
 }
 
 .process-content1 {

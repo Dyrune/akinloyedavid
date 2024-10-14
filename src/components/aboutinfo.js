@@ -17,7 +17,7 @@ const Modal = ({ onClose }) => {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         {/* Header Section */}
         <header className="modal-header2">
-          <div className="header-left">
+        <div className="header-left">
             <span className="logo">0tnda</span>
             <div className="contactt">
               <a href="/contact">Let's work together</a>
