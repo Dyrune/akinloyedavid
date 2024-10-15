@@ -1,0 +1,303 @@
+.modal-content {
+    padding: 0 40px;
+  }
+  
+  /* Prescription Section */
+  .prescription-section {
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  /* Title and Image Section */
+  .title-image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+  }
+  
+  .main-image-container img {
+    width: 100%;
+    border-radius: 0;
+    height: auto;
+  }
+  
+  .project-title {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .modal-header3 {
+    height: 156px;
+    width: 100%;
+    position: relative;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+  
+  /* Info and Description Section */
+  .info-description-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 80px;
+  }
+  
+  .project-info {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .project-description {
+    flex: 1;
+    margin-left: 20px;
+  }
+  
+  /* Project Images Section */
+  .project-images-section {
+    margin-top: 40px;
+  }
+  
+  .project-images-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* space between each image-container */
+  }
+  
+  .image-container {
+    display: flex;
+    width: 100%;
+    padding: 60px 0;
+    justify-content: space-between; /* spaces image and description */
+    gap: 20px; /* space between image and description */
+  }
+  
+  .align-right .image-wrapper {
+    order: 1; /* Image first on right */
+  }
+  
+  .align-left .image-wrapper {
+    order: 2; /* Image first on left */
+  }
+  
+  .image-wrapper {
+    width: 70%; /* Image takes 70% width */
+  }
+  
+  .image-description {
+    width: 30%;
+    padding-left: 10px;
+    font-size: 1.9rem;
+    color: #555;
+    text-align: right;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.image-description p {
+    font-size: 2.5rem;
+    font-style: italic;
+}
+
+.image-container.align-left .image-wrapper{
+    width: 100%;
+}
+  
+  img {
+    width: 100%;
+    object-fit: cover; /* Ensures image covers its container */
+    border-radius: 8px; /* Optional: round the corners */
+  }
+  
+  /* Responsive adjustments for smaller screens */
+  @media (max-width: 768px) {
+    .image-container {
+      flex-direction: column;
+      gap: 10px; /* Smaller gap between image and description */
+    }
+  
+    .image-wrapper,
+    .image-description {
+      width: 100%; /* Images and descriptions stack on top of each other */
+    }
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+  }
+  
+  .image-tag {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+  }
+  
+  /* Footer Styles */
+  .footer-section {
+    padding: 20px;
+  }
+  
+  .footer-links {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .footer-column p,
+  .footer-contact a {
+    margin: 5px 0;
+  }
+  
+  .scroll-top {
+    text-align: right;
+  }
+  
+  .scroll-top a {
+    font-size: 24px;
+    text-decoration: none;
+    color: black;
+  }
+  
+  .dividder {
+    margin: 40px 0;
+  }
+  
+  .prescription-section p {
+    font-size: 2.6rem;
+    line-height: 1.5;
+    padding: 20px 80px;
+    color: #555;
+    width: 40%;
+  }
+
+  .project-description p {
+    font-size: 3.8rem;
+    font-weight: 500;
+    line-height: 1.5;
+    padding-right: 20px;
+  }
+
+  .project-title h1 {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 12rem;
+    padding: 20px 80px;
+  }
+
+  .main-image-container {
+    width: 100%;
+    margin-bottom: 7vh;
+  }
+
+  .tecno {
+    display: none;
+  }
+
+  .cl {
+    display: flex;
+    width: max-content;
+    padding: 10px 0;
+    min-width: 350px;
+    flex-direction: row;
+  }
+
+  .cl h3 {
+    margin-top: 0;
+    font-size: 2.5rem;
+    min-width: 250px;
+}
+
+.cl ul {
+        list-style-type: disc;
+        padding-left: 20px;
+        font-size: 2.2rem;
+        color: #555;
+        line-height: 1.5;
+    
+}
+
+.cl p {
+    font-size: 2.2rem;
+}
+
+
+
+
+
+
+@media (max-width: 768px) {
+    .image-container {
+      width: 100%; // Full-width on smaller screens
+    }
+    .thumbnails {
+      .thumbnail {
+        width: 50px;
+        height: 50px;
+      }
+    }
+}
+
+.thumbnails {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+
+    .thumbnail {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 0px;
+      transition: border 0.5s ease, transform 0.5s ease;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      
+      &:hover {
+        transform: scale(1.05); // Slight zoom on hover
+      }
+
+      // Selected state (optional)
+      &.active {
+        border-color: #999; // Highlight the active thumbnail
+      }
+    }
+}
+
+
+.next-project-section {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .next-project-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .next-marker {
+    font-size: 1rem;
+    color: #888;
+    margin-left: 10px;
+  }
+  
+  .next-project-image {
+    width: 150px;
+    height: auto;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .next-project-image:hover {
+    transform: scale(1.05);
+  }
+  

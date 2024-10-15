@@ -25,6 +25,7 @@
 .modal-header2 {
     height: 156px;
     width: 100%;
+    padding: 40px;
     position: relative;
     display: flex;
     align-items: center;
@@ -118,6 +119,7 @@
     height: auto;
     max-height: 500px;
     object-fit: cover;
+    border-radius: 0;
     transition: transform 0.3s ease;
     will-change: transform; /* Optimize animation performance */
 }
@@ -166,7 +168,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 108px;
+    padding: 0 40px;
     bottom: 0;
     width: 100%;
     position: fixed;
@@ -210,4 +212,32 @@
     background-color: black; /* Progress color */
     width: 0;
     transition: width 0.2s ease; /* Smooth progress update */
+}
+
+
+
+.project-detail-image {
+  width: 100%;
+  max-width: 600px;
+  margin: 10px 0;
+}
+
+.project-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.project-images img {
+  width: calc(33% - 10px);
+  height: auto;
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+h3 {
+  margin-top: 20px;
 }
