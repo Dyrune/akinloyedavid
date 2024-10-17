@@ -1,8 +1,18 @@
-@import "abstracts/variables";
+/* First, import Tailwind's base styles, components, and utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Then, import your custom styles */
+@import "abstracts/variables";  /* Variables and mixins should be imported early */
+@import './_mixins';            /* Import mixins before you use them */
+
+/* Global styles */
 @import "base/global";
 @import "base/reset";
 @import "base/typography";
 
+/* Components */
 @import "components/header";
 @import "components/about";
 @import "components/aboutinfo";
@@ -13,7 +23,6 @@
 @import "components/projects";
 @import "components/marquee";
 @import "components/loader";
-@import './_mixins';  // Make sure the path is correct
 
 /* Prevent FOUC (Flash of Unstyled Content) by hiding the page until it's ready */
 body.loading #fullpage-wrapper {
@@ -312,7 +321,6 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
 }
 
 .inner-header {
@@ -320,28 +328,88 @@ header {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-}
-
-.contactt a{
+}/* Contact link style */
+.contactt a {
   font-family: 'EB Garamond', serif;
-  margin-top: 20px;
-  padding: 10px 10px;
-  border-bottom: 1px solid black;
+  padding: 5px 0px;
+  border-bottom: none; /* Remove the default border-bottom */
   color: #333;
   cursor: pointer;
-  color: #333;
   text-decoration: none;
   font-size: 1.7rem;
+  position: relative; /* Needed for ::after pseudo-element */
+  display: inline-flex; /* Align the icon and text horizontally */
+  align-items: center; /* Vertically center the icon with the text */
+  flex-direction: row-reverse; /* Move icon to the left */
 }
+
+/* Apply the hover underline effect for contact links */
+.contactt a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 0.01em; /* Adjust thickness of underline */
+  bottom: -0.2em; /* Position the underline a little below the text */
+  left: 0;
+  background: currentColor; /* Matches the text color */
+  transform: scaleX(0); /* Start with hidden underline */
+  transform-origin: bottom right; /* Start animation from the right */
+  transition: transform 0.5s ease-out; /* Smooth transition */
+}
+
+.contactt a:hover::after {
+  transform: scaleX(1); /* Expand the underline */
+  transform-origin: bottom left; /* Animate from left to right */
+}
+
+/* Style the external link icon */
+.contactt a svg {
+  width: 20px; /* Adjust size as needed */
+  height: 20px;
+  margin-right: 8px; /* Space between the icon and the text */
+  fill: currentColor; /* Matches the text color */
+  opacity: 0; /* Initially hidden */
+  transform: translateX(-5px); /* Move slightly left */
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth animation for the icon */
+}
+
+/* Display the SVG on hover */
+.contactt a:hover svg {
+  opacity: 1; /* Make the icon visible */
+  transform: translateX(0); /* Slide back to its normal position */
+}
+
+
 
 .custom-arrow {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 24px;
-  color: black;
+  font-size: 2rem;
   cursor: pointer;
-  z-index: 1000;
+  z-index: 100;
+  width: 50px; /* Adjust width */
+  height: 50px; /* Adjust height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(22, 22, 22);
+
+  /* Add padding or use a larger clickable area */
+  padding: 10px;
+  &:hover {
+    color: brown;
+  }
+
+  /* Right arrow specific */
+  &.right {
+    right: 20px; /* Position it away from the right edge */
+  }
+
+  /* Left arrow specific */
+  &.left {
+    left: 20px; /* Position it away from the left edge */
+  }
 }
 
 #arrow-left {
@@ -350,10 +418,6 @@ header {
 
 #arrow-right {
   right: 20px; /* Position it on the right side */
-}
-
-.custom-arrow:hover {
-  color: #555; /* Slight hover effect */
 }
 
 #fp-nav ul li a.active span {

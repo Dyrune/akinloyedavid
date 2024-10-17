@@ -81,16 +81,55 @@
     background: black;
     color: white;
 }
-
-/* Horizontal grid styling */
+/* Horizontal grid styling for larger screens */
 .project-grid-horizontal {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    padding: 70px 108px;
-    align-items: flex-end; /* Ensures items align at the bottom */
+    padding: 0 2vw;
+    align-items: flex-end;
 }
+
+.project-item-horizontal {
+    flex: 0 0 auto;
+    margin-right: 2vw;
+    position: relative;
+    width: 20vw;
+    max-width: 450px;
+    transition: width 0.3s ease;
+}
+
+.project-image-horizontal {
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    object-fit: cover;
+    border-radius: 0;
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+/* Basic vertical layout for smaller screens */
+@media (max-width: 680px) {
+    .project-grid-horizontal {
+        display: flex;
+        flex-direction: column; /* Stack items vertically */
+        overflow-y: auto; /* Enable vertical scrolling */
+        padding: 0 1vw;
+        gap: 20px; /* Space between items */
+        height: 100vh; /* Allow vertical scrolling */
+    }
+
+    .project-item-horizontal {
+        width: 90%; /* Full width on mobile */
+        max-width: none; /* Remove max-width constraint */
+        margin-bottom: 20px; /* Add vertical spacing between items */
+        margin-right: 0; /* Remove right margin since it's vertical now */
+    }
+}
+
+
 
 /* Hide scrollbar */
 .project-grid-horizontal::-webkit-scrollbar {
@@ -102,27 +141,11 @@
     scrollbar-width: none;
 }
 
-.project-item-horizontal {
-    flex: 0 0 auto;
-    margin-right: 20px;
-    position: relative;
-    max-width: 450px;
-}
 
 .project-item-horizontal:hover {
     cursor: pointer;
 }
 
-/* Ensure images maintain aspect ratio and are larger */
-.project-image-horizontal {
-    width: 100%;
-    height: auto;
-    max-height: 500px;
-    object-fit: cover;
-    border-radius: 0;
-    transition: transform 0.3s ease;
-    will-change: transform; /* Optimize animation performance */
-}
 
 .ehr {
     width: 8px;
@@ -213,8 +236,6 @@
     width: 0;
     transition: width 0.2s ease; /* Smooth progress update */
 }
-
-
 
 .project-detail-image {
   width: 100%;

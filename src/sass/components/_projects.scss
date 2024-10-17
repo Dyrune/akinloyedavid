@@ -83,6 +83,7 @@
   /* Grayscale and scale-out effect on images */
   .project img {
     width: 100%;
+    border-radius: 0;
     height: 350px; /* Set fixed height for uniformity */
     object-fit: cover; /* Ensures aspect ratio is preserved */
     filter: grayscale(100%);
@@ -91,6 +92,7 @@
   
   .project:hover img {
     filter: grayscale(0);
+    border-radius: 0;
     cursor: pointer;
     transform: scale(1.01); /* Scale up image smoothly on hover */
   }

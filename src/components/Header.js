@@ -53,9 +53,14 @@ const Header = () => {
           <div className="inner-header">
             <div className="logo">
               <Link to="/">0tnda.</Link>
-            </div>
-            <div className="contactt">
-              <a href="/contact">Let's work together</a>
+            </div>  <div className="contactt">
+              <a href="/contact">
+                Let's work together
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M14 3v2h3.59l-9.3 9.29 1.42 1.42 9.29-9.3V10h2V3z" />
+                  <path d="M5 5v14h14v-7h2v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h7v2H5z" />
+                </svg>
+              </a>
             </div>
             <div className="menu">
               <button disabled={disabled} onClick={handleMenu}>

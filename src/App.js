@@ -13,11 +13,13 @@ import Contact from "./components/Contact";
 import Loader from "./components/Loader";
 import MoreInfo from "./components/MoreInfo"; // New page for "Discover More"
 import Modal from "./components/aboutinfo"; // Modal component
+import ProjectDetailsModal from "./components/ProjectDetailsModal"; // Import Project Details Modal
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state for About page
   const [isMoreInfoModalOpen, setIsMoreInfoModalOpen] = useState(false); // Modal state for More Info
+  const [selectedProject, setSelectedProject] = useState(null); // State for selected project
   const fullpageRef = useRef(null);
   const fullpageApi = useRef(null);
 
@@ -26,6 +28,14 @@ function App() {
   const closeModal = () => setIsModalOpen(false);
 
   const closeMoreInfoModal = () => setIsMoreInfoModalOpen(false);
+
+  const openProjectDetails = (project) => {
+    setSelectedProject(project); // Set the clicked project as the selected project
+  };
+
+  const closeProjectDetails = () => {
+    setSelectedProject(null); // Reset selected project state
+  };
 
   // Initialize fullPage.js
   useEffect(() => {
@@ -83,13 +93,13 @@ function App() {
   // Disable/enable scrolling when modal is open/closed
   useEffect(() => {
     if (fullpageApi.current) {
-      if (isModalOpen || isMoreInfoModalOpen) {
+      if (isModalOpen || isMoreInfoModalOpen || selectedProject) {
         fullpageApi.current.setAllowScrolling(false); // Disable scrolling when modal is open
       } else {
         fullpageApi.current.setAllowScrolling(true); // Re-enable scrolling when modal is closed
       }
     }
-  }, [isModalOpen, isMoreInfoModalOpen]);
+  }, [isModalOpen, isMoreInfoModalOpen, selectedProject]);
 
   const updateArrowVisibility = (index) => {
     const totalSlides = document.querySelectorAll(".slide").length;
@@ -117,7 +127,7 @@ function App() {
         <Loader setLoading={setLoading} />
       ) : (
         <>
-          {/* Modal Component */}
+          {/* Modal Component for About page */}
           {isModalOpen && (
             <Modal onClose={closeModal}>
               <h2>About Modal</h2>
@@ -135,6 +145,11 @@ function App() {
             </MoreInfo>
           )}
 
+          {/* Project Details Modal */}
+          {selectedProject && (
+            <ProjectDetailsModal project={selectedProject} onClose={closeProjectDetails} />
+          )}
+
           <Routes>
             <Route
               path="/"
@@ -143,7 +158,7 @@ function App() {
                   <div className="section">
                     <Header />
                     <div className="slide">
-                      <Banner />
+                      <Banner moveSlideRight={() => fullpageApi.current.moveSlideRight()} />
                     </div>
                     {/* Section 1: Banner */}
                     <div className="slide">
@@ -151,8 +166,11 @@ function App() {
                     </div>
                     {/* Section 2: About */}
                     <div className="slide">
-                      {/* Pass setIsMoreInfoModalOpen to the Projects component */}
-                      <Projects setIsMoreInfoModalOpen={setIsMoreInfoModalOpen} />
+                      {/* Pass setIsMoreInfoModalOpen and openProjectDetails to the Projects component */}
+                      <Projects
+                        setIsMoreInfoModalOpen={setIsMoreInfoModalOpen}
+                        openProjectDetails={openProjectDetails}
+                      />
                     </div>
                     {/* Section 3: Projects */}
                     <div className="slide">

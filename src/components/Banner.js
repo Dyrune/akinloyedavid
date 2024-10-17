@@ -21,7 +21,7 @@ const letterAni = {
   },
 };
 
-const Banner = () => {
+const Banner = ({ moveSlideRight }) => {
   const [playMarquee, setPlayMarquee] = useState(false);
 
   useEffect(() => {
@@ -33,9 +33,8 @@ const Banner = () => {
   return (
     <motion.div className="banner" variants={banner}>
       <BannerRowTop title={"Architecture,"} />
-      {/* This will render the middle text statically without animation */}
       <BannerRowCenter title={"Planning,"} playMarquee={playMarquee} />
-      <BannerRowBottom title={"Solutions."} />
+      <BannerRowBottom title={"Solutions."} moveSlideRight={moveSlideRight} />
     </motion.div>
   );
 };
@@ -51,7 +50,7 @@ const AnimatedLetters = ({ title, disabled }) => (
     {[...title].map((letter, index) => (
       <motion.span
         className="row-letter"
-        key={index} // Add key for each letter
+        key={index}
         variants={disabled ? null : letterAni}
       >
         {letter}
@@ -78,15 +77,15 @@ const BannerRowTop = ({ title }) => {
         className="row-col"
       >
         <span className="row-message">
-       " I designs buildings and structures, balancing aesthetics, functionality, and safety. They create detailed plans and collaborate with clients and engineers to bring their visions to life."
+          " I design buildings and structures, balancing aesthetics, functionality, and safety. They create detailed plans and collaborate with clients and engineers to bring their visions to life."
         </span>
       </motion.div>
     </div>
   );
 };
 
-// Bottom row with animated letters
-const BannerRowBottom = ({ title }) => {
+// Bottom row with animated letters and scroll functionality
+const BannerRowBottom = ({ title, moveSlideRight }) => {
   return (
     <div className="banner-row center">
       <motion.div
@@ -94,6 +93,8 @@ const BannerRowBottom = ({ title }) => {
         animate={{ scale: 1 }}
         transition={{ ease: [0.6, 0.01, -0.05, 0.95], duration: 1, delay: 1 }}
         className="scroll"
+        onClick={moveSlideRight} // Trigger fullPage.js scroll to the next slide
+        style={{ cursor: 'pointer' }} // Make it clear the text is clickable
       >
         <motion.span
           initial={{ opacity: 0 }}
@@ -106,16 +107,6 @@ const BannerRowBottom = ({ title }) => {
         >
           scroll
         </motion.span>
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{
-            ease: "easeInOut",
-            duration: 1,
-            delay: 1.8,
-          }}
-        >
-        </motion.span>
       </motion.div>
       <AnimatedLetters title={title} />
     </div>
@@ -127,7 +118,6 @@ const BannerRowCenter = ({ title, playMarquee }) => {
   return (
     <div className="banner-row marquee">
       <div className="marquee__inner">
-        {/* Render the static text here without animation */}
         <span className="row-title">{title}</span>
       </div>
     </div>
