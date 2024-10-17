@@ -1,14 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 const Modal = ({ onClose }) => {
   const modalRef = useRef(null); // Define modalRef to reference the modal element
-  const [activeIndex, setActiveIndex] = useState(null); // State for handling active Service item
 
   useEffect(() => {
+    // Disable scrolling when the modal is open using fullpage.js if it's present
     if (window.fullpage_api) {
       window.fullpage_api.setAllowScrolling(false);
     }
 
+    // Re-enable scrolling when the modal is closed
     return () => {
       if (window.fullpage_api) {
         window.fullpage_api.setAllowScrolling(true);
@@ -28,10 +29,6 @@ const Modal = ({ onClose }) => {
     } else {
       console.error('Modal element not found!');
     }
-  };
-
-  const toggleService = (index) => {
-    setActiveIndex(index === activeIndex ? null : index); // Toggle active Service
   };
 
   return (
@@ -127,20 +124,11 @@ const Modal = ({ onClose }) => {
               <h4>PROCESS</h4>
             </div>
             <div className="process-content">
-              <div className="process-header">
-                <p>
-                  Our streamlined process and unwavering dedication to excellence ensure that your project exceeds
-                  expectations, leaving a lasting impression on your audience.
-                </p>
-              </div>
-
               <div className="process-row">
                 <div className="process-number">1</div>
                 <div className="process-step">
                   <h1>Initial Consultation</h1>
-                  <p>
-                    We begin with a detailed consultation to understand your project's unique goals and requirements.
-                  </p>
+                  <p>We begin with a detailed consultation to understand your project's unique goals and requirements.</p>
                 </div>
               </div>
 
@@ -180,97 +168,6 @@ const Modal = ({ onClose }) => {
           {/* Divider */}
           <hr className="divider" />
 
-          {/* Service Section (Services) */}
-          <div className="service-section">
-      <div className="service-label">
-        <h4>My Services.</h4>
-      </div>
-      <div className="service-content">
-        {/* Service Item 1 */}
-        <div className="service-item">
-          <div
-            className={`service-question ${activeIndex === 0 ? 'active' : ''}`}
-            onClick={() => toggleService(0)}
-          >
-            <h5>Initial Consultation</h5>
-            <span className="service-icon">{activeIndex === 0 ? '-' : '+'}</span>
-          </div>
-          <div className={`service-answer-wrapper ${activeIndex === 0 ? 'active' : ''}`}>
-            <div className="service-answer">
-              <p>We begin with a detailed consultation to understand your project's unique goals and requirements.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Service Item 2 */}
-        <div className="service-item">
-          <div
-            className={`service-question ${activeIndex === 1 ? 'active' : ''}`}
-            onClick={() => toggleService(1)}
-          >
-            <h5>Design & Development</h5>
-            <span className="service-icon">{activeIndex === 1 ? '-' : '+'}</span>
-          </div>
-          <div className={`service-answer-wrapper ${activeIndex === 1 ? 'active' : ''}`}>
-            <div className="service-answer">
-              <p>Our team works closely with you to develop a design that reflects your vision and meets your needs.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Service Item 3 */}
-        <div className="service-item">
-          <div
-            className={`service-question ${activeIndex === 2 ? 'active' : ''}`}
-            onClick={() => toggleService(2)}
-          >
-            <h5>Implementation</h5>
-            <span className="service-icon">{activeIndex === 2 ? '-' : '+'}</span>
-          </div>
-          <div className={`service-answer-wrapper ${activeIndex === 2 ? 'active' : ''}`}>
-            <div className="service-answer">
-              <p>Once the design is approved, we move on to the implementation phase, ensuring every detail is perfect.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Service Item 4 */}
-        <div className="service-item">
-          <div
-            className={`service-question ${activeIndex === 3 ? 'active' : ''}`}
-            onClick={() => toggleService(3)}
-          >
-            <h5>Final Delivery</h5>
-            <span className="service-icon">{activeIndex === 3 ? '-' : '+'}</span>
-          </div>
-          <div className={`service-answer-wrapper ${activeIndex === 3 ? 'active' : ''}`}>
-            <div className="service-answer">
-              <p>After rigorous testing and adjustments, we deliver the final product, exceeding your expectations.</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Service Item 5 */}
-        <div className="service-item">
-          <div
-            className={`service-question ${activeIndex === 4 ? 'active' : ''}`}
-            onClick={() => toggleService(4)}
-          >
-            <h5>Ongoing Support</h5>
-            <span className="service-icon">{activeIndex === 4 ? '-' : '+'}</span>
-          </div>
-          <div className={`service-answer-wrapper ${activeIndex === 4 ? 'active' : ''}`}>
-            <div className="service-answer">
-              <p>We provide ongoing support to ensure the success and maintenance of your project, even after delivery.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-          {/* Divider */}
-          <hr className="divider" />
-
           {/* Footer Section */}
           <div className="footer-section">
             {/* Top Part of the Footer */}
@@ -278,22 +175,40 @@ const Modal = ({ onClose }) => {
               {/* Left Side Links */}
               <div className="footer-links">
                 <div className="footer-column">
-                  <a href="#home" className="contact-link">Home</a>
-                  <a href="#about" className="contact-link">About</a>
-                  <a href="#projects" className="contact-link">Projects</a>
-                  <a href="#contact" className="contact-link">Contact</a>
+                  <a href="#home" className="contact-link">
+                    Home
+                  </a>
+                  <a href="#about" className="contact-link">
+                    About
+                  </a>
+                  <a href="#projects" className="contact-link">
+                    Projects
+                  </a>
+                  <a href="#contact" className="contact-link">
+                    Contact
+                  </a>
                 </div>
                 <div className="footer-column">
-                  <a href="https://instagram.com" target="_blank" className="contact-link">Instagram</a>
-                  <a href="https://twitter.com" target="_blank" className="contact-link">X (formerly Twitter)</a>
-                  <a href="https://upwork.com" target="_blank" className="contact-link">Upwork</a>
-                  <a href="https://linkedin.com" target="_blank" className="contact-link">LinkedIn</a>
+                  <a href="https://instagram.com" target="_blank" className="contact-link">
+                    Instagram
+                  </a>
+                  <a href="https://twitter.com" target="_blank" className="contact-link">
+                    X (formerly Twitter)
+                  </a>
+                  <a href="https://upwork.com" target="_blank" className="contact-link">
+                    Upwork
+                  </a>
+                  <a href="https://linkedin.com" target="_blank" className="contact-link">
+                    LinkedIn
+                  </a>
                 </div>
               </div>
 
               {/* Right Side Contact Link */}
               <div className="footer-contact">
-                <a href="#contact" className="contact-link">CONTACT</a>
+                <a href="#contact" className="contact-link">
+                  CONTACT
+                </a>
               </div>
             </div>
 

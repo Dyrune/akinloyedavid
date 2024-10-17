@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import fullpage from "fullpage.js"; // Import fullpage.js
+import fullpage from "fullpage.js";
 import "./sass/main.scss";
-import "fullpage.js/dist/fullpage.css"; // Import fullpage.js CSS
+import "fullpage.js/dist/fullpage.css"; 
 
 // Components
 import Header from "./components/Header";
@@ -11,48 +11,66 @@ import About from "./components/About";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Loader from "./components/Loader";
-import MoreInfo from "./components/MoreInfo"; // New page for "Discover More"
-import Modal from "./components/aboutinfo"; // Modal component
-import ProjectDetailsModal from "./components/ProjectDetailsModal"; // Import Project Details Modal
+import MoreInfo from "./components/MoreInfo";
+import Modal from "./components/aboutinfo";
+import ProjectDetailsModal from "./components/ProjectDetailsModal";
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal state for About page
-  const [isMoreInfoModalOpen, setIsMoreInfoModalOpen] = useState(false); // Modal state for More Info
-  const [selectedProject, setSelectedProject] = useState(null); // State for selected project
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMoreInfoModalOpen, setIsMoreInfoModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
   const fullpageRef = useRef(null);
   const fullpageApi = useRef(null);
+  const [isMobile, setIsMobile] = useState(false); 
 
-  // Modal open/close handlers
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   const closeMoreInfoModal = () => setIsMoreInfoModalOpen(false);
 
   const openProjectDetails = (project) => {
-    setSelectedProject(project); // Set the clicked project as the selected project
+    setSelectedProject(project);
   };
 
   const closeProjectDetails = () => {
-    setSelectedProject(null); // Reset selected project state
+    setSelectedProject(null);
   };
 
-  // Initialize fullPage.js
+  // Detect if we are on mobile and set the state accordingly
   useEffect(() => {
-    if (!loading && fullpageRef.current) {
+    const handleResize = () => {
+      const isMobileView = window.innerWidth <= 768;
+      setIsMobile(isMobileView);
+    };
+
+    handleResize(); 
+    window.addEventListener("resize", handleResize); 
+
+    return () => {
+      window.removeEventListener("resize", handleResize); 
+    };
+  }, []);
+
+  // Initialize fullPage.js for non-mobile devices
+  useEffect(() => {
+    if (!loading && fullpageRef.current && !isMobile) {
       try {
-        // Initialize fullPage.js
         fullpageApi.current = new fullpage(fullpageRef.current, {
           navigation: true,
           scrollingSpeed: 1000,
           responsiveWidth: 900,
           slidesNavigation: true,
-          controlArrows: false, // Disable default arrows
+          controlArrows: false,
           onLeave: function (origin, destination, direction) {
-            updateArrowVisibility(destination.index);
+            if (destination && destination.index !== undefined) {
+              updateArrowVisibility(destination.index);
+            }
           },
           afterSlideLoad: function (section, origin, destination) {
-            updateArrowVisibility(destination.index);
+            if (destination && destination.index !== undefined) {
+              updateArrowVisibility(destination.index);
+            }
           },
         });
       } catch (error) {
@@ -62,24 +80,19 @@ function App() {
       // Mouse wheel event for horizontal scrolling
       const handleWheel = (event) => {
         if (fullpageApi.current) {
-          const activeSection = fullpageApi.current.getActiveSection().index;
-
-          // Scroll right on wheel down
-          if (event.deltaY > 0) {
-            fullpageApi.current.moveSlideRight();
-          }
-
-          // Scroll left on wheel up
-          if (event.deltaY < 0) {
-            fullpageApi.current.moveSlideLeft();
+          const activeSection = fullpageApi.current.getActiveSection()?.index;
+          if (activeSection !== undefined) {
+            if (event.deltaY > 0) {
+              fullpageApi.current.moveSlideRight();
+            } else if (event.deltaY < 0) {
+              fullpageApi.current.moveSlideLeft();
+            }
           }
         }
       };
 
-      // Add mouse wheel event listener
       window.addEventListener("wheel", handleWheel);
 
-      // Cleanup function
       return () => {
         window.removeEventListener("wheel", handleWheel);
         if (fullpageApi.current) {
@@ -88,36 +101,36 @@ function App() {
         }
       };
     }
-  }, [loading]);
+  }, [loading, isMobile]);
 
   // Disable/enable scrolling when modal is open/closed
   useEffect(() => {
     if (fullpageApi.current) {
       if (isModalOpen || isMoreInfoModalOpen || selectedProject) {
-        fullpageApi.current.setAllowScrolling(false); // Disable scrolling when modal is open
+        fullpageApi.current.setAllowScrolling(false);
       } else {
-        fullpageApi.current.setAllowScrolling(true); // Re-enable scrolling when modal is closed
+        fullpageApi.current.setAllowScrolling(true);
       }
     }
   }, [isModalOpen, isMoreInfoModalOpen, selectedProject]);
 
   const updateArrowVisibility = (index) => {
-    const totalSlides = document.querySelectorAll(".slide").length;
+    const totalSlides = document.querySelectorAll(".slide")?.length;
     const leftArrow = document.getElementById("arrow-left");
     const rightArrow = document.getElementById("arrow-right");
 
-    // Hide left arrow on the first slide
-    if (index === 0) {
-      leftArrow.style.display = "none";
-    } else {
-      leftArrow.style.display = "block";
-    }
+    if (leftArrow && rightArrow && totalSlides !== undefined) {
+      if (index === 0) {
+        leftArrow.style.display = "none";
+      } else {
+        leftArrow.style.display = "block";
+      }
 
-    // Hide right arrow on the last slide
-    if (index === totalSlides - 1) {
-      rightArrow.style.display = "none";
-    } else {
-      rightArrow.style.display = "block";
+      if (index === totalSlides - 1) {
+        rightArrow.style.display = "none";
+      } else {
+        rightArrow.style.display = "block";
+      }
     }
   };
 
@@ -127,7 +140,6 @@ function App() {
         <Loader setLoading={setLoading} />
       ) : (
         <>
-          {/* Modal Component for About page */}
           {isModalOpen && (
             <Modal onClose={closeModal}>
               <h2>About Modal</h2>
@@ -136,7 +148,6 @@ function App() {
             </Modal>
           )}
 
-          {/* More Info Modal */}
           {isMoreInfoModalOpen && (
             <MoreInfo onClose={closeMoreInfoModal}>
               <h2>More Info Modal</h2>
@@ -145,7 +156,6 @@ function App() {
             </MoreInfo>
           )}
 
-          {/* Project Details Modal */}
           {selectedProject && (
             <ProjectDetailsModal project={selectedProject} onClose={closeProjectDetails} />
           )}
@@ -154,44 +164,54 @@ function App() {
             <Route
               path="/"
               element={
-                <div id="fullpage-wrapper" ref={fullpageRef}>
-                  <div className="section">
+                isMobile ? (
+                  <div>
                     <Header />
-                    <div className="slide">
-                      <Banner moveSlideRight={() => fullpageApi.current.moveSlideRight()} />
-                    </div>
-                    {/* Section 1: Banner */}
-                    <div className="slide">
-                      <About openModal={openModal} />
-                    </div>
-                    {/* Section 2: About */}
-                    <div className="slide">
-                      {/* Pass setIsMoreInfoModalOpen and openProjectDetails to the Projects component */}
-                      <Projects
-                        setIsMoreInfoModalOpen={setIsMoreInfoModalOpen}
-                        openProjectDetails={openProjectDetails}
-                      />
-                    </div>
-                    {/* Section 3: Projects */}
-                    <div className="slide">
-                      <Contact />
-                    </div>
-                    {/* Section 4: Contact */}
+                    <Banner />
+                    <About openModal={openModal} />
+                    <Projects
+                      setIsMoreInfoModalOpen={setIsMoreInfoModalOpen}
+                      openProjectDetails={openProjectDetails}
+                    />
+                    <Contact />
                   </div>
-                </div>
+                ) : (
+                  <div id="fullpage-wrapper" ref={fullpageRef}>
+                    <div className="section">
+                      <Header />
+                      <div className="slide">
+                        <Banner moveSlideRight={() => fullpageApi.current.moveSlideRight()} />
+                      </div>
+                      <div className="slide">
+                        <About openModal={openModal} />
+                      </div>
+                      <div className="slide">
+                        <Projects
+                          setIsMoreInfoModalOpen={setIsMoreInfoModalOpen}
+                          openProjectDetails={openProjectDetails}
+                        />
+                      </div>
+                      <div className="slide">
+                        <Contact />
+                      </div>
+                    </div>
+                  </div>
+                )
               }
             />
-            {/* New route for the More Info page */}
             <Route path="/more-info" element={<MoreInfo />} />
           </Routes>
 
-          {/* Custom Navigation Arrows */}
-          <div id="arrow-left" className="custom-arrow" onClick={() => fullpageApi.current.moveSlideLeft()}>
-            &#9664; {/* Left Arrow */}
-          </div>
-          <div id="arrow-right" className="custom-arrow" onClick={() => fullpageApi.current.moveSlideRight()}>
-            &#9654; {/* Right Arrow */}
-          </div>
+          {!isMobile && (
+            <>
+              <div id="arrow-left" className="custom-arrow" onClick={() => fullpageApi.current.moveSlideLeft()}>
+                &#9664;
+              </div>
+              <div id="arrow-right" className="custom-arrow" onClick={() => fullpageApi.current.moveSlideRight()}>
+                &#9654;
+              </div>
+            </>
+          )}
         </>
       )}
     </Router>

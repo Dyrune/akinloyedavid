@@ -139,7 +139,7 @@ const Projects = ({ setIsMoreInfoModalOpen, openProjectDetails }) => {
         "Packaging design",
         "Style guide",
       ],
-    },
+    }
   ];
 
   return (
