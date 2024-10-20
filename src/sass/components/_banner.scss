@@ -2,25 +2,46 @@
   z-index: 100;
   margin-top: 140px;
   position: relative;
+
+  @media (max-width: 756px) {
+    flex-direction: column;
+    text-align: center; // Stack and center elements on mobile
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+
   .banner-row {
     overflow: hidden;
     display: flex;
     align-items: center;
+
     @media (max-width: $layout-breakpoint-medium) {
+      flex-direction: column;
+      text-align: center; // Stack and center elements on mobile
       &:first-child {
         margin-top: 48px;
       }
     }
+
     &.center {
       justify-content: center;
       text-align: center;
       .row-letter {
         left: 10vh;
+        @media (max-width: $layout-breakpoint-medium) {
+          left: 0; // Fix positioning for smaller screens
+        }
       }
     }
+
     &.right {
       justify-content: flex-end;
     }
+
     .row-title,
     .row-letter {
       font-size: 13rem;
@@ -31,35 +52,58 @@
       justify-content: center;
       align-items: center;
       white-space: nowrap;
-      @media (max-width: $layout-breakpoint-xsmall) {
-        font-size: 13rem;
+
+      @media (max-width: 768px) {
+        font-size: 6rem; // Adjust font size for mobile
+        letter-spacing: -0.4rem; // Adjust letter spacing for mobile
+      }
+
+      @media (max-width: 480px) {
+        font-size: 4rem; // Smaller screens
+        letter-spacing: -0.2rem;
       }
     }
+
     .row-col {
       width: 50%;
       display: flex;
       align-content: center;
       justify-content: center;
+
       @media (max-width: $layout-breakpoint-medium) {
-        width: 70%;
+        width: 70%; // Slightly wider for better readability on mobile
       }
+
       @media (max-width: 1240px) {
         &:last-child {
-          display: none;
+          display: none; // Hide unnecessary elements on smaller screens
         }
       }
+
       @media (max-width: $layout-breakpoint-xsmall) {
         width: 100%;
         justify-content: flex-start;
       }
+
       .row-message {
         font-weight: 500;
         font-size: 1.8rem;
         line-height: 2.6rem;
         font-family: 'EB Garamond', serif;
         width: 320px;
+
+        @media (max-width: 768px) {
+          font-size: 1.4rem; // Adjust font size for mobile
+          line-height: 2.2rem;
+          width: 100%; // Ensure full width on mobile
+        }
+
+        @media (max-width: 480px) {
+          font-size: 1.2rem; // Further reduce font size for smaller screens
+        }
       }
     }
+
     .scroll {
       height: 40px;
       cursor: pointer;
@@ -71,19 +115,24 @@
       justify-content: center;
       flex-direction: column;
       left: 160px;
-      @media (max-width: $layout-breakpoint-medium) {
-        left: 60px;
+
+      @media (max-width: 768px) {
+        left: 60px; // Adjust position for mobile
+        bottom: 100px;
       }
-      @media (max-width: 1240px) {
-        display: none;
-      }
+
+
       span {
         font-size: 18px;
         font-weight: 600;
         margin: 4px 0;
-        @media (max-width: $layout-breakpoint-xsmall) {
-          font-size: 10px;
-          margin: 2px 0;
+
+        @media (max-width: 768px) {
+          font-size: 14px; // Adjust font size for mobile
+        }
+
+        @media (max-width: 480px) {
+          font-size: 12px;
         }
       }
     }
@@ -99,10 +148,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   img {
     width: 800px;
     display: flex;
+
+    @media (max-width: 768px) {
+      width: 600px; // Reduce image size on mobile
+    }
+
+    @media (max-width: 480px) {
+      width: 100%; // Full width on very small screens
+    }
   }
+
   &.final {
     display: block;
     top: -128px;
@@ -110,9 +169,11 @@
     width: 90%;
     margin: 0 auto;
     z-index: -100;
+
     @media (max-width: $layout-breakpoint-xsmall) {
       top: -56px;
     }
+
     img {
       width: 100%;
       max-width: 100%;

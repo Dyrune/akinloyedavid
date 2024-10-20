@@ -303,6 +303,9 @@ body {
 /* Footer Section */
 .footer-section {
   margin-top: 60px;
+  @media (max-width:756px) {
+    margin: 0;
+  }
 }
 
 /* Top Part of the Footer */
@@ -311,12 +314,23 @@ body {
   justify-content: space-between;
   align-items: flex-start;
   padding: 20px 0;
+  @media (max-width: 768px) {
+    padding: 0;
+    flex-direction: column-reverse;
+  }
 }
 /* Footer Links (Left Side) */
 .footer-links {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* 2 columns */
   gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .footer-contact {
+    width: 100%;
+    text-align: right;
+  }
 }
 
 .footer-column {
@@ -335,6 +349,9 @@ body {
     cursor: pointer;
     transition: color 0.3s ease;
     width: max-content;
+    @media (max-width: 768px) {
+      font-size: 1.8rem;
+    }
 }
 
 
@@ -430,6 +447,10 @@ body {
   color: #333;
   cursor: pointer;
   padding: 20px;
+  
+@media (max-width: 756px) {
+  padding: 7px;
+}
 }
 
 
@@ -568,4 +589,17 @@ body {
   width: 100px;
   height: 100px;
   transform: translate(-50%, -50%);
+}
+
+@media (max-width: 756px) {
+  .contact-link {
+    font-family: "EB Garamond", serif;
+    font-size: 3rem;
+    color: #333;
+    font-weight: 399;
+  }
+
+  header {
+    padding: 0;
+  }
 }

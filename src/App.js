@@ -14,6 +14,7 @@ import Loader from "./components/Loader";
 import MoreInfo from "./components/MoreInfo";
 import Modal from "./components/aboutinfo";
 import ProjectDetailsModal from "./components/ProjectDetailsModal";
+import Footer from "./components/Footer"; // Import Footer
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -174,6 +175,7 @@ function App() {
                       openProjectDetails={openProjectDetails}
                     />
                     <Contact />
+                    <Footer /> {/* Add the Footer only for mobile */}
                   </div>
                 ) : (
                   <div id="fullpage-wrapper" ref={fullpageRef}>

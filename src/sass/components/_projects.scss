@@ -8,6 +8,11 @@
     padding: 108px;
     align-items: center;
     height: 100vh;
+    
+    @media (max-width: 768px) {
+      padding: 0;
+    }
+
   }
   
   /* Full-width header */
@@ -16,7 +21,35 @@
     height: 100vh;
     display: flex;
     align-items: center;
+    
+    @media (max-width: 768px) {
+      height: max-content;
+      padding: 62px 32px 0;
+    }
+
   }
+
+  .hr-container2 {
+    display: none; /* Hidden by default (desktop view) */
+  }
+  
+  .breathing-hr2 {
+    height: 5px; /* Adjust to your desired height (e.g., 10px or 20px) */
+    width: 100px; /* 20% width as per your requirement */
+    background-color: black; /* The color of the line */
+    border: none;
+    position: absolute;
+    right: 32px; /* 32px from the right */
+    margin-bottom: 32px;
+  }
+  
+  @media (max-width: 768px) { /* Apply styles for mobile devices */
+    .hr-container2 {
+      display: block; /* Show the hr only on mobile screens */
+    }
+  }
+  
+
   
   .header-row h1 {
     font-size: 10rem;
@@ -40,6 +73,12 @@
     display: flex;
     padding-right: 20px;
     height: 50vh;
+    
+    @media (max-width: 768px) {
+      height: max-content;
+      padding: 0 32px 32px;
+    }
+
 }
   
   .left-column p {
@@ -66,11 +105,12 @@
 }
 
   .right-column {
-    width: 65%;
+    width: 60%;
     gap: 20px;
     display: flex;
+    justify-content: space-evenly;
     flex-direction: row;
-    flex-wrap: wrap; /* Allows images to wrap on smaller screens */
+    flex-wrap: wrap;
   }
   
   .project {
@@ -96,27 +136,45 @@
     cursor: pointer;
     transform: scale(1.01); /* Scale up image smoothly on hover */
   }
-  
   /* Project brief with fade-in and slide-up effect */
+.project p {
+  margin-top: 10px;
+  font-size: 2rem;
+  color: #777;
+  opacity: 0; /* Initially hidden */
+  transform: translateY(20px); /* Initially moved down */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Fade-in and slide-up transition */
+}
+
+@media (max-width: 756px) {
   .project p {
     margin-top: 10px;
     font-size: 2rem;
     color: #777;
-    opacity: 0; /* Initially hidden */
-    transform: translateY(20px); /* Initially moved down */
-    transition: opacity 0.3s ease, transform 0.3s ease; /* Fade-in and slide-up transition */
-  }
-  
-  /* Show the brief on hover */
-  .project:hover p {
     opacity: 1;
-    transform: translateY(0); /* Slide-up to normal position */
+    padding: 0 32px;
+    text-align: left;
+    transform: translateY(0);
+    transition: none;
   }
+}
+
+/* Show the brief on hover */
+.project:hover p {
+  opacity: 1;
+  transform: translateY(0); /* Slide-up to normal position */
+}
+
   
   /* Responsive Design */
   @media (max-width: 900px) {
     .content-row {
       flex-direction: column;
+    }
+
+    .projects-container {
+      
+    height: max-content;
     }
   
     .left-column,
@@ -125,12 +183,9 @@
     }
   
     .header-row h1 {
-      font-size: 2rem;
+      font-size: 4rem;
     }
   
-    .left-column p {
-      text-align: center;
-    }
   
     .project {
       text-align: center;

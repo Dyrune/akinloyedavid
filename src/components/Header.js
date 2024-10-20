@@ -64,9 +64,11 @@ const Header = () => {
             </div>
             <div className="menu">
               <button disabled={disabled} onClick={handleMenu}>
-                {/* Conditionally render Hamburger or Close icon */}
                 {state.clicked ? "✖" : "☰"}
               </button>
+              <div className="button3">
+              Let's Talk
+              </div>
             </div>
           </div>
         </div>

@@ -145,6 +145,10 @@ const Projects = ({ setIsMoreInfoModalOpen, openProjectDetails }) => {
   return (
     <div className="projects-container">
       {/* Header - Full width row */}
+
+       <div className="hr-container2">
+        <hr className="breathing-hr2" />
+      </div>
       <div className="header-row">
         <h1>ARCHITECTURE</h1>
       </div>

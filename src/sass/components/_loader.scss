@@ -35,10 +35,21 @@
           font-size: 17px;
           width: 240px;
       }
+
+      @media (max-width: 768px) {
+        width: 80%;
+      }
+
+      
   }
 }
 
 .texts-container span {
   font-size: 24px;
   font-family: 'EB Garamond', serif;
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
+
 }

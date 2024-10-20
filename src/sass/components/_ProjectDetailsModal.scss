@@ -145,6 +145,9 @@
   /* Footer Styles */
   .footer-section {
     padding: 20px;
+    @media (max-width:756px) {
+      padding: 0 32px;
+    }
   }
   
   .footer-links {

@@ -33,7 +33,7 @@ const About = ({ openModal }) => {
       <div className="right">
         {/* Corrected dynamic class usage */}
         <div className={`content ${isVisible ? "content-visible" : ""}`}>
-          <h1>About Me</h1>
+          <h1>ABOUT ME</h1>
           <p className={`slide-in ${isVisible ? "slide-in-visible" : ""}`}>
             We are a company that specializes in delivering high-quality services and more than you expect, come to me and i will give you the unexpected...
           </p>
