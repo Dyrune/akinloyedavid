@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import ProjectDetailsModal from "./ProjectDetailsModal"; // Import the modal component
 import projects from './projectsData'; // Your projects data
 
-const categories = ["All", "Web Design", "UI/UX", "Graphic Design", "Branding"];
+const categories = ["All", "Architecture", "Exterior", "Interior", "Masterplanning"];
 
 const Modal = ({ onClose }) => {
   const [activeCategory, setActiveCategory] = useState("All");

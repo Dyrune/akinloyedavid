@@ -26,6 +26,10 @@
   .project-title {
     margin-bottom: 20px;
     width: 100%;
+    @media (max-width:756px) {
+      text-align: start;
+      margin: 0;
+    }
   }
 
   .modal-header3 {
@@ -101,6 +105,11 @@
 .image-description p {
     font-size: 2.5rem;
     font-style: italic;
+    @media (max-width:756px) {
+      font-size: 2.2rem;
+      padding: 86px 0 0 0;
+      font-style: normal;
+    }
 }
 
 .image-container.align-left .image-wrapper{
@@ -117,6 +126,7 @@
     .image-container {
       flex-direction: column;
       gap: 10px; /* Smaller gap between image and description */
+      
     }
   
     .image-wrapper,
@@ -180,6 +190,11 @@
     padding: 20px 80px;
     color: #555;
     width: 40%;
+    @media (max-width:756px) {
+      padding: 0;
+      width: 100%;
+      font-size: 2rem;
+    }
   }
 
   .project-description p {
@@ -198,6 +213,9 @@
   .main-image-container {
     width: 100%;
     margin-bottom: 7vh;
+    @media (max-width:756px) {
+      margin: 0;
+    }
   }
 
   .tecno {
@@ -216,6 +234,9 @@
     margin-top: 0;
     font-size: 2.5rem;
     min-width: 250px;
+    @media (max-width:756px) {
+      min-width: 150px;
+    }
 }
 
 .cl ul {
@@ -264,12 +285,24 @@
       
       &:hover {
         transform: scale(1.05); // Slight zoom on hover
+        @media (max-width:756px) {
+          transform: none;
+        }
       }
 
       // Selected state (optional)
       &.active {
         border-color: #999; // Highlight the active thumbnail
       }
+      @media (max-width:756px) {
+        transform: none;
+        transition: none;
+      }
+    }
+    @media (max-width:756px) {
+      transform: none;
+      transition: none;
+      gap: 20px;
     }
 }
 
@@ -300,5 +333,99 @@
       margin-bottom: 10px;
       border-radius: 0px;
     }
+  }
+  
+
+  @media (max-width: 768px) {
+
+    // Modal content
+    .modal-content {
+      padding: 0 20px; // Less padding for mobile
+    }
+  
+    // Header section adjustments
+    .modal-header3 {
+      height: 86px;
+  
+    }
+  
+    // Project title adjustment
+    .project-title h1 {
+      font-size: 4rem;
+      padding: 0;
+      text-align: start;
+    }
+  
+    // Main image section
+    .main-image-container img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+      @media (max-width:756px) {
+        margin: 0;
+      }
+    }
+  
+    // Info and Description section
+    .info-description-section {
+      flex-direction: column;
+      padding: 20px;
+      @media (max-width:756px) {
+        margin: 0;
+      }
+  
+      .project-info, .project-description {
+        margin: 0;
+        padding: 10px 0;
+      }
+  
+      .cl h3 {
+        font-size: 1.8rem;
+        font-weight: 200;
+      }
+  
+      .cl p, .cl ul {
+        font-size: 1.8rem;
+      }
+  
+      .project-description p {
+        font-size: 2rem;
+        padding-right: 0;
+        font-weight: normal;
+      }
+    }
+  
+    // Image container adjustments
+    .project-images-section {
+      margin-top: 20px;
+    }
+  
+    .image-container {
+      flex-direction: column;
+      padding:0px 0;
+      gap: 10px;
+    }
+  
+    .image-wrapper, .image-description {
+      width: 100%;
+    }
+  
+    .image-description {
+      text-align: left;
+      padding: 0;
+    }
+  
+    // Thumbnails for mobile
+    .thumbnails {
+      width: 100%;
+      justify-content: center;
+  
+      .thumbnail {
+        width: 100%;
+        height: auto;
+      }
+    }
+  
+   
   }
   

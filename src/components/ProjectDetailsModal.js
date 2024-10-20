@@ -10,6 +10,27 @@ const ProjectDetailsModal = ({ project, onClose }) => {
     project.images.map((image) => image.src) // Initialize with the original src for each image
   );
 
+  // State for tracking if the view is mobile (under 756px)
+  const [isMobileView, setIsMobileView] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // Check if the screen width is below 756px
+      setIsMobileView(window.innerWidth <= 756);
+    };
+
+    // Check initially on mount
+    handleResize();
+
+    // Add resize listener
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      // Clean up the event listener on unmount
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   useEffect(() => {
     gsap.fromTo(
       modalRef.current,
@@ -23,11 +44,13 @@ const ProjectDetailsModal = ({ project, onClose }) => {
     };
   }, []);
 
-  // Handle thumbnail click to switch the main image
+  // Handle thumbnail click to switch the main image, active only on desktop view
   const handleThumbnailClick = (imageIndex, newSrc) => {
-    const updatedImages = [...currentImages]; // Create a copy of current images
-    updatedImages[imageIndex] = newSrc; // Update the specific image's src
-    setCurrentImages(updatedImages); // Update the state
+    if (!isMobileView) {
+      const updatedImages = [...currentImages]; // Create a copy of current images
+      updatedImages[imageIndex] = newSrc; // Update the specific image's src
+      setCurrentImages(updatedImages); // Update the state
+    }
   };
 
   const handleClose = () => {
@@ -45,7 +68,7 @@ const ProjectDetailsModal = ({ project, onClose }) => {
     e.preventDefault(); // Prevent the default link behavior
     window.scrollTo({
       top: 0,
-      behavior: 'smooth' // Smooth scroll behavior
+      behavior: "smooth", // Smooth scroll behavior
     });
   };
 
@@ -77,7 +100,7 @@ const ProjectDetailsModal = ({ project, onClose }) => {
 
         {/* Prescription on the right side */}
         <div className="prescription-section">
-          <p>This project was focused on creating an interactive, responsive website for a client. The key technologies used include React, Node.js, and Express.</p>
+          <p>{project?.description}</p>
         </div>
 
         {/* Title and Main Image Section */}
@@ -87,10 +110,10 @@ const ProjectDetailsModal = ({ project, onClose }) => {
           </div>
           {project?.imgSrc && (
             <div className="main-image-container">
-              <img 
-                src={project.imgSrc} 
-                alt={`${project.title} main image`} 
-                className="main-project-image" 
+              <img
+                src={project.imgSrc}
+                alt={`${project.title} main image`}
+                className="main-project-image"
               />
             </div>
           )}
@@ -173,8 +196,11 @@ const ProjectDetailsModal = ({ project, onClose }) => {
                               src={thumbnail}
                               alt={`Thumbnail ${thumbIndex + 1}`}
                               className="thumbnail"
-                              onClick={() => handleThumbnailClick(index, thumbnail)} // Switch the main image to this thumbnail when clicked
-                              style={{ cursor: 'pointer', marginRight: '0px' }}
+                              onClick={() => handleThumbnailClick(index, thumbnail)} // Switch the main image to this thumbnail when clicked (only on desktop view)
+                              style={{
+                                cursor: isMobileView ? "default" : "pointer", // Show pointer only if not in mobile view
+                                marginRight: "0px",
+                              }}
                             />
                           ))}
                         </div>
@@ -194,18 +220,18 @@ const ProjectDetailsModal = ({ project, onClose }) => {
         <div className="footer-section">
           {/* Top Part of the Footer */}
           <div className="footer-top">
-            <div class="footer-links">
-              <div class="footer-column">
-                <a href="#home" class="contact-link">Home</a>
-                <a href="#about" class="contact-link">About</a>
-                <a href="#projects" class="contact-link">Projects</a>
-                <a href="#contact" class="contact-link">Contact</a>
+            <div className="footer-links">
+              <div className="footer-column">
+                <a href="#home" className="contact-link">Home</a>
+                <a href="#about" className="contact-link">About</a>
+                <a href="#projects" className="contact-link">Projects</a>
+                <a href="#contact" className="contact-link">Contact</a>
               </div>
-              <div class="footer-column">
-                <a href="https://instagram.com" target="_blank" class="contact-link">Instagram</a>
-                <a href="https://twitter.com" target="_blank" class="contact-link">X (formerly Twitter)</a>
-                <a href="https://upwork.com" target="_blank" class="contact-link">Upwork</a>
-                <a href="https://linkedin.com" target="_blank" class="contact-link">LinkedIn</a>
+              <div className="footer-column">
+                <a href="https://instagram.com" target="_blank" className="contact-link">Instagram</a>
+                <a href="https://twitter.com" target="_blank" className="contact-link">X (formerly Twitter)</a>
+                <a href="https://upwork.com" target="_blank" className="contact-link">Upwork</a>
+                <a href="https://linkedin.com" target="_blank" className="contact-link">LinkedIn</a>
               </div>
             </div>
 

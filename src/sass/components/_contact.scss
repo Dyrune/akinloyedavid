@@ -96,7 +96,9 @@ html, body {
   margin: 20px 10px;
   transition: color 0.3s;
   @media (max-width:756px) {
-    margin: 20px 0;
+    margin: 10px 0;
+    font-family: "EB Garamond", serif;
+    font-weight: 399;
   }
 }
 

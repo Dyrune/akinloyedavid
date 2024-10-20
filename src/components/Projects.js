@@ -5,7 +5,7 @@ const Projects = ({ setIsMoreInfoModalOpen, openProjectDetails }) => {
     {
       id: 1,
       title: "Milliton Jnr. House",
-      category: "Web Design", // Added category
+      category: "Architecture", // Added category
       imgSrc: "https://plus.unsplash.com/premium_photo-1686090450346-f418fff5486e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Thumbnail or cover image
       description: "A short description of the first project and I must tell you, it is one of a kind. You can't see me anywhere else, because I am automatic.",
       detailedDescription: `
@@ -13,7 +13,7 @@ const Projects = ({ setIsMoreInfoModalOpen, openProjectDetails }) => {
         The key technologies used include React, Node.js, and Express. We integrated several
         third-party APIs for dynamic content generation and implemented a custom backend
         for data handling and user authentication. The project involved:
-        - Designing an intuitive UI/UX.
+        - Designing an intuitive Exterior.
         - Backend setup for handling requests.
         - Integrating payment systems.
         - Deploying the final application on AWS.
@@ -61,9 +61,9 @@ const Projects = ({ setIsMoreInfoModalOpen, openProjectDetails }) => {
   },  {
       id: 2,
       title: "Byrouted",
-      category: "UI/UX",
+      category: "Exterior",
       imgSrc: "https://images.pexels.com/photos/2064826/pexels-photo-2064826.jpeg?auto=compress&cs=tinysrgb&w=600",
-      description: "This project focused on a sleek UI/UX design for an e-commerce platform, aiming to improve user experience and increase conversion rates.",
+      description: "This project focused on a sleek Exterior design for an e-commerce platform, aiming to improve user experience and increase conversion rates.",
       detailedDescription: `
         For Byrouted, we designed an intuitive, user-centric interface, improving the usability and aesthetic appeal
         of the e-commerce platform. The project involved:
@@ -104,9 +104,9 @@ const Projects = ({ setIsMoreInfoModalOpen, openProjectDetails }) => {
     {
       id: 3,
       title: "Gregort John",
-      category: "Graphic Design",
+      category: "Interior",
       imgSrc: "https://images.pexels.com/photos/12983795/pexels-photo-12983795.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-      description: "A graphic design project focused on creating a brand identity for Gregort John, a luxury fashion brand.",
+      description: "A Interior project focused on creating a brand identity for Gregort John, a luxury fashion brand.",
       detailedDescription: `
         We were tasked with developing a cohesive and sophisticated brand identity for Gregort John. This included:
         - Designing a new logo and visual identity system.

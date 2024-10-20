@@ -30,6 +30,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media (max-width:756px) {
+        padding: 0 32px;
+        height: 86px;
+    }
 }
 
 .header-left {
@@ -117,6 +121,7 @@
         flex-direction: column; /* Stack items vertically */
         overflow-y: auto; /* Enable vertical scrolling */
         padding: 0 1vw;
+        align-items: center;
         gap: 20px; /* Space between items */
         height: 100vh; /* Allow vertical scrolling */
     }
@@ -262,3 +267,98 @@ ul {
 h3 {
   margin-top: 20px;
 }
+
+
+  
+
+@media (max-width: 756px) {
+  
+    .logo {
+      font-size: 2.8rem; /* Smaller logo for mobile */
+    }
+  
+    .contactt {
+      margin-left: 0; /* Reset margin for mobile */
+      margin-top: 15px; /* Add some space */
+    }
+  
+    .close-btn2 {
+      font-size: 3rem; /* Smaller close button for mobile */
+    }
+  
+    /* Filter buttons styling */
+    .filter-buttons {
+        position: sticky; /* Make it sticky */
+        top: 0; /* Stick it to the top of the screen */
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        background-color: white; /* Background for the filter section */
+        z-index: 1000; /* Ensure it stays on top */
+        border-bottom: 1px solid #ddd; /* Add a subtle border */
+        @media (max-width:756px) {
+            position: absolute;
+            top: 118px;
+        }
+    }
+  
+    .filter-btn {
+        flex: 1; /* Make the buttons take equal space */
+        padding: 10px;
+        font-size: 1.6rem;
+        text-align: center;
+        background-color: #f0f0f0;
+        border: none;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+  
+    /* Title and dynamic project info for mobile */
+    .title-and-info {
+      flex-direction: column; /* Stack elements vertically */
+      padding: 10px; /* Reduce padding */
+      text-align: center; /* Center-align text */
+    }
+  
+    .header-title {
+      font-size: 6rem; /* Smaller title font */
+    }
+  
+    .project-info-panel {
+      width: 100%; /* Full width for info panel */
+      padding: 0 10px;
+    }
+  
+    .project-info-panel h2 {
+      font-size: 2.4rem; /* Smaller heading */
+    }
+  
+    .project-info-panel p {
+      font-size: 1.6rem; /* Smaller text */
+      color: #666;
+    }
+  
+    /* Hover text styling for mobile */
+    .hover-text {
+      display: none; /* Hide hover text on mobile */
+    }
+  
+    /* Progress bar styling for mobile */
+    .progress-bar {
+      width: 100%;
+      margin: 10px 0;
+    }
+  
+    /* Footer adjustments for mobile */
+    .footer-section {
+      flex-direction: column;
+      padding: 20px;
+      text-align: center;
+    }
+  
+    /* Progress bar adjustments */
+    .progress {
+      width: 0; /* Adjusted width for progress */
+    }
+  }
+  

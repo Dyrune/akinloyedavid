@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import fullpage from "fullpage.js";
 import "./sass/main.scss";
-import "fullpage.js/dist/fullpage.css"; 
+import "fullpage.js/dist/fullpage.css";
 
 // Components
 import Header from "./components/Header";
@@ -22,8 +22,8 @@ function App() {
   const [isMoreInfoModalOpen, setIsMoreInfoModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const fullpageRef = useRef(null);
-  const fullpageApi = useRef(null);
-  const [isMobile, setIsMobile] = useState(false); 
+  const fullpageApi = useRef(null); // Holds the fullpage.js instance
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -38,29 +38,36 @@ function App() {
     setSelectedProject(null);
   };
 
-  // Detect if we are on mobile and set the state accordingly
+  // Handle resizing to detect mobile view and manage fullpage.js destruction
   useEffect(() => {
     const handleResize = () => {
       const isMobileView = window.innerWidth <= 768;
       setIsMobile(isMobileView);
+
+      // Destroy FullPage.js if switching to mobile
+      if (isMobileView && fullpageApi.current) {
+        // Only destroy if fullpageApi is valid
+        if (fullpageApi.current && typeof fullpageApi.current.destroy === 'function') {
+          fullpageApi.current.destroy();
+          fullpageApi.current = null;
+        }
+      }
     };
 
-    handleResize(); 
-    window.addEventListener("resize", handleResize); 
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize); 
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
-  // Initialize fullPage.js for non-mobile devices
+  // Initialize FullPage.js for non-mobile devices
   useEffect(() => {
     if (!loading && fullpageRef.current && !isMobile) {
       try {
         fullpageApi.current = new fullpage(fullpageRef.current, {
           navigation: true,
           scrollingSpeed: 1000,
-          responsiveWidth: 900,
           slidesNavigation: true,
           controlArrows: false,
           onLeave: function (origin, destination, direction) {
@@ -78,27 +85,15 @@ function App() {
         console.error("Error initializing fullpage.js:", error);
       }
 
-      // Mouse wheel event for horizontal scrolling
-      const handleWheel = (event) => {
-        if (fullpageApi.current) {
-          const activeSection = fullpageApi.current.getActiveSection()?.index;
-          if (activeSection !== undefined) {
-            if (event.deltaY > 0) {
-              fullpageApi.current.moveSlideRight();
-            } else if (event.deltaY < 0) {
-              fullpageApi.current.moveSlideLeft();
-            }
-          }
-        }
-      };
-
-      window.addEventListener("wheel", handleWheel);
-
       return () => {
-        window.removeEventListener("wheel", handleWheel);
-        if (fullpageApi.current) {
-          fullpageApi.current.destroy();
-          fullpageApi.current = null;
+        // Only clean up FullPage.js if it's initialized
+        if (fullpageApi.current && typeof fullpageApi.current.destroy === 'function') {
+          try {
+            fullpageApi.current.destroy();
+            fullpageApi.current = null;
+          } catch (error) {
+            console.error("Error destroying fullpage.js:", error);
+          }
         }
       };
     }
@@ -206,10 +201,18 @@ function App() {
 
           {!isMobile && (
             <>
-              <div id="arrow-left" className="custom-arrow" onClick={() => fullpageApi.current.moveSlideLeft()}>
+              <div
+                id="arrow-left"
+                className="custom-arrow"
+                onClick={() => fullpageApi.current.moveSlideLeft()}
+              >
                 &#9664;
               </div>
-              <div id="arrow-right" className="custom-arrow" onClick={() => fullpageApi.current.moveSlideRight()}>
+              <div
+                id="arrow-right"
+                className="custom-arrow"
+                onClick={() => fullpageApi.current.moveSlideRight()}
+              >
                 &#9654;
               </div>
             </>
