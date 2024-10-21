@@ -163,6 +163,7 @@ const Projects = ({ setIsMoreInfoModalOpen, openProjectDetails }) => {
           </p>
 
           <button
+          id="discover"
             className="discovered"
             onClick={() => setIsMoreInfoModalOpen(true)} // Trigger the More Info modal
           >
@@ -183,6 +184,14 @@ const Projects = ({ setIsMoreInfoModalOpen, openProjectDetails }) => {
             </div>
           ))}
         </div>
+        <button
+        id="discover2"
+            className="discovered"
+            onClick={() => setIsMoreInfoModalOpen(true)} // Trigger the More Info modal
+          >
+            Discover Projects
+          </button>
+
       </div>
     </div>
   );

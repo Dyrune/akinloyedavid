@@ -24,6 +24,7 @@ function App() {
   const fullpageRef = useRef(null);
   const fullpageApi = useRef(null); // Holds the fullpage.js instance
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const aboutRef = useRef(null); // Reference for scrolling to "About" section
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -36,6 +37,12 @@ function App() {
 
   const closeProjectDetails = () => {
     setSelectedProject(null);
+  };
+
+  const moveToAbout = () => {
+    if (isMobile && aboutRef.current) {
+      aboutRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   // Handle resizing to detect mobile view and manage fullpage.js destruction
@@ -163,8 +170,10 @@ function App() {
                 isMobile ? (
                   <div>
                     <Header />
-                    <Banner />
-                    <About openModal={openModal} />
+                    <Banner moveToAbout={moveToAbout} isMobile={isMobile} />
+                    <div ref={aboutRef}>
+                      <About />
+                    </div>
                     <Projects
                       setIsMoreInfoModalOpen={setIsMoreInfoModalOpen}
                       openProjectDetails={openProjectDetails}
@@ -177,10 +186,14 @@ function App() {
                     <div className="section">
                       <Header />
                       <div className="slide">
-                        <Banner moveSlideRight={() => fullpageApi.current.moveSlideRight()} />
+                        <Banner
+                          moveSlideRight={() => fullpageApi.current.moveSlideRight()}
+                          moveToAbout={moveToAbout}
+                          isMobile={isMobile}
+                        />
                       </div>
                       <div className="slide">
-                        <About openModal={openModal} />
+                        <About />
                       </div>
                       <div className="slide">
                         <Projects

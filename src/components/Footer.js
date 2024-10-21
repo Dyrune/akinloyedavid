@@ -38,7 +38,7 @@ const Footer = () => {
         {/* Bottom Part of the Footer */}
         <div className="footer-bottom">
           <div className="footer-left">
-            <p>@dyrune2024</p>
+            <p>© 0tnda2024</p>
           </div>
 
           <div className="footer-right">
@@ -52,8 +52,6 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Copyright Section */}
-      <p className="text-sm mt-4">© 2024 My Website. All Rights Reserved.</p>
     </footer>
   );
 };

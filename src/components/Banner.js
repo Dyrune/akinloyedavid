@@ -21,7 +21,7 @@ const letterAni = {
   },
 };
 
-const Banner = ({ moveSlideRight }) => {
+const Banner = ({ moveSlideRight, moveToAbout, isMobile }) => {
   const [playMarquee, setPlayMarquee] = useState(false);
 
   useEffect(() => {
@@ -34,7 +34,12 @@ const Banner = ({ moveSlideRight }) => {
     <motion.div className="banner" variants={banner}>
       <BannerRowTop title={"Architecture,"} />
       <BannerRowCenter title={"Planning,"} playMarquee={playMarquee} />
-      <BannerRowBottom title={"Solutions."} moveSlideRight={moveSlideRight} />
+      <BannerRowBottom
+        title={"Solutions."}
+        moveSlideRight={moveSlideRight}
+        moveToAbout={moveToAbout}
+        isMobile={isMobile} // Pass the isMobile prop to the bottom row
+      />
     </motion.div>
   );
 };
@@ -85,7 +90,16 @@ const BannerRowTop = ({ title }) => {
 };
 
 // Bottom row with animated letters and scroll functionality
-const BannerRowBottom = ({ title, moveSlideRight }) => {
+const BannerRowBottom = ({ title, moveSlideRight, moveToAbout, isMobile }) => {
+  // Decide which function to call based on the device type
+  const handleScroll = () => {
+    if (isMobile) {
+      moveToAbout(); // Call moveToAbout on mobile
+    } else {
+      moveSlideRight(); // Call moveSlideRight on desktop
+    }
+  };
+
   return (
     <div className="banner-row center">
       <motion.div
@@ -93,7 +107,7 @@ const BannerRowBottom = ({ title, moveSlideRight }) => {
         animate={{ scale: 1 }}
         transition={{ ease: [0.6, 0.01, -0.05, 0.95], duration: 1, delay: 1 }}
         className="scroll"
-        onClick={moveSlideRight} // Trigger fullPage.js scroll to the next slide
+        onClick={handleScroll} // Trigger appropriate scroll action
         style={{ cursor: 'pointer' }} // Make it clear the text is clickable
       >
         <motion.span

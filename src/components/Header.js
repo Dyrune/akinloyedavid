@@ -13,6 +13,30 @@ const Header = () => {
   });
 
   const [disabled, setDisabled] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0); // Track scroll position
+  const [isHidden, setIsHidden] = useState(false); // Track when content should be hidden
+
+  // Detect scroll changes to hide/show content
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+
+      // Hide the content when scrolling down and past 100px
+      if (currentScrollPos > scrollPosition && currentScrollPos > 700) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false); // Show the content when scrolling up
+      }
+
+      setScrollPosition(currentScrollPos); // Update the scroll position
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrollPosition]);
 
   useEffect(() => {
     setState({ clicked: false, menuName: "Menu" });
@@ -51,9 +75,13 @@ const Header = () => {
       <div className="container">
         <div className="wrapper">
           <div className="inner-header">
-            <div className="logo">
+            {/* Logo that slides up on scroll */}
+            <div className={`logo ${isHidden ? "slide-up" : ""}`}>
               <Link to="/">0tnda.</Link>
-            </div>  <div className="contactt">
+            </div>
+
+            {/* Contact section that slides up on scroll */}
+            <div className={`contactt ${isHidden ? "slide-up" : ""}`}>
               <a href="/contact">
                 Let's work together
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -62,12 +90,14 @@ const Header = () => {
                 </svg>
               </a>
             </div>
+
+            {/* Menu with "Let's Talk" button */}
             <div className="menu">
               <button disabled={disabled} onClick={handleMenu}>
                 {state.clicked ? "✖" : "☰"}
               </button>
-              <div className="button3">
-              Let's Talk
+              <div className={`button3 ${isHidden ? "slide-up" : ""}`}>
+                Let's Talk
               </div>
             </div>
           </div>
