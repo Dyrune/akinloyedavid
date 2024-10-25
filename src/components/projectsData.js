@@ -498,7 +498,7 @@ const projects = [
         id: 13,
         title: "Artify Gallery",
         category: "Interior",
-        imgSrc: "https://images.pexels.com/photos/185521/pexels-photo-185521.jpeg?auto=compress&cs=tinysrgb&w=600",
+        imgSrc: "https://images.pexels.com/photos/93400/pexels-photo-93400.jpeg?auto=compress&cs=tinysrgb&w=600",
         description: "Interior for Artify Gallery, a contemporary art gallery looking to enhance its visual identity.",
         detailedDescription: `
           Artify Gallery needed a fresh, modern visual identity to reflect its contemporary art collections. Our Interior work included:
@@ -702,7 +702,7 @@ const projects = [
         id: 18,
         title: "Green Market",
         category: "Masterplanning",
-        imgSrc: "https://images.pexels.com/photos/2306775/pexels-photo-2306775.jpeg?auto=compress&cs=tinysrgb&w=600",
+        imgSrc: "https://images.pexels.com/photos/1457844/pexels-photo-1457844.jpeg?auto=compress&cs=tinysrgb&w=600",
         description: "Masterplanning project for Green Market, a farmer's market promoting organic and sustainable products.",
         detailedDescription: `
           Green Market needed a fresh, earthy brand identity to promote their farmer's market. We focused on creating:
@@ -743,7 +743,7 @@ const projects = [
         id: 19,
         title: "BlueSky Developers",
         category: "Architecture",
-        imgSrc: "https://images.pexels.com/photos/374015/pexels-photo-374015.jpeg?auto=compress&cs=tinysrgb&w=600",
+        imgSrc: "https://images.pexels.com/photos/53176/architecture-iron-steel-building-53176.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
         description: "Website design for BlueSky Developers, a real estate development company.",
         detailedDescription: `
           BlueSky Developers needed a sleek, professional website to showcase their real estate development projects. Key elements of the design include:

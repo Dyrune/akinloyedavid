@@ -13,6 +13,7 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
+import Hamburger from "./components/Hamburger"; // Import your Hamburger component
 import AboutInfo from "./components/AboutInfo";
 import MoreInfo from "./components/MoreInfo";
 import ProjectDetails from "./components/ProjectDetails";
