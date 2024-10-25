@@ -39,13 +39,16 @@
     background-color: black; /* The color of the line */
     border: none;
     position: absolute;
-    right: 32px; /* 32px from the right */
+    right: 0px; /* 32px from the right */
     margin-bottom: 32px;
   }
   
   @media (max-width: 768px) { /* Apply styles for mobile devices */
     .hr-container2 {
-      display: block; /* Show the hr only on mobile screens */
+      display: block;
+      position: relative;
+      right: 0;
+      width: 100%;
     }
   }
   

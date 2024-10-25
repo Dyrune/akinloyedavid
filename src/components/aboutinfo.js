@@ -1,21 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
-const Modal = ({ onClose }) => {
+const AboutInfo = ({ onClose }) => {
   const modalRef = useRef(null); // Define modalRef to reference the modal element
-
-  useEffect(() => {
-    // Disable scrolling when the modal is open using fullpage.js if it's present
-    if (window.fullpage_api) {
-      window.fullpage_api.setAllowScrolling(false);
-    }
-
-    // Re-enable scrolling when the modal is closed
-    return () => {
-      if (window.fullpage_api) {
-        window.fullpage_api.setAllowScrolling(true);
-      }
-    };
-  }, []);
 
   const handleScrollToTop = (e) => {
     e.preventDefault(); // Prevent default link behavior
@@ -31,12 +17,14 @@ const Modal = ({ onClose }) => {
     }
   };
 
+  
+
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" ref={modalRef} onClick={(e) => e.stopPropagation()}>
+    <div className="modal-overllay" onClick={onClose}>
+      <div className="modal-conttent" ref={modalRef} onClick={(e) => e.stopPropagation()}>
         {/* Header Section */}
         <div id="top"></div>
-        <header className="modal-header3">
+       {/* <header className="modal-header3">
           <div className="header-left">
             <span className="logo">0tnda</span>
             <div className="contactt">
@@ -52,7 +40,7 @@ const Modal = ({ onClose }) => {
           <button className="close-btn" onClick={onClose}>
             &times;
           </button>
-        </header>
+        </header>*/}
 
         {/* Body Content */}
         <div className="modal-body">
@@ -236,4 +224,4 @@ const Modal = ({ onClose }) => {
   );
 };
 
-export default Modal;
+export default AboutInfo;

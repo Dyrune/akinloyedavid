@@ -1,35 +1,23 @@
-.modal-overlay2 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1001;
-    overflow: hidden;
-}
+
 
 .modal-content2 {
-    background-color: white;
-    width: 100%;
-    height: 100vh;
-    position: relative;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transform: translateY(100%);
+    margin-top: 108px;
 }
 
 /* Header */
 .modal-header2 {
-    height: 156px;
+    
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    padding: 40px;
-    position: relative;
+    z-index: 1000;
+    font-size: 1.8rem;
+    height: 116px;
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    padding: 0 108px;
+    color: grey;
     @media (max-width:756px) {
         padding: 0 32px;
         height: 86px;
@@ -70,10 +58,14 @@
     justify-content: center;
     margin-top: 20px;
     gap: 10px;
+    align-items: center;
 }
 
 .filter-btn {
     padding: 10px 20px;
+    color: black;
+    height: min-content;
+    font-size: 1.5rem;
     background: none;
     border: 2px solid black;
     cursor: pointer;
@@ -167,7 +159,7 @@
     pointer-events: none;
     background-color: black;
     color: white;
-    padding: 20px 40px;
+    padding: 10px 20px;
     font-size: 14px;
     display: none;
     z-index: 999;
@@ -197,13 +189,18 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 40px;
-    bottom: 0;
+    bottom: 20px;
     width: 100%;
     position: fixed;
 }
+
+.go-back-btn {
+    font-family: "EB Garamond", serif;
+    font-size: 2rem;
+}
   
 .header-title {
-    font-size: 10rem;
+    font-size: 4rem;
 }
 
 .header-title sup {

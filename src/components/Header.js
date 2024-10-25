@@ -14,18 +14,18 @@ const Header = () => {
 
   const [disabled, setDisabled] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0); // Track scroll position
-  const [isHidden, setIsHidden] = useState(false); // Track when content should be hidden
+  const [isLogoHidden, setIsLogoHidden] = useState(false); // Track when logo should be hidden
 
-  // Detect scroll changes to hide/show content
+  // Detect scroll changes to hide/show logo
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollPos = window.pageYOffset;
 
-      // Hide the content when scrolling down and past 100px
-      if (currentScrollPos > scrollPosition && currentScrollPos > 700) {
-        setIsHidden(true);
+      // Hide the logo when scrolling down past 700px
+      if (currentScrollPos > 700) {
+        setIsLogoHidden(true);
       } else {
-        setIsHidden(false); // Show the content when scrolling up
+        setIsLogoHidden(false); // Show the logo when scrolling up
       }
 
       setScrollPosition(currentScrollPos); // Update the scroll position
@@ -52,6 +52,7 @@ const Header = () => {
       });
     } else if (state.clicked === true) {
       setState({
+   
         clicked: !state.clicked,
         menuName: "Menu"
       });
@@ -76,12 +77,12 @@ const Header = () => {
         <div className="wrapper">
           <div className="inner-header">
             {/* Logo that slides up on scroll */}
-            <div className={`logo ${isHidden ? "slide-up" : ""}`}>
+            <div className={`logo ${isLogoHidden ? "slide-up" : ""}`}>
               <Link to="/">0tnda.</Link>
             </div>
 
-            {/* Contact section that slides up on scroll */}
-            <div className={`contactt ${isHidden ? "slide-up" : ""}`}>
+            {/* Contact section (remains unaffected by scroll) */}
+            <div className="contactt">
               <a href="/contact">
                 Let's work together
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -91,12 +92,12 @@ const Header = () => {
               </a>
             </div>
 
-            {/* Menu with "Let's Talk" button */}
+            {/* Menu with "Let's Talk" button (remains visible) */}
             <div className="menu">
               <button disabled={disabled} onClick={handleMenu}>
                 {state.clicked ? "✖" : "☰"}
               </button>
-              <div className={`button3 ${isHidden ? "slide-up" : ""}`}>
+              <div className="button3">
                 Let's Talk
               </div>
             </div>

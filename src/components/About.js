@@ -1,8 +1,9 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
-import React, { useEffect, useState } from "react";
-
-const About = ({ openModal }) => {
+const About = () => {
   const [isVisible, setIsVisible] = useState(false); // Track visibility state
+  const navigate = useNavigate(); // Hook to navigate to the new page
 
   // Trigger visibility when component is mounted
   useEffect(() => {
@@ -13,6 +14,11 @@ const About = ({ openModal }) => {
     // Cleanup the timer when the component is unmounted
     return () => clearTimeout(timer);
   }, []);
+
+  // Function to handle button click and navigate to AboutInfo page
+  const handleDiscoverMore = () => {
+    navigate("/about-info"); // Navigate to the AboutInfo page
+  };
 
   return (
     <div className="containerr">
@@ -31,13 +37,17 @@ const About = ({ openModal }) => {
 
       {/* Right section with centered content */}
       <div className="right">
-        {/* Corrected dynamic class usage */}
         <div className={`content ${isVisible ? "content-visible" : ""}`}>
           <h1>ABOUT ME</h1>
           <p className={`slide-in ${isVisible ? "slide-in-visible" : ""}`}>
-            We are a company that specializes in delivering high-quality services and more than you expect, come to me and i will give you the unexpected...
+            We are a company that specializes in delivering high-quality services and more than you expect, come to me and I will give you the unexpected...
           </p>
-          <button className={`discover-btn ${isVisible ? "fade-in" : ""}`} onClick={openModal}>
+          
+          {/* Button to navigate to AboutInfo page */}
+          <button 
+            className={`discover-btn ${isVisible ? "fade-in" : ""}`} 
+            onClick={handleDiscoverMore} // Handle click to navigate
+          >
             Discover More
           </button>
         </div>
@@ -46,4 +56,5 @@ const About = ({ openModal }) => {
   );
 };
 
-export default About; 
+export default About;
+

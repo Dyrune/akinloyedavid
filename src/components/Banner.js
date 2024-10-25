@@ -21,7 +21,7 @@ const letterAni = {
   },
 };
 
-const Banner = ({ moveSlideRight, moveToAbout, isMobile }) => {
+const Banner = ({ slideNext, scrollToAbout, isMobile }) => {
   const [playMarquee, setPlayMarquee] = useState(false);
 
   useEffect(() => {
@@ -34,11 +34,12 @@ const Banner = ({ moveSlideRight, moveToAbout, isMobile }) => {
     <motion.div className="banner" variants={banner}>
       <BannerRowTop title={"Architecture,"} />
       <BannerRowCenter title={"Planning,"} playMarquee={playMarquee} />
+      {/* Pass isMobile and both actions to the bottom row */}
       <BannerRowBottom
         title={"Solutions."}
-        moveSlideRight={moveSlideRight}
-        moveToAbout={moveToAbout}
-        isMobile={isMobile} // Pass the isMobile prop to the bottom row
+        slideNext={slideNext}
+        scrollToAbout={scrollToAbout}
+        isMobile={isMobile}
       />
     </motion.div>
   );
@@ -82,7 +83,9 @@ const BannerRowTop = ({ title }) => {
         className="row-col"
       >
         <span className="row-message">
-          " I design buildings and structures, balancing aesthetics, functionality, and safety. They create detailed plans and collaborate with clients and engineers to bring their visions to life."
+          " I design buildings and structures, balancing aesthetics,
+          functionality, and safety. They create detailed plans and collaborate
+          with clients and engineers to bring their visions to life."
         </span>
       </motion.div>
     </div>
@@ -90,13 +93,12 @@ const BannerRowTop = ({ title }) => {
 };
 
 // Bottom row with animated letters and scroll functionality
-const BannerRowBottom = ({ title, moveSlideRight, moveToAbout, isMobile }) => {
-  // Decide which function to call based on the device type
-  const handleScroll = () => {
+const BannerRowBottom = ({ title, slideNext, scrollToAbout, isMobile }) => {
+  const handleScrollClick = () => {
     if (isMobile) {
-      moveToAbout(); // Call moveToAbout on mobile
+      scrollToAbout(); // Scroll to the About section on mobile
     } else {
-      moveSlideRight(); // Call moveSlideRight on desktop
+      slideNext(); // Go to the next slide on desktop
     }
   };
 
@@ -107,8 +109,8 @@ const BannerRowBottom = ({ title, moveSlideRight, moveToAbout, isMobile }) => {
         animate={{ scale: 1 }}
         transition={{ ease: [0.6, 0.01, -0.05, 0.95], duration: 1, delay: 1 }}
         className="scroll"
-        onClick={handleScroll} // Trigger appropriate scroll action
-        style={{ cursor: 'pointer' }} // Make it clear the text is clickable
+        onClick={handleScrollClick} // Trigger the correct action based on device
+        style={{ cursor: "pointer" }}
       >
         <motion.span
           initial={{ opacity: 0 }}

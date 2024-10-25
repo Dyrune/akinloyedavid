@@ -1,16 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { useLocation } from "react-router-dom"; // Import useLocation to access passed state
 
-const ProjectDetailsModal = ({ project, onClose }) => {
+const ProjectDetails = () => {
+  const location = useLocation(); // Get the project data from the location state
+  const project = location.state?.project; // Retrieve the project passed via state
+
+  // Hooks should always be called, even if project is not available
   const modalRef = useRef(null);
   const closeBtnRef = useRef(null);
 
-  // State for tracking the currently displayed image for each image object
   const [currentImages, setCurrentImages] = useState(
-    project.images.map((image) => image.src) // Initialize with the original src for each image
+    project?.images.map((image) => image.src) || [] // Initialize with the original src for each image if available
   );
-
-  // State for tracking if the view is mobile (under 756px)
   const [isMobileView, setIsMobileView] = useState(false);
 
   useEffect(() => {
@@ -59,11 +61,12 @@ const ProjectDetailsModal = ({ project, onClose }) => {
       opacity: 0,
       duration: 0.5,
       ease: "power3.in",
-      onComplete: onClose,
+      onComplete: () => {
+        window.history.back(); // Close modal and go back to the previous page
+      },
     });
   };
 
-  // Function to scroll to the top
   const handleScrollToTop = (e) => {
     e.preventDefault(); // Prevent the default link behavior
     window.scrollTo({
@@ -72,10 +75,14 @@ const ProjectDetailsModal = ({ project, onClose }) => {
     });
   };
 
+  // Early return after hooks have been called
+  if (!project) {
+    return <div>No project found</div>;
+  }
+
   return (
     <div className="modal-overlay" onClick={handleClose}>
       <div className="modal-content" ref={modalRef} onClick={(e) => e.stopPropagation()}>
-
         {/* Top Anchor (Target for Scroll to Top) */}
         <div id="top"></div>
 
@@ -162,7 +169,7 @@ const ProjectDetailsModal = ({ project, onClose }) => {
           </div>
 
           <div className="project-description">
-            <p>{project?.description || "No description provided"}</p>
+            <p>{project?.detailedDescription || "No description provided"}</p>
           </div>
         </div>
 
@@ -260,4 +267,4 @@ const ProjectDetailsModal = ({ project, onClose }) => {
   );
 };
 
-export default ProjectDetailsModal;
+export default ProjectDetails;

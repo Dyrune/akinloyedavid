@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   staggerText,
@@ -19,6 +19,7 @@ import newyork from "../images/newyork.webp";
 import sanfrancisco from "../images/sanfrancisco.webp";
 import beijing from "../images/beijing.webp";
 
+// City data array
 const cities = [
   { name: "Dallas", image: dallas },
   { name: "Austin", image: austin },
@@ -27,8 +28,8 @@ const cities = [
   { name: "Beijing", image: beijing }
 ];
 
-const Hamburger = ({ state }) => {
-  // Create varibles of our dom nodes
+const Hamburger = ({ state, swiperRef }) => {
+  const navigate = useNavigate(); // Use React Router's useNavigate for navigation
   let menuLayer = useRef(null);
   let reveal1 = useRef(null);
   let reveal2 = useRef(null);
@@ -38,21 +39,13 @@ const Hamburger = ({ state }) => {
   let line3 = useRef(null);
   let info = useRef(null);
 
+  // Menu open/close animation based on state
   useEffect(() => {
-    // If the menu is open and we click the menu button to close it.
     if (state.clicked === false) {
-      // If menu is closed and we want to open it.
-
       staggerRevealClose(reveal2, reveal1);
-      // Set menu to display none
       gsap.to(menuLayer, { duration: 1, css: { display: "none" } });
-    } else if (
-      state.clicked === true ||
-      (state.clicked === true && state.initial === null)
-    ) {
-      // Set menu to display block
+    } else if (state.clicked === true || (state.clicked === true && state.initial === null)) {
       gsap.to(menuLayer, { duration: 0, css: { display: "block" } });
-      //Allow menu to have height of 100%
       gsap.to([reveal1, reveal2], {
         duration: 0,
         opacity: 1,
@@ -64,50 +57,80 @@ const Hamburger = ({ state }) => {
     }
   }, [state]);
 
+  // Function to close menu and navigate to the page
+  const handleLinkClick = (e, path) => {
+    e.preventDefault(); // Prevent immediate link navigation
+  
+    // Navigate to the page right away
+    navigate(path);
+  
+    // Then start the close animation of the hamburger menu
+    gsap.to(menuLayer, {
+      duration: 1, // Keep this duration for smooth closing
+      css: { display: "none" },
+      onComplete: () => {
+        // After the animation completes, navigate to the page
+        navigate(path);
+      }
+    });
+    
+    // Smoothly close the other parts of the menu
+    staggerRevealClose(reveal2, reveal1);
+  };
+  
+
+  // Function to navigate to the Contact slide
+  const goToContactSlide = (event) => {
+    event.preventDefault();
+    if (swiperRef && swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideTo(3); // Navigate to Contact slide (Swiper index 3)
+    }
+  };
+
   return (
-    <div ref={el => (menuLayer = el)} className='hamburger-menu'>
-      <div
-        ref={el => (reveal1 = el)}
-        className='menu-secondary-background-color'></div>
-      <div ref={el => (reveal2 = el)} className='menu-layer'>
-        <div
-          ref={el => (cityBackground = el)}
-          className='menu-city-background'></div>
-        <div className='container'>
-          <div className='wrapper'>
-            <div className='menu-links'>
+    <div ref={el => (menuLayer = el)} className="hamburger-menu">
+      <div ref={el => (reveal1 = el)} className="menu-secondary-background-color"></div>
+      <div ref={el => (reveal2 = el)} className="menu-layer">
+        <div ref={el => (cityBackground = el)} className="menu-city-background"></div>
+        <div className="container">
+          <div className="wrapper">
+            <div className="menu-links">
               <nav>
                 <ul>
                   <li>
-                    <Link
+                    <a
                       onMouseEnter={e => handleHover(e)}
                       onMouseOut={e => handleHoverExit(e)}
                       ref={el => (line1 = el)}
-                      to='/opportunities'>
-                      About Me
-                    </Link>
+                      to="/about-info"
+                      onClick={(e) => handleLinkClick(e, '/about-info')} // Trigger close and navigate
+                    >
+                      About Info
+                    </a>
                   </li>
                   <li>
-                    <Link
+                    <a
                       onMouseEnter={e => handleHover(e)}
                       onMouseOut={e => handleHoverExit(e)}
                       ref={el => (line2 = el)}
-                      to='/solutions'>
-                      Projects
-                    </Link>
+                      href="/more-info"
+                      onClick={(e) => handleLinkClick(e, '/more-info')} // Trigger close and navigate
+                    >
+                      More Info
+                    </a>
                   </li>
                   <li>
-                    <Link
+                    <a
                       onMouseEnter={e => handleHover(e)}
                       onMouseOut={e => handleHoverExit(e)}
                       ref={el => (line3 = el)}
-                      to='/contact-us'>
+                    >
                       Contact Me
-                    </Link>
+                    </a>
                   </li>
                 </ul>
               </nav>
-              <div ref={el => (info = el)} className='info'>
+              <div ref={el => (info = el)} className="info">
                 <h3>My Promise</h3>
                 <p>
                   The passage experienced a surge in popularity during the 1960s
@@ -116,14 +139,14 @@ const Hamburger = ({ state }) => {
                   their software.
                 </p>
               </div>
-              <div className='locations'>
+              <div className="locations">
                 Locations:
-                {/* Returning the list of cities */}
                 {cities.map(el => (
                   <span
                     key={el.name}
                     onMouseEnter={() => handleCity(el.image, cityBackground)}
-                    onMouseOut={() => handleCityReturn(cityBackground)}>
+                    onMouseOut={() => handleCityReturn(cityBackground)}
+                  >
                     {el.name}
                   </span>
                 ))}

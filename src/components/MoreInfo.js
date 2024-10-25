@@ -1,38 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import ProjectDetailsModal from "./ProjectDetailsModal"; // Import the modal component
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import projects from './projectsData'; // Your projects data
 
 const categories = ["All", "Architecture", "Exterior", "Interior", "Masterplanning"];
 
-const Modal = ({ onClose }) => {
+const MoreInfo = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [hoveredProject, setHoveredProject] = useState(null);
-  const [selectedProject, setSelectedProject] = useState(null); // State for selected project
   const [scrollProgress, setScrollProgress] = useState(0);
-  const modalRef = useRef(null);
-  const closeBtnRef = useRef(null);
-  const hoverTextRef = useRef(null);
   const projectGridRef = useRef(null);
-
-  useEffect(() => {
-    gsap.fromTo(modalRef.current, { y: "100%", opacity: 0 }, { y: "0%", opacity: 1, duration: 0.5, ease: "power3.out" });
-    gsap.to(closeBtnRef.current, { opacity: 1, delay: 0.5, duration: 0.5 });
-
-    return () => {
-      gsap.set(modalRef.current, { y: "100%", opacity: 0 });
-    };
-  }, []);
-
-  const handleClose = () => {
-    gsap.to(modalRef.current, {
-      y: "100%",
-      opacity: 0,
-      duration: 0.5,
-      ease: "power3.in",
-      onComplete: onClose,
-    });
-  };
+  const hoverTextRef = useRef(null);
+  const navigate = useNavigate(); // Initialize navigate for routing
 
   const handleMouseMove = (e) => {
     const hoverText = hoverTextRef.current;
@@ -97,18 +76,18 @@ const Modal = ({ onClose }) => {
     (project) => activeCategory === "All" || project.category === activeCategory
   );
 
-  // Get the current category name for the header dynamically
   const currentCategoryName = activeCategory === "All" ? "Projects" : activeCategory;
 
-  // Get the index of the selected project
-  const currentProjectIndex = selectedProject
-    ? filteredProjects.findIndex((p) => p.id === selectedProject.id)
-    : -1;
+  // Navigate to the ProjectDetails page when a project is clicked
+  const openProjectDetails = (project) => {
+    navigate(`/project-details/${project.id}`, { state: { project } }); // Pass project data via state
+  };
 
   return (
-    <div className="modal-overlay2" onClick={handleClose}>
-      <div className="modal-content2" ref={modalRef} onClick={(e) => e.stopPropagation()}>
-        <header className="modal-header2">
+    <div className="modal-overlay2">
+      <div className="modal-content2">
+
+        {/*  <header className="modal-header2">
           <div className="header-left">
             <span className="logo">0tnda</span>
             <div className="contactt">
@@ -121,22 +100,13 @@ const Modal = ({ onClose }) => {
               </a>
             </div>
           </div>
-          <div className="filter-buttons">
-            {/* Filter categories */}
-            {categories.map((category) => (
-              <button
-                key={category}
-                className={`filter-btn ${activeCategory === category ? "active" : ""}`}
-                onClick={() => setActiveCategory(category)} // Update category on click
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-          <button className="close-btn2" ref={closeBtnRef} onClick={handleClose}>
-            &times;
+
+         
+          <button className="go-back-btn" onClick={() => navigate(-1)}>
+            &#8592;
           </button>
-        </header>
+        </header>*/}
+      
 
         <section className="project-grid-horizontal" ref={projectGridRef}>
           {/* Project grid */}
@@ -147,7 +117,7 @@ const Modal = ({ onClose }) => {
               onMouseMove={handleMouseMove}
               onMouseEnter={() => handleMouseEnter(project)}
               onMouseLeave={handleMouseLeave}
-              onClick={() => setSelectedProject(project)} // Handle project click
+              onClick={() => openProjectDetails(project)} // Navigate to ProjectDetails page
             >
               <img src={project.imgSrc} alt={project.title} className="project-image-horizontal" />
               <div className="project-number">
@@ -159,33 +129,34 @@ const Modal = ({ onClose }) => {
 
         <div className="title-and-info">
           <div className="project-info-panel">
-            <h2>{hoveredProject ? hoveredProject.title : `Scroll to Explore ${currentCategoryName}`} </h2>
+            <h2>{hoveredProject ? hoveredProject.title : `Scroll to Explore ${currentCategoryName}`}</h2>
             <p>{hoveredProject ? hoveredProject.location : `${filteredProjects.length} ${currentCategoryName.toLowerCase()}`}</p>
             <div className="progress-bar">
               <div className="progress" style={{ width: `${scrollProgress}%` }}></div>
             </div>
           </div>
-          {/* Dynamic category and project count */}
+ {/* Filter categories */}
+ <div className="filter-buttons">
+            {categories.map((category) => (
+              <button
+                key={category}
+                className={`filter-btn ${activeCategory === category ? "active" : ""}`}
+                onClick={() => setActiveCategory(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
           <h1 className="header-title">
-            {currentCategoryName}<sup>{filteredProjects.length}</sup>
+            {currentCategoryName}
+            <sup>{filteredProjects.length}</sup>
           </h1>
         </div>
 
         <div className="hover-text" ref={hoverTextRef}>View</div>
       </div>
-
-      {/* Render the project details modal if a project is selected */}
-      {selectedProject && currentProjectIndex !== -1 && (
-        <ProjectDetailsModal
-          project={filteredProjects[currentProjectIndex]} // Pass the selected project
-          projects={filteredProjects} // Pass the filtered list of projects
-          currentProjectIndex={currentProjectIndex} // Pass the current project index
-          setProjectIndex={(newIndex) => setSelectedProject(filteredProjects[newIndex])} // Update project index
-          onClose={() => setSelectedProject(null)} // Close the project modal
-        />
-      )}
     </div>
   );
 };
 
-export default Modal;
+export default MoreInfo;

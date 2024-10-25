@@ -1,66 +1,46 @@
-import React, { useEffect, useState, useRef } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import fullpage from "fullpage.js";
-import "./sass/main.scss";
-import "fullpage.js/dist/fullpage.css";
+import React, { useState, useEffect, useRef } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, A11y, Mousewheel } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 
-// Components
+// Import your custom components
 import Header from "./components/Header";
 import Banner from "./components/Banner";
 import About from "./components/About";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 import Loader from "./components/Loader";
+import AboutInfo from "./components/AboutInfo";
 import MoreInfo from "./components/MoreInfo";
-import Modal from "./components/aboutinfo";
-import ProjectDetailsModal from "./components/ProjectDetailsModal";
-import Footer from "./components/Footer"; // Import Footer
+import ProjectDetails from "./components/ProjectDetails";
 
 function App() {
+  const [isMobile, setIsMobile] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isMoreInfoModalOpen, setIsMoreInfoModalOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(null);
-  const fullpageRef = useRef(null);
-  const fullpageApi = useRef(null); // Holds the fullpage.js instance
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const aboutRef = useRef(null); // Reference for scrolling to "About" section
+  const swiperRef = useRef(null);
+  const aboutRef = useRef(null);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  const closeMoreInfoModal = () => setIsMoreInfoModalOpen(false);
-
-  const openProjectDetails = (project) => {
-    setSelectedProject(project);
-  };
-
-  const closeProjectDetails = () => {
-    setSelectedProject(null);
-  };
-
-  const moveToAbout = () => {
-    if (isMobile && aboutRef.current) {
-      aboutRef.current.scrollIntoView({ behavior: "smooth" });
+  // Disable body scrolling when loading
+  useEffect(() => {
+    if (loading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
     }
-  };
+  }, [loading]);
 
-  // Handle resizing to detect mobile view and manage fullpage.js destruction
+  // Detect screen size to toggle mobile view
   useEffect(() => {
     const handleResize = () => {
-      const isMobileView = window.innerWidth <= 768;
-      setIsMobile(isMobileView);
-
-      // Destroy FullPage.js if switching to mobile
-      if (isMobileView && fullpageApi.current) {
-        // Only destroy if fullpageApi is valid
-        if (fullpageApi.current && typeof fullpageApi.current.destroy === 'function') {
-          fullpageApi.current.destroy();
-          fullpageApi.current = null;
-        }
-      }
+      setIsMobile(window.innerWidth <= 768);
     };
 
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -68,172 +48,162 @@ function App() {
     };
   }, []);
 
-  // Initialize FullPage.js for non-mobile devices
-  useEffect(() => {
-    if (!loading && fullpageRef.current && !isMobile) {
-      try {
-        fullpageApi.current = new fullpage(fullpageRef.current, {
-          navigation: true,
-          scrollingSpeed: 1000,
-          slidesNavigation: true,
-          controlArrows: false,
-          onLeave: function (origin, destination, direction) {
-            if (destination && destination.index !== undefined) {
-              updateArrowVisibility(destination.index);
-            }
-          },
-          afterSlideLoad: function (section, origin, destination) {
-            if (destination && destination.index !== undefined) {
-              updateArrowVisibility(destination.index);
-            }
-          },
-        });
-      } catch (error) {
-        console.error("Error initializing fullpage.js:", error);
-      }
-
-      return () => {
-        // Only clean up FullPage.js if it's initialized
-        if (fullpageApi.current && typeof fullpageApi.current.destroy === 'function') {
-          try {
-            fullpageApi.current.destroy();
-            fullpageApi.current = null;
-          } catch (error) {
-            console.error("Error destroying fullpage.js:", error);
-          }
-        }
-      };
-    }
-  }, [loading, isMobile]);
-
-  // Disable/enable scrolling when modal is open/closed
-  useEffect(() => {
-    if (fullpageApi.current) {
-      if (isModalOpen || isMoreInfoModalOpen || selectedProject) {
-        fullpageApi.current.setAllowScrolling(false);
-      } else {
-        fullpageApi.current.setAllowScrolling(true);
-      }
-    }
-  }, [isModalOpen, isMoreInfoModalOpen, selectedProject]);
-
-  const updateArrowVisibility = (index) => {
-    const totalSlides = document.querySelectorAll(".slide")?.length;
-    const leftArrow = document.getElementById("arrow-left");
-    const rightArrow = document.getElementById("arrow-right");
-
-    if (leftArrow && rightArrow && totalSlides !== undefined) {
-      if (index === 0) {
-        leftArrow.style.display = "none";
-      } else {
-        leftArrow.style.display = "block";
-      }
-
-      if (index === totalSlides - 1) {
-        rightArrow.style.display = "none";
-      } else {
-        rightArrow.style.display = "block";
-      }
+  const slideNext = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideNext();
     }
   };
 
+  const slidePrev = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slidePrev();
+    }
+  };
+
+  const handleSlideChange = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      const swiper = swiperRef.current.swiper;
+      setActiveIndex(swiper.activeIndex);
+    }
+  };
+
+  // Function to open modal and disable interactions
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // Function to close modal and re-enable interactions
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  if (loading) {
+    return <Loader setLoading={setLoading} />;
+  }
+
   return (
     <Router>
-      {loading ? (
-        <Loader setLoading={setLoading} />
-      ) : (
-        <>
-          {isModalOpen && (
-            <Modal onClose={closeModal}>
-              <h2>About Modal</h2>
-              <p>This is the modal content for the About page.</p>
-              <button onClick={closeModal}>Close Modal</button>
-            </Modal>
-          )}
+      <div className="App">
+        {/* Persistent Header - Hide only when modal is open */}
+        {!isModalOpen && <Header />}
 
-          {isMoreInfoModalOpen && (
-            <MoreInfo onClose={closeMoreInfoModal}>
-              <h2>More Info Modal</h2>
-              <p>This is the modal content for the More Info section.</p>
-              <button onClick={closeMoreInfoModal}>Close Modal</button>
-            </MoreInfo>
-          )}
+        {/* Main Routes and Content */}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <AppContent
+                isMobile={isMobile}
+                activeIndex={activeIndex}
+                setActiveIndex={setActiveIndex}
+                isModalOpen={isModalOpen}
+                openModal={openModal}
+                closeModal={closeModal}
+                slideNext={slideNext}
+                slidePrev={slidePrev}
+                handleSlideChange={handleSlideChange}
+                aboutRef={aboutRef}
+                swiperRef={swiperRef}
+              />
+            }
+          />
+          <Route path="/about" element={<About />} />
+          <Route path="/more-info" element={<MoreInfo />} />  {/* Opens as a page, not modal */}
+          <Route path="/projects" element={<Projects openModal={openModal} />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about-info" element={<AboutInfo />} />
+          <Route path="/project-details/:id" element={<ProjectDetails />} />
+        </Routes>
 
-          {selectedProject && (
-            <ProjectDetailsModal project={selectedProject} onClose={closeProjectDetails} />
-          )}
-
-          <Routes>
-            <Route
-              path="/"
-              element={
-                isMobile ? (
-                  <div>
-                    <Header />
-                    <Banner moveToAbout={moveToAbout} isMobile={isMobile} />
-                    <div ref={aboutRef}>
-                      <About />
-                    </div>
-                    <Projects
-                      setIsMoreInfoModalOpen={setIsMoreInfoModalOpen}
-                      openProjectDetails={openProjectDetails}
-                    />
-                    <Contact />
-                    <Footer /> {/* Add the Footer only for mobile */}
-                  </div>
-                ) : (
-                  <div id="fullpage-wrapper" ref={fullpageRef}>
-                    <div className="section">
-                      <Header />
-                      <div className="slide">
-                        <Banner
-                          moveSlideRight={() => fullpageApi.current.moveSlideRight()}
-                          moveToAbout={moveToAbout}
-                          isMobile={isMobile}
-                        />
-                      </div>
-                      <div className="slide">
-                        <About />
-                      </div>
-                      <div className="slide">
-                        <Projects
-                          setIsMoreInfoModalOpen={setIsMoreInfoModalOpen}
-                          openProjectDetails={openProjectDetails}
-                        />
-                      </div>
-                      <div className="slide">
-                        <Contact />
-                      </div>
-                    </div>
-                  </div>
-                )
-              }
-            />
-            <Route path="/more-info" element={<MoreInfo />} />
-          </Routes>
-
-          {!isMobile && (
-            <>
-              <div
-                id="arrow-left"
-                className="custom-arrow"
-                onClick={() => fullpageApi.current.moveSlideLeft()}
-              >
-                &#9664;
-              </div>
-              <div
-                id="arrow-right"
-                className="custom-arrow"
-                onClick={() => fullpageApi.current.moveSlideRight()}
-              >
-                &#9654;
-              </div>
-            </>
-          )}
-        </>
-      )}
+        {/* Modal */}
+        {isModalOpen && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <ProjectDetails closeModal={closeModal} />
+            </div>
+          </div>
+        )}
+      </div>
     </Router>
   );
 }
+
+// Separated component for app content to access useLocation inside Router context
+const AppContent = ({
+  isMobile,
+  activeIndex,
+  setActiveIndex,
+  isModalOpen,
+  openModal,
+  closeModal,
+  slideNext,
+  slidePrev,
+  handleSlideChange,
+  aboutRef,
+  swiperRef
+}) => {
+  return (
+    <div>
+      {isMobile ? (
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <Banner slideNext={slideNext} scrollToAbout={() => aboutRef.current.scrollIntoView({ behavior: "smooth" })} isMobile={isMobile} />
+          <div ref={aboutRef}>
+            <About />
+          </div>
+          <Projects openModal={openModal} />
+          <Contact />
+          <Footer />
+        </div>
+      ) : (
+        <>
+          <div className="custom-navigation">
+            <button
+              className="swiper-button-prev"
+              onClick={slidePrev}
+              aria-label="Previous Slide"
+              style={{ visibility: activeIndex > 0 ? "visible" : "hidden" }}
+            >
+              &#8592;
+            </button>
+            <button
+              className="swiper-button-next"
+              onClick={slideNext}
+              aria-label="Next Slide"
+              style={{ visibility: activeIndex < 3 ? "visible" : "hidden" }}
+            >
+              &#8594;
+            </button>
+          </div>
+
+          <Swiper
+            ref={swiperRef}
+            modules={[Pagination, A11y, Mousewheel]}
+            spaceBetween={50}
+            slidesPerView={1}
+            pagination={{ clickable: true, el: ".custom-pagination" }}
+            mousewheel={!isModalOpen}
+            speed={1000}
+            onSlideChange={handleSlideChange}
+            onSwiper={(swiper) => setActiveIndex(swiper.activeIndex)}
+          >
+            <SwiperSlide>
+              <Banner slideNext={slideNext} isMobile={isMobile} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <About />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Projects openModal={openModal} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Contact />
+            </SwiperSlide>
+          </Swiper>
+          <div className="custom-pagination"></div>
+        </>
+      )}
+    </div>
+  );
+};
 
 export default App;

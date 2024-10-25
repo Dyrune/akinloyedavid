@@ -1,46 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 
-const Projects = ({ setIsMoreInfoModalOpen, openProjectDetails }) => {
+const Projects = () => {
+  const navigate = useNavigate(); // Initialize the navigate function for routing
+
+  // Function to navigate to the ProjectDetailsPage with the selected project
+  const openProjectDetails = (project) => {
+    navigate(`/project-details/${project.id}`, { state: { project } }); // Pass project as state
+  };
+
+  // Function to handle button click and navigate to AboutInfo page
+  const handleDiscoverMore = () => {
+    navigate("/more-info"); // Navigate to the AboutInfo page
+  };
+
+
   const projects = [
     {
       id: 1,
       title: "Milliton Jnr. House",
-      category: "Architecture", // Added category
-      imgSrc: "https://plus.unsplash.com/premium_photo-1686090450346-f418fff5486e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D", // Thumbnail or cover image
-      description: "A short description of the first project and I must tell you, it is one of a kind. You can't see me anywhere else, because I am automatic.",
+      category: "Architecture",
+      imgSrc:
+        "https://plus.unsplash.com/premium_photo-1686090450346-f418fff5486e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      description:
+        "A short description of the first project and I must tell you, it is one of a kind. You can't see me anywhere else, because I am automatic.",
       detailedDescription: `
         This project was focused on creating an interactive, responsive website for a client.
         The key technologies used include React, Node.js, and Express. We integrated several
-        third-party APIs for dynamic content generation and implemented a custom backend
-        for data handling and user authentication. The project involved:
-        - Designing an intuitive Exterior.
-        - Backend setup for handling requests.
-        - Integrating payment systems.
-        - Deploying the final application on AWS.
       `,
       images: [
-          {
-            src: "https://plus.unsplash.com/premium_photo-1686090449936-acfc6bc38f67?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-            description: "This is an example of the first image description and it is not a decieption but a forestrysitories Factory. You must be told that this is not just fun",
-            thumbnails: [
-              "https://plus.unsplash.com/premium_photo-1686090449936-acfc6bc38f67?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-              "https://plus.unsplash.com/premium_photo-1686090449625-16579c8ac225?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-              "https://plus.unsplash.com/premium_photo-1686090449200-57266c6623a6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-            ]
-          },
-          {
-            src: "https://plus.unsplash.com/premium_photo-1686090450800-d6ca456243c7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-            description: "" // No description for this image
-          },
-          {
-            src: "https://plus.unsplash.com/premium_photo-1686090449192-4ab1d00cb735?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-            description: "This is an example of the first image description and it is not a decieption but a forestrysitories Factory. You must be told that this is not just fun",
-            thumbnails: [
-              "https://plus.unsplash.com/premium_photo-1686090448331-206895954c61?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-              "https://plus.unsplash.com/premium_photo-1686090448517-2f692cc45187?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-              "https://plus.unsplash.com/premium_photo-1683891068478-9dc548ce7d20?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-            ]
-          }
+        {
+          src: "https://plus.unsplash.com/premium_photo-1686090449936-acfc6bc38f67?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          description:
+            "This is an example of the first image description and it is not a deception but a forestry site.",
+          thumbnails: [
+            "https://plus.unsplash.com/premium_photo-1686090449936-acfc6bc38f67?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "https://plus.unsplash.com/premium_photo-1686090449625-16579c8ac225?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "https://plus.unsplash.com/premium_photo-1686090449200-57266c6623a6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          ],
+        },
+        {
+          src: "https://plus.unsplash.com/premium_photo-1686090450800-d6ca456243c7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        },
+        {
+          src: "https://plus.unsplash.com/premium_photo-1686090449192-4ab1d00cb735?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          description: "This is another sample image description of a forestry-style building.",
+          thumbnails: [
+            "https://plus.unsplash.com/premium_photo-1686090448331-206895954c61?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "https://plus.unsplash.com/premium_photo-1686090448517-2f692cc45187?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            "https://plus.unsplash.com/premium_photo-1683891068478-9dc548ce7d20?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          ],
+        },
       ],
       features: [
         "Interactive design",
@@ -58,28 +68,31 @@ const Projects = ({ setIsMoreInfoModalOpen, openProjectDetails }) => {
         "API integration",
         "Deployment on AWS",
       ],
-  },  {
+    },
+    {
       id: 2,
       title: "Byrouted",
       category: "Exterior",
-      imgSrc: "https://images.pexels.com/photos/2064826/pexels-photo-2064826.jpeg?auto=compress&cs=tinysrgb&w=600",
-      description: "This project focused on a sleek Exterior design for an e-commerce platform, aiming to improve user experience and increase conversion rates.",
+      imgSrc:
+        "https://images.pexels.com/photos/2064826/pexels-photo-2064826.jpeg?auto=compress&cs=tinysrgb&w=600",
+      description:
+        "This project focused on a sleek exterior design for an e-commerce platform, improving user experience and conversion rates.",
       detailedDescription: `
-        For Byrouted, we designed an intuitive, user-centric interface, improving the usability and aesthetic appeal
-        of the e-commerce platform. The project involved:
+        For Byrouted, we designed an intuitive, user-centric interface, improving the usability and aesthetic appeal.
+        The project involved:
         - Prototyping the entire user flow.
         - Conducting user testing to optimize navigation.
-        - Implementing responsive design to cater to mobile and desktop users.
+        - Implementing responsive design for both mobile and desktop users.
         - Providing a seamless user experience.
       `,
       images: [
         {
           src: "https://images.pexels.com/photos/2064826/pexels-photo-2064826.jpeg?auto=compress&cs=tinysrgb&w=600",
-          description: "A sleek UI design to enhance the e-commerce experience."
+          description: "A sleek UI design to enhance the e-commerce experience.",
         },
         {
           src: "https://images.pexels.com/photos/2064830/pexels-photo-2064830.jpeg?auto=compress&cs=tinysrgb&w=600",
-          description: "Mobile-friendly designs to ensure optimal usability."
+          description: "Mobile-friendly designs to ensure optimal usability.",
         },
       ],
       features: [
@@ -99,16 +112,16 @@ const Projects = ({ setIsMoreInfoModalOpen, openProjectDetails }) => {
         "User testing report",
       ],
     },
-  
-    // Updated project 3
     {
       id: 3,
       title: "Gregort John",
       category: "Interior",
-      imgSrc: "https://images.pexels.com/photos/12983795/pexels-photo-12983795.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-      description: "A Interior project focused on creating a brand identity for Gregort John, a luxury fashion brand.",
+      imgSrc:
+        "https://images.pexels.com/photos/12983795/pexels-photo-12983795.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
+      description:
+        "An interior project focused on creating a brand identity for Gregort John, a luxury fashion brand.",
       detailedDescription: `
-        We were tasked with developing a cohesive and sophisticated brand identity for Gregort John. This included:
+        We developed a cohesive and sophisticated brand identity for Gregort John, which included:
         - Designing a new logo and visual identity system.
         - Creating a brand style guide to ensure consistent use across all platforms.
         - Developing marketing materials such as business cards, packaging, and social media templates.
@@ -116,11 +129,13 @@ const Projects = ({ setIsMoreInfoModalOpen, openProjectDetails }) => {
       images: [
         {
           src: "https://images.pexels.com/photos/12983795/pexels-photo-12983795.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load",
-          description: "The elegant new logo for Gregort John, conveying luxury and sophistication."
+          description:
+            "The elegant new logo for Gregort John, conveying luxury and sophistication.",
         },
         {
           src: "https://images.pexels.com/photos/12983801/pexels-photo-12983801.jpeg?auto=compress&cs=tinysrgb&w=600",
-          description: "Marketing materials designed with a focus on elegance and consistency."
+          description:
+            "Marketing materials designed with a focus on elegance and consistency.",
         },
       ],
       features: [
@@ -139,59 +154,54 @@ const Projects = ({ setIsMoreInfoModalOpen, openProjectDetails }) => {
         "Packaging design",
         "Style guide",
       ],
-    }
+    },
   ];
 
   return (
     <div className="projects-container">
-      {/* Header - Full width row */}
-
-       <div className="hr-container2">
+      {/* Header Section */}
+      <div className="hr-container2">
         <hr className="breathing-hr2" />
       </div>
       <div className="header-row">
         <h1>ARCHITECTURE</h1>
       </div>
 
-      {/* Two-column layout for description and images */}
+      {/* Project Info and Discover Button */}
       <div className="content-row">
         <div className="left-column">
           <p>
-            Explore our portfolio of architectural projects that reflect
-            creativity, innovation, and precision. Each project showcases our
-            commitment to quality and design excellence.
+            Explore our portfolio of architectural projects that reflect creativity,
+            innovation, and precision. Each project showcases our commitment to quality
+            and design excellence.
           </p>
 
-          <button
-          id="discover"
-            className="discovered"
-            onClick={() => setIsMoreInfoModalOpen(true)} // Trigger the More Info modal
-          >
+          {/* Discover Projects Button */}
+          <button id="discover" className="discovered" onClick={handleDiscoverMore}>
             Discover Projects
           </button>
         </div>
 
+        {/* Display projects dynamically */}
         <div className="right-column">
-          {/* Dynamically render the first three projects */}
           {projects.map((project) => (
             <div
               key={project.id}
               className="project"
-              onClick={() => openProjectDetails(project)} // Open project details modal on click
+              onClick={() => openProjectDetails(project)}
             >
               <img src={project.imgSrc} alt={project.title} />
               <p>{project.location}</p>
             </div>
           ))}
         </div>
-        <button
-        id="discover2"
-            className="discovered"
-            onClick={() => setIsMoreInfoModalOpen(true)} // Trigger the More Info modal
-          >
-            Discover Projects
-          </button>
+      </div>
 
+      {/* Second Discover Projects Button */}
+      <div className="button-container">
+        <button id="discover2" className="discovered"  onClick={handleDiscoverMore}>
+          Discover More Projects
+        </button>
       </div>
     </div>
   );

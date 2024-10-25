@@ -16,6 +16,7 @@ body {
 .containerr {
   position: relative;
   height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column; // Default for mobile view
   
@@ -25,6 +26,8 @@ body {
   }
 
 }
+
+
 
 .hr-container {
   position: absolute;
