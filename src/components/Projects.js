@@ -162,19 +162,23 @@ const Projects = () => {
   ];
 
 
-  const [headerRef, isHeaderInView] = useInView({ threshold: 0.1 });
-  const [paragraphRef, isParagraphInView] = useInView({ threshold: 0.1 });
-  const [buttonRef, isButtonInView] = useInView({ threshold: 0.1 });
+
+  const [headerRef, isHeaderInView] = useInView({ threshold: 0.1, once: true });
+  const [paragraphRef, isParagraphInView] = useInView({ threshold: 0.1, once: true });
+  const [buttonRef, isButtonInView] = useInView({ threshold: 0.1, once: true });
 
   return (
     <div className="projects-container">
       <div className="hr-container2">
         <hr className="breathing-hr2" />
       </div>
+
       <div className="header-row">
         <h1
           ref={headerRef}
-          >
+          className={`${isHeaderInView ? "animate__animated animate__fadeInUp" : ""}`}
+          style={{ animationDuration: "1s", opacity: isHeaderInView ? 1 : 0 }}
+        >
           ARCHITECTURE
         </h1>
       </div>
@@ -183,8 +187,11 @@ const Projects = () => {
         <div className="left-column">
           <p
             ref={paragraphRef}
-            className={`exploo ${isParagraphInView ? "animate__animated animate__fadeInUp animate__delay-0.3s" : ""}`}
-            style={{ animationDuration: "1.5s", animationTimingFunction: "ease-in-out",  opacity: "0" }}
+            className={`exploo ${isParagraphInView ? "animate__animated animate__fadeInUp" : ""}`}
+            style={{
+              animationDuration: "1.2s",
+              opacity: isParagraphInView ? 1 : 0,
+            }}
           >
             Explore our portfolio of architectural projects that reflect creativity,
             innovation, and precision. Each project showcases our commitment to quality
@@ -192,8 +199,11 @@ const Projects = () => {
           </p>
           <button
             ref={buttonRef}
-            className={`discovered ${isButtonInView ? "animate__animated animate__fadeIn animate__delay-0.8s" : ""}`}
-            style={{ animationDuration: "1.3s", animationTimingFunction: "ease-in-out",  opacity: "0" }}
+            className={`discovered ${isButtonInView ? "animate__animated animate__fadeIn" : ""}`}
+            style={{
+              animationDuration: "1.3s",
+              opacity: isButtonInView ? 1 : 0,
+            }}
             onClick={handleDiscoverMore}
           >
             Discover Projects

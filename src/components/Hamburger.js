@@ -1,8 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { useNavigate } from "react-router-dom";
-
-// Import animation functions
 import {
   staggerText,
   staggerReveal,
@@ -14,14 +12,12 @@ import {
   staggerRevealClose
 } from "./Animations";
 
-// Import city images
 import dallas from "../images/dallas.webp";
 import austin from "../images/austin.webp";
 import newyork from "../images/newyork.webp";
 import sanfrancisco from "../images/sanfrancisco.webp";
 import beijing from "../images/beijing.webp";
 
-// Array of city data
 const cities = [
   { name: "Dallas", image: dallas },
   { name: "Austin", image: austin },
@@ -32,8 +28,6 @@ const cities = [
 
 const Hamburger = ({ state, swiperRef }) => {
   const navigate = useNavigate();
-  
-  // Refs for DOM elements
   const menuLayer = useRef(null);
   const reveal1 = useRef(null);
   const reveal2 = useRef(null);
@@ -43,13 +37,21 @@ const Hamburger = ({ state, swiperRef }) => {
   const line3 = useRef(null);
   const info = useRef(null);
 
-  // Menu animations based on state
   useEffect(() => {
     if (state.clicked === false) {
+      // Smooth closing animation
+      gsap.to([reveal1.current, reveal2.current], {
+        duration: 0.8,
+        height: 0,
+        ease: "power3.inOut",
+        onComplete: () => {
+          gsap.to(menuLayer.current, { css: { display: "none" } });
+        }
+      });
       staggerRevealClose(reveal2, reveal1);
-      gsap.to(menuLayer.current, { duration: 1, css: { display: "none" } });
     } else if (state.clicked === true || (state.clicked === true && state.initial === null)) {
-      gsap.to(menuLayer.current, { duration: 0, css: { display: "block" } });
+      // Smooth opening animation
+      gsap.to(menuLayer.current, { css: { display: "block" } });
       gsap.to([reveal1.current, reveal2.current], {
         duration: 0,
         opacity: 1,
@@ -61,22 +63,23 @@ const Hamburger = ({ state, swiperRef }) => {
     }
   }, [state]);
 
-  // Close menu and navigate to a new route
   const handleLinkClick = (e, path) => {
     e.preventDefault();
-    gsap.to(menuLayer.current, {
-      duration: 1,
-      css: { display: "none" },
-      onComplete: () => navigate(path)
+    gsap.to([reveal1.current, reveal2.current], {
+      duration: 0.8,
+      height: 0,
+      ease: "power3.inOut",
+      onComplete: () => {
+        gsap.to(menuLayer.current, { css: { display: "none" } });
+        navigate(path);
+      }
     });
-    staggerRevealClose(reveal2.current, reveal1.current);
   };
 
-  // Navigate to the Contact slide in Swiper
   const goToContactSlide = (e) => {
     e.preventDefault();
     if (swiperRef.current?.swiper) {
-      swiperRef.current.swiper.slideTo(3); // Contact slide index in Swiper
+      swiperRef.current.swiper.slideTo(3);
     }
   };
 
@@ -96,7 +99,7 @@ const Hamburger = ({ state, swiperRef }) => {
                       onMouseEnter={handleHover}
                       onMouseOut={handleHoverExit}
                       ref={line1}
-                      onClick={(e) => handleLinkClick(e, '/about-info')}
+                      onClick={(e) => handleLinkClick(e, "/about-info")}
                     >
                       About Info
                     </a>
@@ -107,7 +110,7 @@ const Hamburger = ({ state, swiperRef }) => {
                       onMouseEnter={handleHover}
                       onMouseOut={handleHoverExit}
                       ref={line2}
-                      onClick={(e) => handleLinkClick(e, '/more-info')}
+                      onClick={(e) => handleLinkClick(e, "/more-info")}
                     >
                       More Info
                     </a>

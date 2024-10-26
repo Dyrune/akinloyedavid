@@ -111,6 +111,30 @@ function App() {
             </div>
           </div>
         )}
+
+        {/* Dark Mode Toggle Button */}
+        <div
+          style={{
+            position: "fixed",
+            bottom: "20px",
+            right: "20px",
+            zIndex: 10,
+          }}
+        >
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            style={{
+              padding: "10px",
+              backgroundColor: "transparent",
+              color: darkMode ? "white" : "black",
+              border: "none",
+              borderRadius: "50%",
+              cursor: "pointer",
+            }}
+          >
+            {darkMode ? <MdLightMode size={24} /> : <MdDarkMode size={24} />}
+          </button>
+        </div>
       </div>
     </Router>
   );
@@ -189,25 +213,6 @@ const AppContent = ({
             </SwiperSlide>
           </Swiper>
           <div className="custom-pagination"></div>
-
-          {/* Theme toggle button */}
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            style={{
-              position: "fixed",
-              bottom: "20px",
-              right: "20px",
-              padding: "10px",
-              backgroundColor: "transparent",
-              color: darkMode ? "white" : "black",
-              border: "none",
-              borderRadius: "50%",
-              cursor: "pointer",
-              zIndex: 10,
-            }}
-          >
-            {darkMode ? <MdLightMode size={16} /> : <MdDarkMode size={24} />}
-          </button>
         </>
       )}
     </div>

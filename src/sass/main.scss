@@ -633,3 +633,18 @@ body.dark-theme {
   padding: 5px 10px;
   cursor: pointer;
 }
+
+
+/* animation-styles.css */
+
+/* Base animation speed */
+.fade-in-animation {
+  animation-duration: 1s; /* Default duration for desktop */
+}
+
+/* Slower animation on mobile */
+@media (max-width: 768px) {
+  .fade-in-animation {
+    animation-duration: 2s; /* Slower animation for mobile */
+  }
+}
