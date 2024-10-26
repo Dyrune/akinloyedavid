@@ -66,13 +66,13 @@ const Hamburger = ({ state, swiperRef }) => {
 
   const handleLinkClick = (e, path) => {
     e.preventDefault();
+        navigate(path);
     gsap.to([reveal1.current, reveal2.current], {
       duration: 0.8,
       height: 0,
       ease: "power3.inOut",
       onComplete: () => {
         gsap.to(menuLayer.current, { css: { display: "none" } });
-        navigate(path);
       }
     });
   };

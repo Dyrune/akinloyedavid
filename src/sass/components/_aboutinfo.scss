@@ -743,6 +743,10 @@ body {
   overflow-x: auto; /* Enables horizontal scrolling */
   white-space: nowrap; /* Keeps items in a single row */
   padding: 10px 0;
+
+  @media (max-width:756px) {
+    padding-left: 15px;
+  }
 }
 
 .scroll-container {
@@ -786,7 +790,9 @@ body {
   }
 
   .school-info-section {
-    grid-template-columns: 1fr; /* Stack columns on small screens */
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
   }
 
   .vertical-sidebar {
@@ -805,6 +811,9 @@ body {
 .additional-column p {
   width: 100%;
   padding-right: 40px;
+  @media (max-width:756px) {
+    padding: 15px;
+  }
 }
 
 .school-column, 
@@ -816,7 +825,12 @@ body {
 .school-info-section{
   display: flex;
   padding: 50px;
-  flex-direction: row;
+
+  @media (max-width:756px) {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .image-gallery::-webkit-scrollbar {
@@ -830,6 +844,10 @@ body {
   cursor: pointer;
   border-radius: 8px;
   transition: transform 0.3s ease;
+
+  @media (max-width:756px) {
+    max-width: 300px;
+  }
 }
 
 /* Main Image */
@@ -939,6 +957,9 @@ body {
 
 .about-section {
   padding: 50px;
+  @media (max-width: 756px) {
+    padding: 50px 50px 0;
+  }
 }
 
 .Service {
@@ -955,6 +976,11 @@ body {
   display: flex;
   padding: 0px 50px 50px 50px;
   flex-direction: row;
+
+  @media (max-width:756px) {
+    flex-direction: column;
+    padding: 15px;
+  }
 }
 
 .writeup {
