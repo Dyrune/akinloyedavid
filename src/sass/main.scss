@@ -82,6 +82,21 @@ body {
   }
 }
 
+/* Body styling */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.swiper-button-next, .swiper-button-prev {
+    color: var(--text-color);
+}
+
 header {
   position: fixed;
   top: 0;
@@ -93,7 +108,7 @@ header {
   display: flex;
   justify-content: center;
   padding: 0 108px;
-  color: $black;
+  color: --text-color;
   
   @media (max-width: 756px) {
     padding: 0 32px;
@@ -101,7 +116,7 @@ header {
   .inner-header {
     position: relative;
     z-index: 10;
-    height: 100px;
+    height: 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -110,7 +125,7 @@ header {
       font-weight: 700;
       font-size: 3.6rem;
       text-decoration: none;
-      color: black;
+      color: --text-color;
     }
     .menu {
       button {
@@ -133,10 +148,11 @@ header {
     height: 100%;
     width: 100%;
     .menu-secondary-background-color {
-      background: $black;
+      background: --text-color;
       top: 0;
       left: 0;
       right: 0;
+      background-color: black;
       bottom: 0;
       position: fixed;
       height: 100%;
@@ -145,7 +161,7 @@ header {
     }
     .menu-layer {
       position: relative;
-      background: $red;
+      background: rgb(164 160 160);
       height: 100%;
       overflow: hidden;
       .menu-city-background {
@@ -291,10 +307,9 @@ header {
   font-family: 'EB Garamond', serif;
   margin-left: 20px;
   padding: 10px 10px;
-  border-bottom: 1px solid black;
-  color: #333;
+  border-bottom: 1px solid;
   cursor: pointer;
-  color: #333;
+  color: --text-color;
   text-decoration: none;
   font-size: 1.7rem;
 }
@@ -319,10 +334,9 @@ header {
     margin-left: 20px;
     display: flex;
     padding: 10px 10px;
-    border-bottom: 1px solid black;
-    color: #333;
+    border-bottom: 1px solid ;
     cursor: pointer;
-    color: #333;
+    color: --text-color;
     text-decoration: none;
     font-size: 1.7rem;
     
@@ -366,6 +380,7 @@ header {
 
 .container {
   width: 100%;
+  height: auto;
 }
 
 .wrapper {
@@ -384,7 +399,7 @@ header {
   font-family: 'EB Garamond', serif;
   padding: 5px 0px;
   border-bottom: none; /* Remove the default border-bottom */
-  color: #333;
+  color: --text-color;
   cursor: pointer;
   text-decoration: none;
   font-size: 1.7rem;
@@ -559,6 +574,7 @@ html, body {
 }
 
 
+
 /* Custom navigation buttons */
 .custom-navigation {
   position: absolute;
@@ -574,7 +590,7 @@ html, body {
   pointer-events: all;
   background: none;
   border: none;
-  color: #333;
+  color: --text-color;
   font-size: 4rem;
   cursor: pointer;
   padding: 0 20px;
@@ -585,4 +601,35 @@ html, body {
 .custom-pagination {
   position: absolute;
   z-index: 10;
+}
+/* CSS to set header background to white */
+.header-white-bg {
+  background-color: white !important;
+  transition: background-color 0.3s ease;
+}
+
+.header-white-bg .text-black a,
+.header-white-bg .text-black svg {
+  color: black !important;
+  fill: black !important;
+}
+
+
+
+/* App.scss */
+body.light-theme {
+  background-color: $background-light;
+  color: $text-light;
+}
+
+body.dark-theme {
+  background-color: $background-dark;
+  color: $text-dark;
+}
+
+.hamburger-menu .toggle-theme-btn {
+  background: none;
+  border: 1px solid currentColor;
+  padding: 5px 10px;
+  cursor: pointer;
 }

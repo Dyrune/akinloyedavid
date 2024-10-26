@@ -6,14 +6,15 @@ import useInView from "./useInView"; // Import useInView
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
   const [state, setState] = useState({
     initial: false,
     clicked: null,
     menuName: "Menu"
   });
-
   const [disabled, setDisabled] = useState(false);
+
+  // Check if we are on the AboutInfo page
+  const isAboutInfoPage = location.pathname === "/about-info";
 
   // Use useInView for each element to detect when it should slide in
   const [logoRef, isLogoInView] = useInView({ threshold: 0.1 });
@@ -41,23 +42,17 @@ const Header = () => {
   };
 
   return (
-    <header>
+    <header className={`header ${isAboutInfoPage ? "header-black" : ""}`}>
       <div className="container">
         <div className="wrapper">
-          <div className="inner-header">
+          <div className={`inner-header ${isAboutInfoPage ? "header-blackk" : ""}`}>
             {/* Logo with slide-in effect */}
-            <div
-              ref={logoRef}
-              className={`logo ${isLogoInView ? "slide-in" : ""}`}
-            >
+            <div ref={logoRef} className={`logo ${isLogoInView ? "slide-in" :  isAboutInfoPage ? "h-black" : ""}`}>
               <Link to="/">0tnda.</Link>
             </div>
 
             {/* Contact section with slide-in effect */}
-            <div
-              ref={contactRef}
-              className={`contactt ${isContactInView ? "slide-in" : ""}`}
-            >
+            <div ref={contactRef} className={`contactt ${isContactInView ? "slide-in" : ""}`}>
               <a href="/contact">
                 Let's work together
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -68,19 +63,11 @@ const Header = () => {
             </div>
 
             {/* Menu button with slide-in effect */}
-            <div
-              ref={menuRef}
-              className={`menu ${isMenuInView ? "slide-in" : ""}`}
-            >
-              <button 
-              disabled={disabled} 
-              onClick={handleMenu}>
+            <div ref={menuRef} className={`menu ${isMenuInView ? "slide-in" : ""}`}>
+              <button disabled={disabled} onClick={handleMenu}>
                 {state.clicked ? "✖" : "☰"}
               </button>
-              <div
-              ref={logoRef} 
-              className={`button3 ${isMenuInView ? "slide-in" : ""}`} 
-              >Let's Talk</div>
+              <div className={`button3 ${isMenuInView ? "slide-in" : ""}`}>Let's Talk</div>
             </div>
           </div>
         </div>

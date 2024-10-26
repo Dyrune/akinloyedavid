@@ -7,14 +7,15 @@
   width: 100%;
   z-index: 1000;
   font-size: 1.8rem;
-  height: 116px;
+  height: 70px;
   display: flex;
   justify-content: center;
-  padding: 0 108px;
+  padding: 0 65px;
   color: var(--black); /* Use the CSS variable for color */
 
   @media (max-width: 756px) {
-    padding: 0;
+    padding: 10px;
+    height: auto;
   }
 }
 
@@ -117,6 +118,14 @@
   position: relative;
 }
 
+.header-black {
+  background-color: #f0eff1;
+  height: 70px;
+  @media (max-width:756px) {
+    height: auto;
+  }
+}
+
 /* When an image dominates a section */
 .section-image-dominates {
   img {
@@ -133,24 +142,13 @@
   .content-overlay {
     position: relative;
     z-index: 1;
-    color: $white; /* Contrast with the background image */
+    color: $white; 
     text-align: center;
     max-width: 800px; /* Limit the width of the content */
     margin: 0 auto;
   }
 }
 
-/* Specific styles for sections like Banner, About, etc. */
-.section-banner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  
-  .banner-content {
-    color: $black;
-    text-align: center;
-  }
-}
 
 .section-about {
   background-color: #ececec; /* Adjust as needed */
@@ -195,4 +193,27 @@
 /* Apply slide-in animation when element is in view */
 .slide-in {
   animation: slideIn 1s ease-out forwards; /* Adjust duration and easing for smoothness */
+}
+/* CSS to set text and icon color to black */
+.text-black {
+  color: black !important;
+  fill: black !important;
+}
+
+
+/* Specific black styling for elements when on /about-info page */
+.header-black .logo a {
+  color: black !important;
+}
+
+.header-black .contactt a {
+  color: black !important;
+}
+
+.header-black .menu button {
+  color: black !important;
+}
+
+.header-black .button3 {
+  color: black !important;
 }

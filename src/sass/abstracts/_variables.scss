@@ -4,7 +4,35 @@ $layout-breakpoint-medium: 1440px;
 $layout-breakpoint-small: 960px;
 $layout-breakpoint-xsmall: 480px;
 
-// Colors
-$background: #f0eff1;
-$white: #fff;
-$black: #24242a;
+// src/sass/variables.scss
+
+// Common Colors
+$white: #ffffff;
+$black: #000000;
+
+// Light Theme Colors
+$background-light: #f0eff1; // Light background
+$text-light: #333333;       // Light text color
+
+// Dark Theme Colors
+$background-dark: #000000;  // Dark background
+$text-dark: #ffffff;        // Dark text color
+
+// Additional colors (optional)
+$primary-color-light: #0077ff; // Light theme primary color
+$primary-color-dark: #1e90ff;  // Dark theme primary color
+
+// Add other colors as needed
+/* Light Theme - Default */
+:root {
+    --background-color: #f0eff1; /* Background for light theme */
+    --text-color: #333333;       /* Text color for light theme */
+    --secondary-color: #555555;  /* Secondary text color */
+}
+
+/* Dark Theme */
+:root.dark-theme {
+    --background-color: #343434; /* Background for dark theme */
+    --text-color: #ffffff;       /* Text color for dark theme */
+    --secondary-color: #dddddd;  /* Secondary text color */
+}

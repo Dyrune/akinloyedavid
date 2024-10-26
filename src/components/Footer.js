@@ -46,7 +46,6 @@ const Footer = () => {
               <a href="#top" className="scroll-arrow" onClick={handleScrollToTop}>
                 ↑
               </a>
-              <p>Scroll to top</p>
             </div>
           </div>
         </div>

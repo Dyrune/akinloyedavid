@@ -48,7 +48,7 @@ body {
   font-weight: 700;
   font-size: 3.6rem;
   text-decoration: none;
-  color: black;
+  color: --text-color;
 }
 
 .close-btn {
@@ -345,7 +345,7 @@ body {
 .footer-column a {
     display: inline-block;
     position: relative;
-    color: #333;
+    color: --text-color;
     text-decoration: none;
     font-weight: 399;
     margin: 10px 20px 10px 0;
@@ -385,7 +385,7 @@ body {
   position: relative; /* Important for the pseudo-element positioning */
   text-decoration: none;
   font-size: 6rem;
-  color: #333;
+  color: --text-color;
   padding: 0;
   margin: 0;
   cursor: pointer;
@@ -411,7 +411,7 @@ body {
 
 
 .contact-link:hover {
-  color: #333; /* Darken on hover */
+  color: --text-color; /* Darken on hover */
 }
 
 /* Bottom Part of the Footer */
@@ -448,7 +448,7 @@ body {
 
 .scroll-arrow {
   font-size: 3.5rem;
-  color: #333;
+  color: --text-color;
   cursor: pointer;
   padding: 20px;
   
@@ -707,4 +707,312 @@ body {
   .process-step p {
     font-size: 1.6rem;
   }
+}
+
+
+
+
+
+
+
+
+/* General Layout */
+.about-info-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  width: 100%;
+  margin: auto;
+  position: relative;
+  padding: 116px 65px;
+  overflow-x: hidden; /* Prevent page from horizontal scrolling */
+}
+
+
+
+/* Image Section */
+.image-section {
+  text-align: center;
+}
+
+.profile-image {
+  width: 100%;
+  height: auto;
+}
+.image-gallery {
+  overflow-x: auto; /* Enables horizontal scrolling */
+  white-space: nowrap; /* Keeps items in a single row */
+  padding: 10px 0;
+}
+
+.scroll-container {
+  display: flex;
+  gap: 20px; /* Space between each gallery item */
+}
+
+.gallery-item {
+  width: 800px; /* Set each gallery item width */
+  flex-shrink: 0; 
+}
+
+/* Vertical Sidebar */
+.vertical-sidebar {
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem;
+  z-index: 100;
+}
+
+.icon-group a {
+  font-size: 2rem;
+}
+
+.vertical-hr {
+  width: 3px;
+  background-color: var(--text-color) !important;
+  height: 100px;
+  margin-bottom: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-info-container {
+    padding: 5rem 0;
+  }
+
+  .school-info-section {
+    grid-template-columns: 1fr; /* Stack columns on small screens */
+  }
+
+  .vertical-sidebar {
+    display: none; /* Hide sidebar on small screens */
+  }
+}
+
+.icon-group {
+  gap: 10px;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.school-column p, 
+.additional-column p {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.school-column, 
+.additional-column {
+  max-width: 600px;
+}
+
+/* School Info Section and Experience Goals Section in Rows */
+.school-info-section{
+  display: flex;
+  padding: 50px;
+  flex-direction: row;
+}
+
+.image-gallery::-webkit-scrollbar {
+  display: none; /* Hide scrollbar */
+}
+
+.gallery-item {
+  flex-shrink: 0;
+  position: relative;
+  max-width: 480px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+/* Main Image */
+.main-image {
+  width: 100%;
+}
+
+
+.image-info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-top: 1rem;
+  width: 500px;
+}
+
+.toggle-writeup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.3rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.plus-icon {
+  font-size: 1.2rem;
+}
+
+.writeup {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Sub-Images */
+.sub-images {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.sub-image {
+  width: 80px;
+  height: auto;
+  border-radius: 4px;
+}
+.moddal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.9);;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.moddal-content {
+  position: relative;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.frugle {
+  width: 7px;
+  height: 7px;
+  background-color: var(--secondary-color) !important;
+}
+
+.modal-close {
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: white;
+}
+
+.expanded-image {
+  max-width: 100%;
+  max-height: 70vh;
+  margin-bottom: 20px;
+}
+
+.thumbnail-container {
+  display: flex;
+  gap: 10px;
+}
+
+.thumbnail {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  transition: border-color 0.2s;
+}
+
+.about-section {
+  padding: 50px;
+}
+
+.Service {
+  font-size: 2.5rem;
+  padding: 80px 50px 0 50px;
+}
+
+.Service h1{
+  font-size: 2.5rem;
+} 
+
+.experience-goals-section {
+  padding-top: 0;
+  display: flex;
+  padding: 0px 50px 50px 50px;
+  flex-direction: row;
+}
+
+.writeup {
+  font-size: 1.5rem;
+  max-width: 600px;
+  text-wrap: wrap;
+}
+
+
+
+
+@media (min-width: 756px) {
+  
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.slideFadeIn {
+  animation: slideFadeIn 1s ease forwards;
+}
+
+.fade-section {
+  opacity: 0; /* Ensures elements are invisible until the animation starts */
+}
+
+.triggered {
+  opacity: 1; /* Maintains visibility after initial animation */
+}
+
+
+@keyframes slideFadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.slideFadeInLeft {
+  animation: slideFadeInLeft 1s ease forwards;
+}
+
+.fade-left-section {
+  opacity: 0; /* Keeps the element hidden initially */
+}
+
+.triggered {
+  opacity: 1; /* Keeps the element visible after the animation */
+}
 }

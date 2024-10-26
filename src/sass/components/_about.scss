@@ -47,14 +47,14 @@ body {
 .breathing-hr {
   width: 20%;
   height: 5px;
-  background-color: black;
+  background-color: var(--text-color) !important;
   border: none;
   animation: breathing 2s ease-in-out infinite;
 
   @media (max-width: 768px) {
       width: 1px;
       height: 100px;
-      background-color: black;
+      background-color: var(--text-color) !important;
       border: none;
       animation: breathing 2s ease-in-out infinite;
   }
@@ -116,7 +116,7 @@ body {
 h1 {
   font-size: 3rem; // Smaller font for mobile
   font-family: 'EB Garamond', serif;
-  color: #333;
+  color: --text-color;
   margin-bottom: 20px;
   @media (max-width: 768px) {
     font-size: 4rem;
@@ -129,7 +129,7 @@ p {
   line-height: 1.5;
   padding-right: 10px;
   font-family: 'EB Garamond', serif;
-  color: #555;
+  color: --text-color;
   @media (max-width: 768px) {
     font-size: 1.7rem;
   }
@@ -139,11 +139,11 @@ p {
   font-family: 'EB Garamond', serif;
   margin-top: 20px;
   padding: 10px 0;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid;
   border-left: none;
   border-right: none;
   border-top: none;
-  color: #333;
+  color: --text-color;
   cursor: pointer;
   font-size: 1.8rem; // Smaller font for mobile
   transition: background-color 0.3s;
@@ -154,7 +154,7 @@ p {
 
 .contact-column2 p {
   font-size: 3rem;
-  color: #555;
+  color: --text-color;
   margin: 10px 0;
 }
 

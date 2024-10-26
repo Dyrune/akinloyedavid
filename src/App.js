@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, A11y, Mousewheel } from "swiper/modules";
+import { MdDarkMode, MdLightMode } from "react-icons/md";
 import "swiper/css";
 import "swiper/css/pagination";
 
@@ -13,7 +14,7 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
-import Hamburger from "./components/Hamburger"; // Import Hamburger component
+import Hamburger from "./components/Hamburger";
 import AboutInfo from "./components/AboutInfo";
 import MoreInfo from "./components/MoreInfo";
 import ProjectDetails from "./components/ProjectDetails";
@@ -24,21 +25,25 @@ function App() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [prevIndex, setPrevIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(false); // Theme state
   const swiperRef = useRef(null);
   const aboutRef = useRef(null);
 
-  // Disable body scrolling when loading
   useEffect(() => {
     document.body.style.overflow = loading ? "hidden" : "auto";
   }, [loading]);
 
-  // Detect screen size to toggle mobile view
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
     window.addEventListener("resize", handleResize);
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Toggle dark/light theme class on <html> element
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark-theme", darkMode);
+  }, [darkMode]);
 
   const slideNext = () => {
     swiperRef.current?.swiper?.slideNext();
@@ -66,7 +71,6 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* Header (hidden if modal is open) */}
         {!isModalOpen && <Header />}
 
         {/* Main Routes and Content */}
@@ -87,6 +91,8 @@ function App() {
                 handleSlideChange={handleSlideChange}
                 aboutRef={aboutRef}
                 swiperRef={swiperRef}
+                darkMode={darkMode}
+                setDarkMode={setDarkMode}
               />
             }
           />
@@ -98,7 +104,6 @@ function App() {
           <Route path="/project-details/:id" element={<ProjectDetails />} />
         </Routes>
 
-        {/* Modal (Project Details) */}
         {isModalOpen && (
           <div className="modal-overlay">
             <div className="modal-content">
@@ -123,7 +128,9 @@ const AppContent = ({
   slidePrev,
   handleSlideChange,
   aboutRef,
-  swiperRef
+  swiperRef,
+  darkMode,
+  setDarkMode
 }) => {
   return (
     <div>
@@ -182,6 +189,25 @@ const AppContent = ({
             </SwiperSlide>
           </Swiper>
           <div className="custom-pagination"></div>
+
+          {/* Theme toggle button */}
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            style={{
+              position: "fixed",
+              bottom: "20px",
+              right: "20px",
+              padding: "10px",
+              backgroundColor: "transparent",
+              color: darkMode ? "white" : "black",
+              border: "none",
+              borderRadius: "50%",
+              cursor: "pointer",
+              zIndex: 10,
+            }}
+          >
+            {darkMode ? <MdLightMode size={16} /> : <MdDarkMode size={24} />}
+          </button>
         </>
       )}
     </div>

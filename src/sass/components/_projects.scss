@@ -36,7 +36,7 @@
   .breathing-hr2 {
     height: 5px; /* Adjust to your desired height (e.g., 10px or 20px) */
     width: 100px; /* 20% width as per your requirement */
-    background-color: black; /* The color of the line */
+    background-color: var(--text-color) !important;
     border: none;
     position: absolute;
     right: 0px; /* 32px from the right */
@@ -56,7 +56,7 @@
   
   .header-row h1 {
     font-size: 10rem;
-    color: #333;
+    color: --text-color;
     font-family: 'EB Garamond', serif;
   }
   
@@ -88,7 +88,7 @@
     font-size: 1.8rem;
     line-height: 1.5;
     padding-right: 20px;
-    color: #555;
+    color: --text-color;
     font-family: 'EB Garamond', serif;
   }
   
@@ -96,11 +96,11 @@
     width: max-content;
     margin-top: 20px;
     padding: 5px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid;
     border-left: none;
     border-right: none;
     border-top: none;
-    color: #333;
+    color: --text-color;
     cursor: pointer;
     font-family: 'EB Garamond', serif;
     font-size: 2.5rem;
