@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
-import projects from './projectsData'; // Your projects data
+import { useNavigate } from "react-router-dom";
+import projects from './projectsData';
+import useInView from "./useInView";
+import ProjectItem from "./ProjectItem2";
 
 const categories = ["All", "Architecture", "Exterior", "Interior", "Masterplanning"];
 
@@ -9,23 +11,36 @@ const MoreInfo = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [hoveredProject, setHoveredProject] = useState(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isAutoScrolling, setIsAutoScrolling] = useState(false);
   const projectGridRef = useRef(null);
   const hoverTextRef = useRef(null);
-  const navigate = useNavigate(); // Initialize navigate for routing
+  const navigate = useNavigate();
+
+  const [titleRef, isTitleInView] = useInView({ threshold: 0.2, once: true });
+
+  useEffect(() => {
+    if (isTitleInView) {
+      gsap.fromTo(
+        titleRef.current,
+        { y: 120, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.2, ease: "power2.out" }
+      );
+    }
+  }, [isTitleInView]);
 
   const handleMouseMove = (e) => {
-    const hoverText = hoverTextRef.current;
-    gsap.to(hoverText, {
-      left: `${e.clientX + 60}px`,
-      top: `${e.clientY + 20}px`,
-      duration: 1,
+    gsap.to(hoverTextRef.current, {
+      left: `${e.clientX + 10}px`,
+      top: `${e.clientY + 10}px`,
+      duration: 0.1,
       ease: "power3.out",
     });
   };
 
   const handleMouseEnter = (project) => {
-    hoverTextRef.current.style.display = "block";
     setHoveredProject(project);
+    hoverTextRef.current.style.display = "block";
+    gsap.set(hoverTextRef.current, { scale: 1, opacity: 1 });
   };
 
   const handleMouseLeave = () => {
@@ -33,32 +48,65 @@ const MoreInfo = () => {
     setHoveredProject(null);
   };
 
-  const handleWheelScroll = (e) => {
-    const grid = projectGridRef.current;
-    if (grid) {
-      e.preventDefault();
-      const scrollAmount = e.deltaY * 10;
-      gsap.to(grid, {
-        scrollLeft: grid.scrollLeft + scrollAmount,
-        duration: 5.2,
-        ease: "power4.out",
-      });
-    }
+  const toggleAutoScroll = () => {
+    setIsAutoScrolling(!isAutoScrolling);
   };
 
   const updateScrollProgress = () => {
     const grid = projectGridRef.current;
     if (grid) {
       const maxScrollLeft = grid.scrollWidth - grid.clientWidth;
-      const scrollLeft = grid.scrollLeft;
-      const progress = (scrollLeft / maxScrollLeft) * 100;
+      const progress = (grid.scrollLeft / maxScrollLeft) * 100;
       setScrollProgress(progress);
+    }
+  };
+
+  // Auto-scroll using GSAP
+  useEffect(() => {
+    const grid = projectGridRef.current;
+    let scrollAnimation;
+
+    if (isAutoScrolling && grid) {
+      const maxScrollLeft = grid.scrollWidth - grid.clientWidth;
+
+      // Smooth, continuous auto-scroll animation
+      scrollAnimation = gsap.to(grid, {
+        scrollLeft: maxScrollLeft,
+        duration: 40, // Longer duration for slower auto-scroll
+        ease: "linear",
+        repeat: -1,
+        yoyo: true,
+        onUpdate: updateScrollProgress,
+      });
+    } else if (scrollAnimation) {
+      scrollAnimation.pause();
+    }
+
+    return () => {
+      if (scrollAnimation) scrollAnimation.kill();
+    };
+  }, [isAutoScrolling]);
+
+  // Smooth manual scroll using GSAP
+  const handleWheelScroll = (e) => {
+    if (!isAutoScrolling) {
+      e.preventDefault();
+      const grid = projectGridRef.current;
+      const scrollAmount = e.deltaY * 2;  // Adjust this for scroll speed
+      
+      // Smooth manual scroll
+      gsap.to(grid, {
+        scrollLeft: `+=${scrollAmount}`,
+        duration: 1.6,  // Adjusted duration for smooth effect
+        ease: "power2.out",
+        onUpdate: updateScrollProgress,
+      });
     }
   };
 
   useEffect(() => {
     const grid = projectGridRef.current;
-    if (grid) {
+    if (grid && !isAutoScrolling) {
       grid.addEventListener("wheel", handleWheelScroll);
       grid.addEventListener("scroll", updateScrollProgress);
     }
@@ -69,74 +117,43 @@ const MoreInfo = () => {
         grid.removeEventListener("scroll", updateScrollProgress);
       }
     };
-  }, []);
+  }, [isAutoScrolling]);
 
-  // Filter projects based on the active category
   const filteredProjects = projects.filter(
     (project) => activeCategory === "All" || project.category === activeCategory
   );
 
-  const currentCategoryName = activeCategory === "All" ? "Projects" : activeCategory;
-
-  // Navigate to the ProjectDetails page when a project is clicked
   const openProjectDetails = (project) => {
-    navigate(`/project-details/${project.id}`, { state: { project } }); // Pass project data via state
+    navigate(`/project-details/${project.id}`, { state: { project } });
   };
 
   return (
     <div className="modal-overlay2">
       <div className="modal-content2">
-
-        {/*  <header className="modal-header2">
-          <div className="header-left">
-            <span className="logo">0tnda</span>
-            <div className="contactt">
-              <a href="/contact">
-                Let's work together
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                  <path d="M14 3v2h3.59l-9.3 9.29 1.42 1.42 9.29-9.3V10h2V3z" />
-                  <path d="M5 5v14h14v-7h2v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h7v2H5z" />
-                </svg>
-              </a>
-            </div>
-          </div>
-
-         
-          <button className="go-back-btn" onClick={() => navigate(-1)}>
-            &#8592;
-          </button>
-        </header>*/}
-      
-
         <section className="project-grid-horizontal" ref={projectGridRef}>
-          {/* Project grid */}
-          {filteredProjects.map((project) => (
-            <div
-              className="project-item-horizontal"
+          {filteredProjects.map((project, index) => (
+            <ProjectItem
               key={project.id}
+              project={project}
+              index={index}
               onMouseMove={handleMouseMove}
-              onMouseEnter={() => handleMouseEnter(project)}
+              onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              onClick={() => openProjectDetails(project)} // Navigate to ProjectDetails page
-            >
-              <img src={project.imgSrc} alt={project.title} className="project-image-horizontal" />
-              <div className="project-number">
-                <span>{`0${project.id}`}</span>
-              </div>
-            </div>
+              onClick={() => openProjectDetails(project)}
+            />
           ))}
         </section>
 
-        <div className="title-and-info">
+        <div className="title-and-info" ref={titleRef}>
           <div className="project-info-panel">
-            <h2>{hoveredProject ? hoveredProject.title : `Scroll to Explore ${currentCategoryName}`}</h2>
-            <p>{hoveredProject ? hoveredProject.location : `${filteredProjects.length} ${currentCategoryName.toLowerCase()}`}</p>
+            <h2>{hoveredProject ? hoveredProject.title : `Scroll to Explore ${activeCategory}`}</h2>
+            <p>{hoveredProject ? hoveredProject.location : `${filteredProjects.length} projects`}</p>
             <div className="progress-bar">
               <div className="progress" style={{ width: `${scrollProgress}%` }}></div>
             </div>
           </div>
- {/* Filter categories */}
- <div className="filter-buttons">
+
+          <div className="filter-buttons">
             {categories.map((category) => (
               <button
                 key={category}
@@ -147,13 +164,26 @@ const MoreInfo = () => {
               </button>
             ))}
           </div>
-          <h1 className="header-title">
-            {currentCategoryName}
+
+        {/* Play/Pause Button using simpler Unicode symbols */}
+        <button onClick={toggleAutoScroll} className="scroll-control-btn">
+          {isAutoScrolling ? '||' : '▶'}
+        </button>
+
+          <h4 className="header-title">
+
+            {activeCategory}
             <sup>{filteredProjects.length}</sup>
-          </h1>
+          </h4>
         </div>
 
-        <div className="hover-text" ref={hoverTextRef}>View</div>
+        <div
+          className="hover-text"
+          ref={hoverTextRef}
+          style={{ position: "absolute", display: "none", transformOrigin: "center" }}
+        >
+          View
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Hamburger from "./Hamburger";
+import useInView from "./useInView"; // Import useInView
 
 const Header = () => {
   const navigate = useNavigate();
@@ -13,30 +14,11 @@ const Header = () => {
   });
 
   const [disabled, setDisabled] = useState(false);
-  const [scrollPosition, setScrollPosition] = useState(0); // Track scroll position
-  const [isLogoHidden, setIsLogoHidden] = useState(false); // Track when logo should be hidden
 
-  // Detect scroll changes to hide/show logo
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset;
-
-      // Hide the logo when scrolling down past 700px
-      if (currentScrollPos > 700) {
-        setIsLogoHidden(true);
-      } else {
-        setIsLogoHidden(false); // Show the logo when scrolling up
-      }
-
-      setScrollPosition(currentScrollPos); // Update the scroll position
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrollPosition]);
+  // Use useInView for each element to detect when it should slide in
+  const [logoRef, isLogoInView] = useInView({ threshold: 0.1 });
+  const [contactRef, isContactInView] = useInView({ threshold: 0.1 });
+  const [menuRef, isMenuInView] = useInView({ threshold: 0.1 });
 
   useEffect(() => {
     setState({ clicked: false, menuName: "Menu" });
@@ -44,24 +26,11 @@ const Header = () => {
 
   const handleMenu = () => {
     disableMenu();
-    if (state.initial === false) {
-      setState({
-        initial: null,
-        clicked: true,
-        menuName: "Close"
-      });
-    } else if (state.clicked === true) {
-      setState({
-   
-        clicked: !state.clicked,
-        menuName: "Menu"
-      });
-    } else if (state.clicked === false) {
-      setState({
-        clicked: !state.clicked,
-        menuName: "Close"
-      });
-    }
+    setState((prevState) => ({
+      initial: prevState.initial === false ? null : prevState.initial,
+      clicked: !prevState.clicked,
+      menuName: prevState.clicked ? "Menu" : "Close"
+    }));
   };
 
   const disableMenu = () => {
@@ -76,13 +45,19 @@ const Header = () => {
       <div className="container">
         <div className="wrapper">
           <div className="inner-header">
-            {/* Logo that slides up on scroll */}
-            <div className={`logo ${isLogoHidden ? "slide-up" : ""}`}>
+            {/* Logo with slide-in effect */}
+            <div
+              ref={logoRef}
+              className={`logo ${isLogoInView ? "slide-in" : ""}`}
+            >
               <Link to="/">0tnda.</Link>
             </div>
 
-            {/* Contact section (remains unaffected by scroll) */}
-            <div className="contactt">
+            {/* Contact section with slide-in effect */}
+            <div
+              ref={contactRef}
+              className={`contactt ${isContactInView ? "slide-in" : ""}`}
+            >
               <a href="/contact">
                 Let's work together
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -92,14 +67,20 @@ const Header = () => {
               </a>
             </div>
 
-            {/* Menu with "Let's Talk" button (remains visible) */}
-            <div className="menu">
-              <button disabled={disabled} onClick={handleMenu}>
+            {/* Menu button with slide-in effect */}
+            <div
+              ref={menuRef}
+              className={`menu ${isMenuInView ? "slide-in" : ""}`}
+            >
+              <button 
+              disabled={disabled} 
+              onClick={handleMenu}>
                 {state.clicked ? "✖" : "☰"}
               </button>
-              <div className="button3">
-                Let's Talk
-              </div>
+              <div
+              ref={logoRef} 
+              className={`button3 ${isMenuInView ? "slide-in" : ""}`} 
+              >Let's Talk</div>
             </div>
           </div>
         </div>

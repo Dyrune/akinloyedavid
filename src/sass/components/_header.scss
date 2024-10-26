@@ -20,6 +20,7 @@
 
 /* Default state for logo, contact, and button */
 .logo, .contactt, .button3 {
+  opacity: 0;
   transition: transform 0.4s ease, opacity 0.4s ease; /* Smooth transition */
 }
 
@@ -178,4 +179,20 @@
     height: auto;
     min-height: 100vh;
   }
+}
+/* Slide-in animation keyframes */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px); /* Adjust for upward slide */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply slide-in animation when element is in view */
+.slide-in {
+  animation: slideIn 1s ease-out forwards; /* Adjust duration and easing for smoothness */
 }

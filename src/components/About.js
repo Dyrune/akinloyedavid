@@ -1,52 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "animate.css"; // Import animate.css
+import useInView from "./useInView"; // Import the useInView hook
 
-const About = () => {
-  const [isVisible, setIsVisible] = useState(false); // Track visibility state
-  const navigate = useNavigate(); // Hook to navigate to the new page
+const About = ({ slideDirection }) => {
+  const navigate = useNavigate();
+  const [aboutRef, isInView] = useInView({ threshold: 0.1 }); // Initialize the in-view hook
 
-  // Trigger visibility when component is mounted
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 300); // Delay before starting the animations
-
-    // Cleanup the timer when the component is unmounted
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Function to handle button click and navigate to AboutInfo page
   const handleDiscoverMore = () => {
-    navigate("/about-info"); // Navigate to the AboutInfo page
+    navigate("/about-info");
   };
 
+  // Determine animation classes based on swipe direction
+  const animationClassLeft = isInView ? "animate__fadeInLeft" : "";
+  const animationClassRight = isInView ? "animate__fadeInRight" : "";
+  const selectedAnimation = slideDirection === "right" ? animationClassLeft : animationClassRight;
+
   return (
-    <div className="containerr">
-      {/* Left section with full-height image */}
+    <div className="containerr" ref={aboutRef}>
       <div className="left">
-        <img 
+        <img
           src="https://images.pexels.com/photos/27638171/pexels-photo-27638171/free-photo-of-bedroom-in-cabin.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           alt="About us"
         />
       </div>
 
-      {/* Center horizontal line */}
-      <div className="hr-container">
-        <hr className="breathing-hr" />
+      <div className={`hr-container ${isInView ? `animate__animated ${selectedAnimation}` : ""}`}>
+        <hr className={`breathing-hr ${isInView ? `animate__animated ${selectedAnimation}` : ""}`} />
       </div>
 
-      {/* Right section with centered content */}
       <div className="right">
-        <div className={`content ${isVisible ? "content-visible" : ""}`}>
-          <h1>ABOUT ME</h1>
-          <p className={`slide-in ${isVisible ? "slide-in-visible" : ""}`}>
+        <div className={`content ${isInView ? `animate__animated ${selectedAnimation}` : ""}`}>
+          <h1 className={`${isInView ? `animate__animated ${selectedAnimation}` : ""}`}>ABOUT ME</h1>
+          <p className={`${isInView ? "animate__animated animate__fadeInUp" : ""}`}>
             We are a company that specializes in delivering high-quality services and more than you expect, come to me and I will give you the unexpected...
           </p>
-          
-          {/* Button to navigate to AboutInfo page */}
-          <button 
-            className={`discover-btn ${isVisible ? "fade-in" : ""}`} 
-            onClick={handleDiscoverMore} // Handle click to navigate
+          <button
+            className={`discover-btn ${isInView ? "animate__animated animate__fadeIn" : ""}`}
+            onClick={handleDiscoverMore}
           >
             Discover More
           </button>
@@ -57,4 +48,3 @@ const About = () => {
 };
 
 export default About;
-

@@ -5,7 +5,7 @@ import { Pagination, A11y, Mousewheel } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-// Import your custom components
+// Import custom components
 import Header from "./components/Header";
 import Banner from "./components/Banner";
 import About from "./components/About";
@@ -13,7 +13,7 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
-import Hamburger from "./components/Hamburger"; // Import your Hamburger component
+import Hamburger from "./components/Hamburger"; // Import Hamburger component
 import AboutInfo from "./components/AboutInfo";
 import MoreInfo from "./components/MoreInfo";
 import ProjectDetails from "./components/ProjectDetails";
@@ -22,70 +22,51 @@ function App() {
   const [isMobile, setIsMobile] = useState(false);
   const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [prevIndex, setPrevIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const swiperRef = useRef(null);
   const aboutRef = useRef(null);
 
   // Disable body scrolling when loading
   useEffect(() => {
-    if (loading) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = loading ? "hidden" : "auto";
   }, [loading]);
 
   // Detect screen size to toggle mobile view
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    handleResize();
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
     window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const slideNext = () => {
-    if (swiperRef.current && swiperRef.current.swiper) {
-      swiperRef.current.swiper.slideNext();
-    }
+    swiperRef.current?.swiper?.slideNext();
   };
 
   const slidePrev = () => {
-    if (swiperRef.current && swiperRef.current.swiper) {
-      swiperRef.current.swiper.slidePrev();
-    }
+    swiperRef.current?.swiper?.slidePrev();
   };
 
   const handleSlideChange = () => {
-    if (swiperRef.current && swiperRef.current.swiper) {
+    if (swiperRef.current?.swiper) {
       const swiper = swiperRef.current.swiper;
+      setPrevIndex(activeIndex);
       setActiveIndex(swiper.activeIndex);
     }
   };
 
-  // Function to open modal and disable interactions
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
-  // Function to close modal and re-enable interactions
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const swipeDirection = activeIndex > prevIndex ? "left" : "right";
 
-  if (loading) {
-    return <Loader setLoading={setLoading} />;
-  }
+  if (loading) return <Loader setLoading={setLoading} />;
 
   return (
     <Router>
       <div className="App">
-        {/* Persistent Header - Hide only when modal is open */}
+        {/* Header (hidden if modal is open) */}
         {!isModalOpen && <Header />}
 
         {/* Main Routes and Content */}
@@ -96,7 +77,8 @@ function App() {
               <AppContent
                 isMobile={isMobile}
                 activeIndex={activeIndex}
-                setActiveIndex={setActiveIndex}
+                prevIndex={prevIndex}
+                swipeDirection={swipeDirection}
                 isModalOpen={isModalOpen}
                 openModal={openModal}
                 closeModal={closeModal}
@@ -109,14 +91,14 @@ function App() {
             }
           />
           <Route path="/about" element={<About />} />
-          <Route path="/more-info" element={<MoreInfo />} />  {/* Opens as a page, not modal */}
+          <Route path="/more-info" element={<MoreInfo />} />
           <Route path="/projects" element={<Projects openModal={openModal} />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about-info" element={<AboutInfo />} />
           <Route path="/project-details/:id" element={<ProjectDetails />} />
         </Routes>
 
-        {/* Modal */}
+        {/* Modal (Project Details) */}
         {isModalOpen && (
           <div className="modal-overlay">
             <div className="modal-content">
@@ -129,11 +111,11 @@ function App() {
   );
 }
 
-// Separated component for app content to access useLocation inside Router context
 const AppContent = ({
   isMobile,
   activeIndex,
-  setActiveIndex,
+  prevIndex,
+  swipeDirection,
   isModalOpen,
   openModal,
   closeModal,
@@ -149,9 +131,9 @@ const AppContent = ({
         <div style={{ display: "flex", flexDirection: "column" }}>
           <Banner slideNext={slideNext} scrollToAbout={() => aboutRef.current.scrollIntoView({ behavior: "smooth" })} isMobile={isMobile} />
           <div ref={aboutRef}>
-            <About />
+            <About slideDirection={swipeDirection} />
           </div>
-          <Projects openModal={openModal} />
+          <Projects slideDirection={swipeDirection} openModal={openModal} />
           <Contact />
           <Footer />
         </div>
@@ -185,16 +167,15 @@ const AppContent = ({
             mousewheel={!isModalOpen}
             speed={1000}
             onSlideChange={handleSlideChange}
-            onSwiper={(swiper) => setActiveIndex(swiper.activeIndex)}
           >
             <SwiperSlide>
               <Banner slideNext={slideNext} isMobile={isMobile} />
             </SwiperSlide>
             <SwiperSlide>
-              <About />
+              <About slideDirection={swipeDirection} />
             </SwiperSlide>
             <SwiperSlide>
-              <Projects openModal={openModal} />
+              <Projects slideDirection={swipeDirection} openModal={openModal} />
             </SwiperSlide>
             <SwiperSlide>
               <Contact />

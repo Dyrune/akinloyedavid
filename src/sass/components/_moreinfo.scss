@@ -62,7 +62,6 @@
 .filter-buttons {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
     gap: 10px;
     align-items: center;
 }
@@ -198,6 +197,7 @@
     bottom: 20px;
     width: 100%;
     position: fixed;
+    
 }
 
 .go-back-btn {
@@ -291,26 +291,15 @@ h3 {
   
     /* Filter buttons styling */
     .filter-buttons {
-        position: sticky; /* Make it sticky */
-        top: 0; /* Stick it to the top of the screen */
-        display: flex;
-        justify-content: space-between;
-        padding: 10px;
-        background-color: white; /* Background for the filter section */
-        z-index: 1000; /* Ensure it stays on top */
-        border-bottom: 1px solid #ddd; /* Add a subtle border */
-        @media (max-width:756px) {
-            position: absolute;
-            top: 118px;
-        }
+        background-color: white;
+            position: static;
     }
   
     .filter-btn {
         flex: 1; /* Make the buttons take equal space */
         padding: 10px;
-        font-size: 1.6rem;
         text-align: center;
-        background-color: #f0f0f0;
+        font-size: 1.2rem;
         border: none;
         cursor: pointer;
         transition: background 0.3s ease;
@@ -319,17 +308,19 @@ h3 {
     /* Title and dynamic project info for mobile */
     .title-and-info {
       flex-direction: column; /* Stack elements vertically */
-      padding: 10px; /* Reduce padding */
       text-align: center; /* Center-align text */
+      bottom: 0;
     }
   
     .header-title {
       font-size: 6rem; /* Smaller title font */
+      display: none;
     }
   
     .project-info-panel {
       width: 100%; /* Full width for info panel */
       padding: 0 10px;
+      display: none;
     }
   
     .project-info-panel h2 {

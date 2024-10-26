@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import "animate.css"; // Import animate.css
+import ProjectItem from "./ProjectItem"; // Import ProjectItem component
+import "animate.css"; 
+import useInView from "./useInView"; 
 
 const Projects = () => {
   const navigate = useNavigate(); // Initialize the navigate function for routing
@@ -157,49 +161,54 @@ const Projects = () => {
     },
   ];
 
+
+  const [headerRef, isHeaderInView] = useInView({ threshold: 0.1 });
+  const [paragraphRef, isParagraphInView] = useInView({ threshold: 0.1 });
+  const [buttonRef, isButtonInView] = useInView({ threshold: 0.1 });
+
   return (
     <div className="projects-container">
-      {/* Header Section */}
       <div className="hr-container2">
         <hr className="breathing-hr2" />
       </div>
       <div className="header-row">
-        <h1>ARCHITECTURE</h1>
+        <h1
+          ref={headerRef}
+          >
+          ARCHITECTURE
+        </h1>
       </div>
 
-      {/* Project Info and Discover Button */}
       <div className="content-row">
         <div className="left-column">
-          <p>
+          <p
+            ref={paragraphRef}
+            className={`exploo ${isParagraphInView ? "animate__animated animate__fadeInUp animate__delay-0.3s" : ""}`}
+            style={{ animationDuration: "1.5s", animationTimingFunction: "ease-in-out",  opacity: "0" }}
+          >
             Explore our portfolio of architectural projects that reflect creativity,
             innovation, and precision. Each project showcases our commitment to quality
             and design excellence.
           </p>
-
-          {/* Discover Projects Button */}
-          <button id="discover" className="discovered" onClick={handleDiscoverMore}>
+          <button
+            ref={buttonRef}
+            className={`discovered ${isButtonInView ? "animate__animated animate__fadeIn animate__delay-0.8s" : ""}`}
+            style={{ animationDuration: "1.3s", animationTimingFunction: "ease-in-out",  opacity: "0" }}
+            onClick={handleDiscoverMore}
+          >
             Discover Projects
           </button>
         </div>
 
-        {/* Display projects dynamically */}
         <div className="right-column">
           {projects.map((project) => (
-            <div
-              key={project.id}
-              className="project"
-              onClick={() => openProjectDetails(project)}
-            >
-              <img src={project.imgSrc} alt={project.title} />
-              <p>{project.location}</p>
-            </div>
+            <ProjectItem key={project.id} project={project} />
           ))}
         </div>
       </div>
 
-      {/* Second Discover Projects Button */}
       <div className="button-container">
-        <button id="discover2" className="discovered"  onClick={handleDiscoverMore}>
+        <button id="discover2" className="discovered" onClick={handleDiscoverMore}>
           Discover More Projects
         </button>
       </div>
