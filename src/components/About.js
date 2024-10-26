@@ -8,6 +8,7 @@ const About = ({ slideDirection }) => {
   const [animationPlayed, setAnimationPlayed] = useState(false); // Track if animation has played
   const [aboutRef, isInView] = useInView({ threshold: 0.1 });
 
+  // Trigger animation only when scrolling down and the animation hasn't played yet
   if (isInView && !animationPlayed) {
     setAnimationPlayed(true);
   }
@@ -17,8 +18,8 @@ const About = ({ slideDirection }) => {
   };
 
   // Determine animation classes based on swipe direction
-  const animationClassLeft = animationPlayed ? "animate__fadeInLeft fade-in-animation" : "";
-  const animationClassRight = animationPlayed ? "animate__fadeInRight fade-in-animation" : "";
+  const animationClassLeft = animationPlayed ? "animate__fadeInLeft" : "";
+  const animationClassRight = animationPlayed ? "animate__fadeInRight" : "";
   const selectedAnimation = slideDirection === "right" ? animationClassLeft : animationClassRight;
 
   return (
@@ -37,11 +38,11 @@ const About = ({ slideDirection }) => {
       <div className="right">
         <div className={`content ${animationPlayed ? `animate__animated ${selectedAnimation}` : ""}`}>
           <h1 className={`${animationPlayed ? `animate__animated ${selectedAnimation}` : ""}`}>ABOUT ME</h1>
-          <p className={`${animationPlayed ? "animate__animated animate__fadeInUp fade-in-animation" : ""}`}>
+          <p className={`${animationPlayed ? "animate__animated animate__fadeInUp" : ""}`}>
             We are a company that specializes in delivering high-quality services and more than you expect, come to me and I will give you the unexpected...
           </p>
           <button
-            className={`discover-btn ${animationPlayed ? "animate__animated animate__fadeIn fade-in-animation" : ""}`}
+            className={`discover-btn ${animationPlayed ? "animate__animated animate__fadeIn" : ""}`}
             onClick={handleDiscoverMore}
           >
             Discover More

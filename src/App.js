@@ -118,7 +118,7 @@ function App() {
             position: "fixed",
             bottom: "20px",
             right: "20px",
-            zIndex: 10,
+            zIndex: 9999,
           }}
         >
           <button

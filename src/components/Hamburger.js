@@ -39,19 +39,19 @@ const Hamburger = ({ state, swiperRef }) => {
 
   useEffect(() => {
     if (state.clicked === false) {
-      // Smooth closing animation
+      // Closing animation
       gsap.to([reveal1.current, reveal2.current], {
         duration: 0.8,
         height: 0,
         ease: "power3.inOut",
         onComplete: () => {
-          gsap.to(menuLayer.current, { css: { display: "none" } });
+          gsap.to(menuLayer.current, { opacity: 0, visibility: "hidden" }); // Use opacity & visibility instead of display
         }
       });
       staggerRevealClose(reveal2, reveal1);
     } else if (state.clicked === true || (state.clicked === true && state.initial === null)) {
-      // Smooth opening animation
-      gsap.to(menuLayer.current, { css: { display: "block" } });
+      // Opening animation
+      gsap.to(menuLayer.current, { opacity: 1, visibility: "visible" }); // Ensure visibility
       gsap.to([reveal1.current, reveal2.current], {
         duration: 0,
         opacity: 1,
@@ -70,7 +70,7 @@ const Hamburger = ({ state, swiperRef }) => {
       height: 0,
       ease: "power3.inOut",
       onComplete: () => {
-        gsap.to(menuLayer.current, { css: { display: "none" } });
+        gsap.to(menuLayer.current, { opacity: 0, visibility: "hidden" });
         navigate(path);
       }
     });

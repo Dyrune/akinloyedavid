@@ -105,6 +105,10 @@
     font-family: 'EB Garamond', serif;
     font-size: 2.5rem;
     transition: background-color 0.3s;
+
+    @media (max-width: 756px) {
+      display: none;
+    }
 }
 
   .right-column {
@@ -146,7 +150,7 @@
 .project p {
   margin-top: 10px;
   font-size: 2rem;
-  color: #777;
+  color: --text-color;
   opacity: 0; /* Initially hidden */
   transform: translateY(20px); /* Initially moved down */
   transition: opacity 0.3s ease, transform 0.3s ease; /* Fade-in and slide-up transition */
@@ -156,7 +160,7 @@
   .project p {
     margin-top: 10px;
     font-size: 2rem;
-    color: #777;
+    color: --text-color;
     opacity: 1;
     padding: 0 0px;
     text-align: left;
