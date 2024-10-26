@@ -197,6 +197,10 @@
     bottom: 20px;
     width: 100%;
     position: fixed;
+
+    @media (max-width:756px) {
+        padding: 0;
+    }
     
 }
 
@@ -293,6 +297,7 @@ h3 {
     .filter-buttons {
         background-color: white;
             position: static;
+            width: 100%;
     }
   
     .filter-btn {
