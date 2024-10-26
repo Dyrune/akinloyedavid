@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { useNavigate } from "react-router-dom";
 
+// Import animation functions
 import {
   staggerText,
   staggerReveal,
@@ -13,13 +14,14 @@ import {
   staggerRevealClose
 } from "./Animations";
 
+// Import city images
 import dallas from "../images/dallas.webp";
 import austin from "../images/austin.webp";
 import newyork from "../images/newyork.webp";
 import sanfrancisco from "../images/sanfrancisco.webp";
 import beijing from "../images/beijing.webp";
 
-// City data array
+// Array of city data
 const cities = [
   { name: "Dallas", image: dallas },
   { name: "Austin", image: austin },
@@ -29,69 +31,60 @@ const cities = [
 ];
 
 const Hamburger = ({ state, swiperRef }) => {
-  const navigate = useNavigate(); // Use React Router's useNavigate for navigation
-  let menuLayer = useRef(null);
-  let reveal1 = useRef(null);
-  let reveal2 = useRef(null);
-  let cityBackground = useRef(null);
-  let line1 = useRef(null);
-  let line2 = useRef(null);
-  let line3 = useRef(null);
-  let info = useRef(null);
+  const navigate = useNavigate();
+  
+  // Refs for DOM elements
+  const menuLayer = useRef(null);
+  const reveal1 = useRef(null);
+  const reveal2 = useRef(null);
+  const cityBackground = useRef(null);
+  const line1 = useRef(null);
+  const line2 = useRef(null);
+  const line3 = useRef(null);
+  const info = useRef(null);
 
-  // Menu open/close animation based on state
+  // Menu animations based on state
   useEffect(() => {
     if (state.clicked === false) {
       staggerRevealClose(reveal2, reveal1);
-      gsap.to(menuLayer, { duration: 1, css: { display: "none" } });
+      gsap.to(menuLayer.current, { duration: 1, css: { display: "none" } });
     } else if (state.clicked === true || (state.clicked === true && state.initial === null)) {
-      gsap.to(menuLayer, { duration: 0, css: { display: "block" } });
-      gsap.to([reveal1, reveal2], {
+      gsap.to(menuLayer.current, { duration: 0, css: { display: "block" } });
+      gsap.to([reveal1.current, reveal2.current], {
         duration: 0,
         opacity: 1,
         height: "100%"
       });
-      staggerReveal(reveal1, reveal2);
-      fadeInUp(info);
-      staggerText(line1, line2, line3);
+      staggerReveal(reveal1.current, reveal2.current);
+      fadeInUp(info.current);
+      staggerText(line1.current, line2.current, line3.current);
     }
   }, [state]);
 
-  // Function to close menu and navigate to the page
+  // Close menu and navigate to a new route
   const handleLinkClick = (e, path) => {
-    e.preventDefault(); // Prevent immediate link navigation
-  
-    // Navigate to the page right away
-    navigate(path);
-  
-    // Then start the close animation of the hamburger menu
-    gsap.to(menuLayer, {
-      duration: 1, // Keep this duration for smooth closing
+    e.preventDefault();
+    gsap.to(menuLayer.current, {
+      duration: 1,
       css: { display: "none" },
-      onComplete: () => {
-        // After the animation completes, navigate to the page
-        navigate(path);
-      }
+      onComplete: () => navigate(path)
     });
-    
-    // Smoothly close the other parts of the menu
-    staggerRevealClose(reveal2, reveal1);
+    staggerRevealClose(reveal2.current, reveal1.current);
   };
-  
 
-  // Function to navigate to the Contact slide
-  const goToContactSlide = (event) => {
-    event.preventDefault();
-    if (swiperRef && swiperRef.current && swiperRef.current.swiper) {
-      swiperRef.current.swiper.slideTo(3); // Navigate to Contact slide (Swiper index 3)
+  // Navigate to the Contact slide in Swiper
+  const goToContactSlide = (e) => {
+    e.preventDefault();
+    if (swiperRef.current?.swiper) {
+      swiperRef.current.swiper.slideTo(3); // Contact slide index in Swiper
     }
   };
 
   return (
-    <div ref={el => (menuLayer = el)} className="hamburger-menu">
-      <div ref={el => (reveal1 = el)} className="menu-secondary-background-color"></div>
-      <div ref={el => (reveal2 = el)} className="menu-layer">
-        <div ref={el => (cityBackground = el)} className="menu-city-background"></div>
+    <div ref={menuLayer} className="hamburger-menu">
+      <div ref={reveal1} className="menu-secondary-background-color"></div>
+      <div ref={reveal2} className="menu-layer">
+        <div ref={cityBackground} className="menu-city-background"></div>
         <div className="container">
           <div className="wrapper">
             <div className="menu-links">
@@ -99,38 +92,40 @@ const Hamburger = ({ state, swiperRef }) => {
                 <ul>
                   <li>
                     <a
-                      onMouseEnter={e => handleHover(e)}
-                      onMouseOut={e => handleHoverExit(e)}
-                      ref={el => (line1 = el)}
-                      to="/about-info"
-                      onClick={(e) => handleLinkClick(e, '/about-info')} // Trigger close and navigate
+                      href="/about-info"
+                      onMouseEnter={handleHover}
+                      onMouseOut={handleHoverExit}
+                      ref={line1}
+                      onClick={(e) => handleLinkClick(e, '/about-info')}
                     >
                       About Info
                     </a>
                   </li>
                   <li>
                     <a
-                      onMouseEnter={e => handleHover(e)}
-                      onMouseOut={e => handleHoverExit(e)}
-                      ref={el => (line2 = el)}
                       href="/more-info"
-                      onClick={(e) => handleLinkClick(e, '/more-info')} // Trigger close and navigate
+                      onMouseEnter={handleHover}
+                      onMouseOut={handleHoverExit}
+                      ref={line2}
+                      onClick={(e) => handleLinkClick(e, '/more-info')}
                     >
                       More Info
                     </a>
                   </li>
                   <li>
                     <a
-                      onMouseEnter={e => handleHover(e)}
-                      onMouseOut={e => handleHoverExit(e)}
-                      ref={el => (line3 = el)}
+                      href="#contact"
+                      onMouseEnter={handleHover}
+                      onMouseOut={handleHoverExit}
+                      ref={line3}
+                      onClick={goToContactSlide}
                     >
                       Contact Me
                     </a>
                   </li>
                 </ul>
               </nav>
-              <div ref={el => (info = el)} className="info">
+              <div ref={info} className="info">
                 <h3>My Promise</h3>
                 <p>
                   The passage experienced a surge in popularity during the 1960s
@@ -141,13 +136,13 @@ const Hamburger = ({ state, swiperRef }) => {
               </div>
               <div className="locations">
                 Locations:
-                {cities.map(el => (
+                {cities.map((city) => (
                   <span
-                    key={el.name}
-                    onMouseEnter={() => handleCity(el.image, cityBackground)}
-                    onMouseOut={() => handleCityReturn(cityBackground)}
+                    key={city.name}
+                    onMouseEnter={() => handleCity(city.image, cityBackground.current)}
+                    onMouseOut={() => handleCityReturn(cityBackground.current)}
                   >
-                    {el.name}
+                    {city.name}
                   </span>
                 ))}
               </div>

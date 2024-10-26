@@ -15,7 +15,7 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import Hamburger from "./components/Hamburger";
-import AboutInfo from "./components/AboutInfo";
+import AboutInfo from './components/AboutInfo';  // Correct
 import MoreInfo from "./components/MoreInfo";
 import ProjectDetails from "./components/ProjectDetails";
 
