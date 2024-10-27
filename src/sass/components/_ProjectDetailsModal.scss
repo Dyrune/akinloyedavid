@@ -163,13 +163,22 @@
   .footer-links {
     display: flex;
     justify-content: space-between;
+    @media (max-width:756px) {
+      justify-content: center;
+      width: 100%;
+    }
   }
   
-  .footer-column p,
-  .footer-contact a {
+  .footer-column p
+  {
     margin: 5px 0;
   }
-  
+  @media (max-width:756px) {
+    
+  .footer-contact a {
+    display: none;
+  }
+  }
   .scroll-top {
     text-align: right;
   }

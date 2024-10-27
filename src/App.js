@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, createContext, useContext } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, A11y, Mousewheel } from "swiper/modules";
@@ -19,7 +19,21 @@ import AboutInfo from "./components/AboutInfo";
 import MoreInfo from "./components/MoreInfo";
 import ProjectDetails from "./components/ProjectDetails";
 
-// Transition functions
+// Swiper Context to track Swiper state across pages
+const SwiperContext = createContext();
+const useSwiperState = () => useContext(SwiperContext);
+
+// GSAP Animation functions for About slide transitions
+function animateSlideTransition(slideDirection) {
+  const tl = gsap.timeline();
+  if (slideDirection === "next") {
+    tl.fromTo(".about-slide", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: "power3.out" });
+  } else {
+    tl.fromTo(".about-slide", { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: "power3.out" });
+  }
+}
+
+// General Page Transition and Content Animation functions
 function pageTransition() {
   const tl = gsap.timeline();
   tl.to(".loading-screen", {
@@ -27,16 +41,13 @@ function pageTransition() {
     width: "100%",
     left: "0%",
     ease: "Expo.easeInOut",
-  });
-
-  tl.to(".loading-screen", {
+  }).to(".loading-screen", {
     duration: 1,
     width: "100%",
     left: "100%",
     ease: "Expo.easeInOut",
     delay: 0.3,
-  });
-  tl.set(".loading-screen", { left: "-100%" });
+  }).set(".loading-screen", { left: "-100%" });
 }
 
 function contentAnimation() {
@@ -51,124 +62,104 @@ function contentAnimation() {
 }
 
 function App() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [loading, setLoading] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [prevIndex, setPrevIndex] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const swiperRef = useRef(null);
   const aboutRef = useRef(null);
+  
+  // Track active slide index in SwiperContext
+  const [swiperIndex, setSwiperIndex] = useState(0);
 
+  // Handle loading, resizing, and dark mode
   useEffect(() => {
     document.body.style.overflow = loading ? "hidden" : "auto";
-  }, [loading]);
-
-  useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
     window.addEventListener("resize", handleResize);
-    handleResize();
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [loading]);
 
-  // Toggle dark/light theme class on <html> element
   useEffect(() => {
     document.documentElement.classList.toggle("dark-theme", darkMode);
   }, [darkMode]);
 
-  const slideNext = () => {
-    swiperRef.current?.swiper?.slideNext();
-  };
+  const slideNext = () => swiperRef.current?.swiper?.slideNext();
+  const slidePrev = () => swiperRef.current?.swiper?.slidePrev();
 
-  const slidePrev = () => {
-    swiperRef.current?.swiper?.slidePrev();
-  };
-
+  // Track slide changes
   const handleSlideChange = () => {
     if (swiperRef.current?.swiper) {
-      const swiper = swiperRef.current.swiper;
-      setPrevIndex(activeIndex);
-      setActiveIndex(swiper.activeIndex);
+      setSwiperIndex(swiperRef.current.swiper.activeIndex);
+      animateSlideTransition(swiperRef.current.swiper.swipeDirection === "right" ? "next" : "prev"); // Smooth transition
     }
   };
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const swipeDirection = activeIndex > prevIndex ? "left" : "right";
-
   if (loading) return <Loader setLoading={setLoading} />;
 
   return (
-    <Router>
-      <div className="App">
-        <div className="loading-screen"></div> {/* Transition overlay */}
-        {!isModalOpen && <Header />}
+    <SwiperContext.Provider value={{ swiperIndex, setSwiperIndex }}>
+      <Router>
+        <div className="App">
+          <div className="loading-screen"></div>
+          {!isModalOpen && <Header />}
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <AppContent
+                  isMobile={isMobile}
+                  swiperRef={swiperRef}
+                  handleSlideChange={handleSlideChange}
+                  isModalOpen={isModalOpen}
+                  openModal={openModal}
+                  closeModal={closeModal}
+                  slideNext={slideNext}
+                  slidePrev={slidePrev}
+                  aboutRef={aboutRef}
+                  darkMode={darkMode}
+                  setDarkMode={setDarkMode}
+                />
+              }
+            />
+            <Route path="/about" element={<PageTransitionWrapper><About /></PageTransitionWrapper>} />
+            <Route path="/more-info" element={<MoreInfo />} />
+            <Route path="/projects" element={<Projects openModal={openModal} />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/about-info" element={<AboutInfo />} />
+            <Route path="/project-details/:id" element={<ProjectDetails />} />
+          </Routes>
 
-        {/* Main Routes and Content */}
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <AppContent
-                isMobile={isMobile}
-                activeIndex={activeIndex}
-                prevIndex={prevIndex}
-                swipeDirection={swipeDirection}
-                isModalOpen={isModalOpen}
-                openModal={openModal}
-                closeModal={closeModal}
-                slideNext={slideNext}
-                slidePrev={slidePrev}
-                handleSlideChange={handleSlideChange}
-                aboutRef={aboutRef}
-                swiperRef={swiperRef}
-                darkMode={darkMode}
-                setDarkMode={setDarkMode}
-              />
-            }
-          />
-          <Route path="/about" element={<PageTransitionWrapper><About /></PageTransitionWrapper>} />
-          <Route path="/more-info" element={<MoreInfo />} />
-          <Route path="/projects" element={<Projects openModal={openModal} />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/about-info" element={<AboutInfo />} />
-          <Route path="/project-details/:id" element={<ProjectDetails />} />
-        </Routes>
-
-        {isModalOpen && (
-          <div className="modal-overlay">
-            <div className="modal-content">
-              <ProjectDetails closeModal={closeModal} />
+          {isModalOpen && (
+            <div className="modal-overlay">
+              <div className="modal-content">
+                <ProjectDetails closeModal={closeModal} />
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* Dark Mode Toggle Button */}
-        <div
-          style={{
-            position: "fixed",
-            bottom: "20px",
-            right: "20px",
-            zIndex: 9999,
-          }}
-        >
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            style={{
-              padding: "10px",
-              backgroundColor: "transparent",
-              color: darkMode ? "white" : "black",
-              border: "none",
-              borderRadius: "50%",
-              cursor: "pointer",
-            }}
-          >
-            {darkMode ? <MdLightMode size={24} /> : <MdDarkMode size={24} />}
-          </button>
+          {/* Dark Mode Toggle Button */}
+          <div style={{ position: "fixed", bottom: "20px", right: "20px", zIndex: 9999 }}>
+            <button
+              onClick={() => setDarkMode(!darkMode)}
+              style={{
+                padding: "10px",
+                backgroundColor: "transparent",
+                color: darkMode ? "white" : "black",
+                border: "none",
+                borderRadius: "50%",
+                cursor: "pointer",
+              }}
+            >
+              {darkMode ? <MdLightMode size={24} /> : <MdDarkMode size={24} />}
+            </button>
+          </div>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </SwiperContext.Provider>
   );
 }
 
@@ -177,7 +168,7 @@ const PageTransitionWrapper = ({ children }) => {
 
   useEffect(() => {
     pageTransition();
-    contentAnimation();
+    contentAnimation(); // Call contentAnimation here to avoid undefined error
   }, [location]);
 
   return children;
@@ -185,49 +176,44 @@ const PageTransitionWrapper = ({ children }) => {
 
 const AppContent = ({
   isMobile,
-  activeIndex,
-  prevIndex,
-  swipeDirection,
+  swiperRef,
+  handleSlideChange,
   isModalOpen,
   openModal,
   closeModal,
   slideNext,
   slidePrev,
-  handleSlideChange,
   aboutRef,
-  swiperRef,
   darkMode,
   setDarkMode,
 }) => {
+  const { swiperIndex, setSwiperIndex } = useSwiperState();
+
+  useEffect(() => {
+    if (swiperRef.current?.swiper) {
+      swiperRef.current.swiper.slideTo(swiperIndex, 0); // Restore to last index
+    }
+  }, [swiperRef, swiperIndex]);
+
   return (
     <div>
       {isMobile ? (
         <div style={{ display: "flex", flexDirection: "column" }}>
           <Banner slideNext={slideNext} scrollToAbout={() => aboutRef.current.scrollIntoView({ behavior: "smooth" })} isMobile={isMobile} />
-          <div ref={aboutRef}>
-            <About slideDirection={swipeDirection} />
+          <div ref={aboutRef} className="about-slide">
+            <About />
           </div>
-          <Projects slideDirection={swipeDirection} openModal={openModal} />
+          <Projects openModal={openModal} />
           <Contact />
           <Footer />
         </div>
       ) : (
         <>
           <div className="custom-navigation">
-            <button
-              className="swiper-button-prev"
-              onClick={slidePrev}
-              aria-label="Previous Slide"
-              style={{ visibility: activeIndex > 0 ? "visible" : "hidden" }}
-            >
+            <button className="swiper-button-prev" onClick={slidePrev} aria-label="Previous Slide" style={{ visibility: swiperIndex > 0 ? "visible" : "hidden" }}>
               &#8592;
             </button>
-            <button
-              className="swiper-button-next"
-              onClick={slideNext}
-              aria-label="Next Slide"
-              style={{ visibility: activeIndex < 3 ? "visible" : "hidden" }}
-            >
+            <button className="swiper-button-next" onClick={slideNext} aria-label="Next Slide" style={{ visibility: swiperIndex < 3 ? "visible" : "hidden" }}>
               &#8594;
             </button>
           </div>
@@ -242,18 +228,10 @@ const AppContent = ({
             speed={1000}
             onSlideChange={handleSlideChange}
           >
-            <SwiperSlide>
-              <Banner slideNext={slideNext} isMobile={isMobile} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <About slideDirection={swipeDirection} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Projects slideDirection={swipeDirection} openModal={openModal} />
-            </SwiperSlide>
-            <SwiperSlide>
-              <Contact />
-            </SwiperSlide>
+            <SwiperSlide><Banner slideNext={slideNext} isMobile={isMobile} /></SwiperSlide>
+            <SwiperSlide><About className="about-slide" /></SwiperSlide>
+            <SwiperSlide><Projects openModal={openModal} /></SwiperSlide>
+            <SwiperSlide><Contact /></SwiperSlide>
           </Swiper>
           <div className="custom-pagination"></div>
         </>

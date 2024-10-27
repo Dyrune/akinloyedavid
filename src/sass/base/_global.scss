@@ -1,0 +1,657 @@
+// src/sass/base/_global.scss
+@use "../abstracts/variables" as vars;
+
+body {
+  background-color: vars.$background-light;
+}
+
+
+/* Prevent FOUC (Flash of Unstyled Content) by hiding the page until it's ready */
+body.loading #fullpage-wrapper {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out; /* Smooth fade-in */
+  }
+  
+  body:not(.loading) #fullpage-wrapper {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .fp-watermark a {
+    display: none !important;
+  }
+  
+  @media (max-width:756px) {
+    
+  .footer-links div:first-child {
+    display: none
+  }
+
+  }
+  
+  
+  
+  @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,600,800&display=swap");
+  
+  $red: rgb(237, 237, 237);
+  $black: grey;
+  
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  }
+  
+  .container {
+    .wrapper {
+      .home {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        p {
+          font-size: 0.75rem;
+          letter-spacing: 0.3rem;
+          text-transform: uppercase;
+          font-weight: 500;
+        }
+        h5 {
+          margin-top: 260px;
+          font-size: 24px;
+          font-weight: 600;
+          padding-right: 360px;
+        }
+      }
+    }
+  }
+  
+  /* Body styling */
+  body {
+      background-color: var(--background-color);
+      color: var(--text-color);
+  }
+  
+  button {
+      background-color: var(--primary-color);
+      color: var(--text-color);
+  }
+  
+  .swiper-button-next, .swiper-button-prev {
+      color: var(--text-color);
+  }
+  
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    font-size: 1.8rem;
+    height: 116px;
+    display: flex;
+    justify-content: center;
+    padding: 0 108px;
+    color: --text-color;
+    
+    @media (max-width: 756px) {
+      padding: 0 32px;
+    }
+    .inner-header {
+      position: relative;
+      z-index: 10;
+      height: 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .logo a {
+        font-family: 'Trochut', sans-serif;
+        font-weight: 700;
+        font-size: 3.6rem;
+        text-decoration: none;
+        color: --text-color;
+      }
+      .menu {
+        button {
+          border: none;
+          background: none;
+          outline: none;
+          cursor: pointer;
+          font-size: 2.2rem;
+          mix-blend-mode: difference;
+        }
+      }
+    }
+    .hamburger-menu {
+      display: none;
+      z-index: 9;
+      top: 0;
+      left: 0;
+      right: 0;
+      position: fixed;
+      height: 100%;
+      width: 100%;
+      .menu-secondary-background-color {
+        background: --text-color;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: black;
+        bottom: 0;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+      }
+      .menu-layer {
+        position: relative;
+        background: rgb(164 160 160);
+        height: 100%;
+        overflow: hidden;
+        .menu-city-background {
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          position: absolute;
+          height: 100%;
+          width: 100%;
+          opacity: 0;
+          background-size: cover;
+          background-repeat: no-repeat;
+          animation-name: backgroundEffect;
+          animation-duration: 30s;
+          animation-iteration-count: infinite;
+        }
+        .wrapper {
+          position: relative;
+          .menu-links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            top: 200px;
+            padding: 0 116px;
+            width: 100%;
+            @media (max-width: 756px) {
+              display: flex;
+              flex-direction: column;
+              padding: 0 32px;
+              align-items: flex-start;
+            }
+            nav {
+              display: block;
+                @media (max-width:756px) {
+                  width: 100%;
+                }
+              ul {
+                margin: 0;
+                padding: 0;
+                li {
+                  list-style: none;
+                  font-size: 6rem;
+                  font-weight: 700;
+                  cursor: pointer;
+                  height: 135px;
+                  overflow: hidden;
+                  position: relative;
+                  width: 700px;
+  
+                  @media (max-width:756px){
+                    font-size: 4rem;
+                    height: 100px;
+                  }
+  
+                  a {
+                    position: absolute;
+                    color: #333;
+                    text-decoration: none;
+                    &:hover {
+                      color: $black;
+                    }
+                  }
+                }
+              }
+            }
+            .info {
+              color: #000000;
+              width: 300px;
+              h3 {
+                font-size: 3rem;
+                margin: 8px auto;
+              }
+              p {
+                margin: 0 auto;
+                font-size: 1.5rem;
+              }
+            }
+          }
+          .locations {
+            position: absolute;
+            bottom: -80px;
+            color: #000000;
+            margin-top: 16px;
+            font-size: 2rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: center; /* Center the items */
+            align-items: center;
+            flex-wrap: wrap; /* Allow items to wrap onto multiple lines */
+            gap: 24px; /* Adjust spacing between items */
+          
+            /* Mobile-specific styling */
+            @media (max-width: 756px) {
+              position: relative;
+              font-size: 1.2rem; /* Adjust font size for mobile */
+              bottom: 0;
+              gap: 12px; /* Adjust spacing between items for mobile */
+              flex-direction: column;
+              align-items: start;
+            }
+          
+            span {
+              cursor: pointer;
+              font-weight: 400;
+              margin: 0 16px; /* Default spacing for desktop */
+              transition: 0.3s ease-in-out;
+              padding: 8px 16px; /* Add padding for desktop view */
+          
+              /* Adjust margin and padding for mobile */
+              @media (max-width: 756px) {
+                margin: 0 10px;
+                padding: 4px 12px; 
+              }
+          
+              &:hover {
+                color: #fff;
+                background-color: #000; /* Dark background on hover */
+                padding: 8px 24px;
+                border-radius: 4px;
+          
+                /* Mobile-specific hover adjustments */
+                @media (max-width: 756px) {
+                  background-color: #000000;
+                  color: white;
+                  padding: 4px 12px;
+                  border-radius: 2px;
+                  transition: none;
+                }
+              }
+            }
+          }
+          
+        }
+      }
+    }
+  }
+  
+  @keyframes backgroundEffect {
+    0% {
+      background-position: 0% 0%;
+    }
+    25% {
+      background-position: 40% 10%;
+    }
+    50% {
+      background-position: 0 10%;
+    }
+    75% {
+      background-position: 10% 40%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+  
+  .menu .button3{
+    content: "";
+    font-family: 'EB Garamond', serif;
+    margin-left: 20px;
+    padding: 10px 10px;
+    border-bottom: 1px solid;
+    cursor: pointer;
+    color: --text-color;
+    text-decoration: none;
+    font-size: 1.7rem;
+  }
+  
+  /* Media Query for screens smaller than 1300px */
+  @media (max-width: 1300px) {
+    .middle-button {
+      display: none;
+    }
+  
+    .menu {
+      justify-content: flex-end;
+    }
+  
+    .contactt {
+      display: none;
+    }
+  
+    .menu .button3{
+      content: "";
+      font-family: 'EB Garamond', serif;
+      margin-left: 20px;
+      display: flex;
+      padding: 10px 10px;
+      border-bottom: 1px solid ;
+      cursor: pointer;
+      color: --text-color;
+      text-decoration: none;
+      font-size: 1.7rem;
+      
+      @media (max-width: 765px) {
+        padding: 0 10px;
+      }
+    }
+  
+    .talk-button {
+      display: none;
+    }
+  
+  }
+  
+  
+  .menu {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .talk-button {
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  
+  .logo {
+    flex: 1;
+  }
+  
+  .middle-button {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .container {
+    width: 100%;
+    height: auto;
+  }
+  
+  .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .inner-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }/* Contact link style */
+  .contactt a {
+    font-family: 'EB Garamond', serif;
+    padding: 5px 0px;
+    border-bottom: none; /* Remove the default border-bottom */
+    color: --text-color;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.7rem;
+    position: relative; /* Needed for ::after pseudo-element */
+    display: inline-flex; /* Align the icon and text horizontally */
+    align-items: center; /* Vertically center the icon with the text */
+    flex-direction: row-reverse; /* Move icon to the left */
+  }
+  
+  /* Apply the hover underline effect for contact links */
+  .contactt a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 0.01em; /* Adjust thickness of underline */
+    bottom: -0.2em; /* Position the underline a little below the text */
+    left: 0;
+    background: currentColor; /* Matches the text color */
+    transform: scaleX(0); /* Start with hidden underline */
+    transform-origin: bottom right; /* Start animation from the right */
+    transition: transform 0.5s ease-out; /* Smooth transition */
+  }
+  
+  .contactt a:hover::after {
+    transform: scaleX(1); /* Expand the underline */
+    transform-origin: bottom left; /* Animate from left to right */
+  }
+  
+  /* Style the external link icon */
+  .contactt a svg {
+    width: 20px; /* Adjust size as needed */
+    height: 20px;
+    margin-right: 8px; /* Space between the icon and the text */
+    fill: currentColor; /* Matches the text color */
+    opacity: 0; /* Initially hidden */
+    transform: translateX(-5px); /* Move slightly left */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out; /* Smooth animation for the icon */
+  }
+  
+  /* Display the SVG on hover */
+  .contactt a:hover svg {
+    opacity: 1; /* Make the icon visible */
+    transform: translateX(0); /* Slide back to its normal position */
+  }
+  /* Hide scrollbars globally */
+  html, body {
+    overflow: hidden;
+  }
+  
+  
+  .swiper-pagination-bullet {
+    margin: 7px !important;
+    height: 12px !important;
+    width: 12px !important;
+  }
+  
+  .custom-arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 100;
+    width: 50px; /* Adjust width */
+    height: 50px; /* Adjust height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(22, 22, 22);
+  
+  
+    /* Add padding or use a larger clickable area */
+    padding: 10px;
+    &:hover {
+      color: brown;
+    }
+  
+    /* Right arrow specific */
+    &.right {
+      right: 20px; /* Position it away from the right edge */
+    }
+  
+    /* Left arrow specific */
+    &.left {
+      left: 20px; /* Position it away from the left edge */
+    }
+  }
+  
+  #arrow-left {
+    left: 20px; /* Position it on the left side */
+  }
+  
+  #arrow-right {
+    right: 20px; /* Position it on the right side */
+  }
+  
+  #fp-nav ul li a.active span {
+    height: 12px;
+    width: 12px;
+    margin: -6px 0 0 -6px;
+    border-radius: 100%;
+    display: none;
+  }
+  
+  
+  .swiper-container {
+    width: 100%;
+    height: 100vh; /* Full height to emulate fullPage.js behavior */
+  }
+  
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ensure each slide is full height */
+  }
+  
+  .custom-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #000;
+  }
+  
+  #arrow-left {
+    left: 20px;
+  }
+  
+  #arrow-right {
+    right: 20px;
+  }
+  
+  .swiper-pagination-bullet {
+    background: #000; /* Style pagination dots */
+  }
+  
+  .contact-form-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+  }
+  
+  .contact-form-container.show {
+    display: flex;
+  }
+  
+  .contact-form {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    position: relative;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  
+  
+  /* Custom navigation buttons */
+  .custom-navigation {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 10;
+  }
+  
+  .custom-navigation button {
+    pointer-events: all;
+    background: none;
+    border: none;
+    color: --text-color;
+    font-size: 4rem;
+    cursor: pointer;
+    padding: 0 20px;
+    z-index: 10;
+  }
+  
+  /* Custom pagination dots at the bottom left */
+  .custom-pagination {
+    position: absolute;
+    z-index: 10;
+  }
+  /* CSS to set header background to white */
+  .header-white-bg {
+    background-color: white !important;
+    transition: background-color 0.3s ease;
+  }
+  
+  .header-white-bg .text-black a,
+  .header-white-bg .text-black svg {
+    color: black !important;
+    fill: black !important;
+  }
+  
+  
+  
+  .hamburger-menu .toggle-theme-btn {
+    background: none;
+    border: 1px solid currentColor;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  
+  /* animation-styles.css */
+  
+  /* Base animation speed */
+  .fade-in-animation {
+    animation-duration: 1s; /* Default duration for desktop */
+  }
+  
+  /* Slower animation on mobile */
+  @media (max-width: 768px) {
+    .fade-in-animation {
+      animation-duration: 2s; /* Slower animation for mobile */
+    }
+  }
+  
+  
+  .loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #000000;
+    width: 0;
+    height: 100vh;
+    z-index: 9999;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  

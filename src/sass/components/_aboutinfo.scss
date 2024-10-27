@@ -366,6 +366,10 @@ body {
 .footer-column {
   display: flex;
   flex-direction: column;
+  @media (max-width:756px) {
+    flex-direction: row;
+    display: flex
+  }
 }
 
 .footer-column a {
@@ -380,7 +384,9 @@ body {
     transition: color 0.3s ease;
     width: max-content;
     @media (max-width: 768px) {
-      font-size: 1.8rem;
+      font-size: 1.5rem;
+      margin: 0;
+      padding: 0 5px;
     }
 }
 

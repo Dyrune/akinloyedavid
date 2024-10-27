@@ -1,0 +1,323 @@
+/* Then, import your custom styles */
+/* Light Theme - Default */
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,600,800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&display=swap");
+:root {
+  --background-color: #f0eff1; /* Background for light theme */
+  --text-color: #333333; /* Text color for light theme */
+  --secondary-color: #555555; /* Secondary text color */
+}
+
+/* Dark Theme */
+
+/* Variables and mixins should be imported early */
+/* Import mixins before you use them */
+/* Global styles */
+/* Light Theme - Default */
+:root {
+  --background-color: #f0eff1; /* Background for light theme */
+  --text-color: #333333; /* Text color for light theme */
+  --secondary-color: #555555; /* Secondary text color */
+}
+
+/* Dark Theme */
+
+body {
+  background-color: #f0eff1;
+}
+
+/* Prevent FOUC (Flash of Unstyled Content) by hiding the page until it's ready */
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* Body styling */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* Media Query for screens smaller than 1300px */ /* Contact link style */
+
+/* Apply the hover underline effect for contact links */
+
+/* Style the external link icon */
+
+/* Display the SVG on hover */
+
+/* Hide scrollbars globally */
+html, body {
+  overflow: hidden;
+}
+
+/* Custom navigation buttons */
+
+/* Custom pagination dots at the bottom left */
+
+/* CSS to set header background to white */
+
+/* animation-styles.css */
+/* Base animation speed */
+
+/* Slower animation on mobile */
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+div,
+h1,
+h2,
+h3,
+p,
+code {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: none;
+}
+
+body {
+  line-height: 1;
+}
+
+html {
+  font-size: 62.5%;
+  line-height: 1.25;
+}
+html body {
+  font-family: "Poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+p {
+  font-size: 1.4rem;
+}
+
+/* Components */
+/* The main header container */
+
+/* Default state for logo, contact, and button */
+
+/* Slide up and fade out when scrolled */
+
+/* Inner header layout */
+
+/* Logo styling */
+
+/* Navigation */
+
+/* Contact link */
+
+/* Hamburger menu button */
+
+/* Styling for the main content wrapper */
+
+/* Section-specific styles */
+
+/* When an image dominates a section */
+
+/* Responsive behavior */
+/* Slide-in animation keyframes */
+/* Apply slide-in animation when element is in view */
+
+/* CSS to set text and icon color to black */
+
+/* Specific black styling for elements when on /about-info page */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+h1 {
+  font-size: 3rem;
+  font-family: "EB Garamond", serif;
+  color: --text-color;
+  margin-bottom: 20px;
+}
+@media (max-width: 768px) {
+  h1 {
+    font-size: 4rem;
+    margin-top: 20px;
+  }
+}
+
+p {
+  font-size: 1.2rem;
+  line-height: 1.5;
+  padding-right: 10px;
+  font-family: "EB Garamond", serif;
+  color: --text-color;
+}
+@media (max-width: 768px) {
+  p {
+    font-size: 1.7rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  h1 {
+    font-size: 10rem;
+  }
+  p {
+    font-size: 1.8rem;
+  }
+}
+/* Modal Overlay */
+
+/* Modal Content */
+
+/* Modal Overlay */
+
+/* Modal Content */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Header */
+
+/* Process Section */
+
+/* Process Section */
+
+/* Footer Section */
+
+/* Top Part of the Footer */
+
+/* Footer Links (Left Side) */
+
+/* Apply the hover underline effect for all footer links */
+
+/* Contact link styling */
+
+/* Bottom Part of the Footer */
+
+/* Left Side of the Footer Bottom */
+
+/* Right Side (Scroll to Top) */
+@media (max-width: 756px) {
+  /* Modal content adjustments for mobile */
+  /* Adjusting modal header on mobile */
+  /* Architect info section on mobile */
+  /* Education section on mobile */
+  /* Process section on mobile */
+}
+/* General Layout */
+
+/* Image Section */
+
+/* Vertical Sidebar */
+
+/* Responsive Design */
+
+/* School Info Section and Experience Goals Section in Rows */
+
+/* Main Image */
+
+/* Sub-Images */
+
+@media (min-width: 756px) {
+}
+
+/* Header */
+
+/* Filter Buttons */
+
+/* Apply variables to .filter-btn.active */
+
+/* Horizontal grid styling for larger screens */
+
+/* Basic vertical layout for smaller screens */
+/* Hide scrollbar */
+
+/* Position hover-text on top of the image */
+
+/* Show hover-text on hover */
+
+/* Project number positioning */
+
+/* Title and dynamic project info */
+
+/* Progress Bar */
+
+h3 {
+  margin-top: 20px;
+}
+
+@media (max-width: 756px) {
+  /* Filter buttons styling */
+  /* Title and dynamic project info for mobile */
+  /* Hover text styling for mobile */
+  /* Progress bar styling for mobile */
+  /* Footer adjustments for mobile */
+  /* Progress bar adjustments */
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  font-family: "Arial", sans-serif;
+}
+
+/* Each column style */
+
+/* Responsive styling for smaller screens */
+
+/* Prescription Section */
+
+/* Title and Image Section */
+
+/* Info and Description Section */
+
+/* Project Images Section */
+
+/* Responsive adjustments for smaller screens */
+
+/* Footer Styles */
+
+/* Full-width header */
+
+@media (max-width: 768px) { /* Apply styles for mobile devices */
+}
+
+/* Two-column layout for the content */
+
+/* Grayscale and scale-out effect on images */
+
+/* Project brief with fade-in and slide-up effect */
+/* Show the brief on hover */
+
+/* Responsive Design */
+
+/* First, import Tailwind's base styles, components, and utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

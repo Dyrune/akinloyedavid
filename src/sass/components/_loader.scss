@@ -1,5 +1,5 @@
 // src/sass/components/_loader.scss
-@import '../_mixins';  // Adjust the path if your structure is different
+@import '../abstracts/mixins';  // Adjust the path if your structure is different
 
 
 
@@ -7,7 +7,7 @@
   height: 100vh;
   height: calc(var(--vh, 1vh) * 100);
   width: 100%;
-  background: $black;
+  background: black;
   position: fixed;
   bottom: 0;
   left: 0;
