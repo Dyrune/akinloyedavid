@@ -1,7 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Hamburger from "./Hamburger";
-import useInView from "./useInView"; // Import useInView
+import useInView from "./useInView";
+import gsap from "gsap";
+
+// Function to trigger the loading screen transition
+function pageTransition() {
+  const tl = gsap.timeline();
+  tl.to(".loading-screen", {
+    duration: 1.2,
+    width: "100%",
+    left: "0%",
+    ease: "Expo.easeInOut",
+  }).to(".loading-screen", {
+    duration: 1,
+    width: "100%",
+    left: "100%",
+    ease: "Expo.easeInOut",
+    delay: 0.3,
+  }).set(".loading-screen", { left: "-100%" });
+}
 
 const Header = () => {
   const navigate = useNavigate();
@@ -41,14 +59,23 @@ const Header = () => {
     }, 1200);
   };
 
+  // Handle logo click with loading screen transition
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    if (location.pathname !== "/") {
+      pageTransition(); // Trigger loading screen transition
+      setTimeout(() => navigate("/"), 1200); // Navigate to main page after transition
+    }
+  };
+
   return (
     <header className={`header ${isAboutInfoPage ? "header-black" : ""}`}>
       <div className="container">
         <div className="wrapper">
           <div className={`inner-header ${isAboutInfoPage ? "header-blackk" : ""}`}>
-            {/* Logo with slide-in effect */}
-            <div ref={logoRef} className={`logo ${isLogoInView ? "slide-in" :  isAboutInfoPage ? "h-black" : ""}`}>
-              <Link to="/">0tnda.</Link>
+            {/* Logo with click handler for transition */}
+            <div ref={logoRef} className={`logo ${isLogoInView ? "slide-in" : isAboutInfoPage ? "h-black" : ""}`}>
+              <Link to="/" onClick={handleLogoClick}>0tnda.</Link>
             </div>
 
             {/* Contact section with slide-in effect */}

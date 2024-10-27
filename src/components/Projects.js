@@ -1,23 +1,65 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
-import "animate.css"; // Import animate.css
-import ProjectItem from "./ProjectItem"; // Import ProjectItem component
-import "animate.css"; 
-import useInView from "./useInView"; 
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import "animate.css"; // For animations
+import ProjectItem from "./ProjectItem";
+import useInView from "./useInView";
+import gsap from "gsap";
+
+// Page transition function
+function pageTransition() {
+  const tl = gsap.timeline();
+  tl.to(".loading-screen", {
+    duration: 1.2,
+    width: "100%",
+    left: "0%",
+    ease: "Expo.easeInOut",
+  });
+  tl.to(".loading-screen", {
+    duration: 1,
+    width: "100%",
+    left: "100%",
+    ease: "Expo.easeInOut",
+    delay: 0.3,
+  });
+  tl.set(".loading-screen", { left: "-100%" });
+}
 
 const Projects = () => {
-  const navigate = useNavigate(); // Initialize the navigate function for routing
+  const navigate = useNavigate();
 
-  // Function to navigate to the ProjectDetailsPage with the selected project
-  const openProjectDetails = (project) => {
-    navigate(`/project-details/${project.id}`, { state: { project } }); // Pass project as state
-  };
+  // State to track if animations have already played
+  const [headerAnimationPlayed, setHeaderAnimationPlayed] = useState(false);
+  const [paragraphAnimationPlayed, setParagraphAnimationPlayed] = useState(false);
+  const [buttonAnimationPlayed, setButtonAnimationPlayed] = useState(false);
 
-  // Function to handle button click and navigate to AboutInfo page
+  // Track if elements are in view using custom hook
+  const [headerRef, isHeaderInView] = useInView({ threshold: 0.1 });
+  const [paragraphRef, isParagraphInView] = useInView({ threshold: 0.1 });
+  const [buttonRef, isButtonInView] = useInView({ threshold: 0.1 });
+
+  // Set each animation to play only once when the component comes into view for the first time
+  useEffect(() => {
+    if (isHeaderInView && !headerAnimationPlayed) {
+      setHeaderAnimationPlayed(true);
+    }
+  }, [isHeaderInView, headerAnimationPlayed]);
+
+  useEffect(() => {
+    if (isParagraphInView && !paragraphAnimationPlayed) {
+      setParagraphAnimationPlayed(true);
+    }
+  }, [isParagraphInView, paragraphAnimationPlayed]);
+
+  useEffect(() => {
+    if (isButtonInView && !buttonAnimationPlayed) {
+      setButtonAnimationPlayed(true);
+    }
+  }, [isButtonInView, buttonAnimationPlayed]);
+
   const handleDiscoverMore = () => {
-    navigate("/more-info"); // Navigate to the AboutInfo page
+    pageTransition();
+    setTimeout(() => navigate("/more-info"), 1200); // Sync with transition timing
   };
-
 
   const projects = [
     {
@@ -161,14 +203,14 @@ const Projects = () => {
     },
   ];
 
-
-
-  const [headerRef, isHeaderInView] = useInView({ threshold: 0.1, once: true });
-  const [paragraphRef, isParagraphInView] = useInView({ threshold: 0.1, once: true });
-  const [buttonRef, isButtonInView] = useInView({ threshold: 0.1, once: true });
-
   return (
     <div className="projects-container">
+      {/* Loading screen for smooth transitions */}
+      <div
+        className="loading-screen"
+        style={{ position: "fixed", top: 0, left: 0, width: "0%", height: "100%", background: "#000", zIndex: 10 }}
+      ></div>
+
       <div className="hr-container2">
         <hr className="breathing-hr2" />
       </div>
@@ -176,8 +218,9 @@ const Projects = () => {
       <div className="header-row">
         <h1
           ref={headerRef}
-          className={`${isHeaderInView ? "animate__animated animate__fadeInUp" : ""}`}
-          style={{ animationDuration: "1s", opacity: isHeaderInView ? 1 : 0 }}
+          className={`${
+            headerAnimationPlayed ? "animate__animated animate__fadeInDown" : ""
+          }`}
         >
           ARCHITECTURE
         </h1>
@@ -187,22 +230,27 @@ const Projects = () => {
         <div className="left-column">
           <p
             ref={paragraphRef}
-            className={`exploo ${isParagraphInView ? "animate__animated animate__fadeInUp" : ""}`}
+            className={`exploo ${
+              paragraphAnimationPlayed ? "animate__animated animate__fadeInUp" : ""
+            }`}
             style={{
-              animationDuration: "1.2s",
-              opacity: isParagraphInView ? 1 : 0,
+              animationDuration: "1.5s",
+              animationTimingFunction: "ease-in-out",
+              opacity: paragraphAnimationPlayed ? "1" : "0",
             }}
           >
             Explore our portfolio of architectural projects that reflect creativity,
-            innovation, and precision. Each project showcases our commitment to quality
-            and design excellence.
+            innovation, and precisionwhat we do is architecture, planning and give solutions
           </p>
           <button
             ref={buttonRef}
-            className={`discovered ${isButtonInView ? "animate__animated animate__fadeIn" : ""}`}
+            className={`discovered ${
+              buttonAnimationPlayed ? "animate__animated animate__fadeIn" : ""
+            }`}
             style={{
               animationDuration: "1.3s",
-              opacity: isButtonInView ? 1 : 0,
+              animationTimingFunction: "ease-in-out",
+              opacity: buttonAnimationPlayed ? "1" : "0",
             }}
             onClick={handleDiscoverMore}
           >

@@ -665,3 +665,16 @@ body.dark-theme {
     animation-duration: 2s; /* Slower animation for mobile */
   }
 }
+
+
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #000000;
+  width: 0;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  overflow: hidden;
+}

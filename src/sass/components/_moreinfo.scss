@@ -302,7 +302,7 @@ h3 {
   
     /* Filter buttons styling */
     .filter-buttons {
-        background-color: var(--background-color);
+        background-color: -var(--background-color);
             position: static;
             width: 100%;
     }

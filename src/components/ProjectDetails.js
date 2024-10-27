@@ -57,15 +57,15 @@ const ProjectDetails = () => {
 
   const handleClose = () => {
     gsap.to(modalRef.current, {
-      y: "100%",
-      opacity: 0,
-      duration: 0.5,
-      ease: "power3.in",
+      y: "100%",         // Slide down out of view
+      duration: 0.5,     // Keep the same speed
+      ease: "power2.in", // Smooth easing for a seamless slide-out
       onComplete: () => {
-        window.history.back(); // Close modal and go back to the previous page
+        window.history.back(); // Navigate back once the animation completes
       },
     });
   };
+  
 
   const handleScrollToTop = (e) => {
     e.preventDefault(); // Prevent the default link behavior
