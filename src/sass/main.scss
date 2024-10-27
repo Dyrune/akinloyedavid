@@ -212,6 +212,12 @@ header {
                 overflow: hidden;
                 position: relative;
                 width: 700px;
+
+                @media (max-width:756px){
+                  font-size: 4rem;
+                  height: 100px;
+                }
+
                 a {
                   position: absolute;
                   color: #333;
@@ -243,42 +249,53 @@ header {
           margin-top: 16px;
           font-size: 2rem;
           font-weight: 600;
-          @media (max-width:756px) {
+          display: flex;
+          justify-content: center; /* Center the items */
+          align-items: center;
+          flex-wrap: wrap; /* Allow items to wrap onto multiple lines */
+          gap: 24px; /* Adjust spacing between items */
+        
+          /* Mobile-specific styling */
+          @media (max-width: 756px) {
             position: relative;
+            font-size: 1.2rem; /* Adjust font size for mobile */
+            bottom: 0;
+            gap: 12px; /* Adjust spacing between items for mobile */
+            flex-direction: column;
+            align-items: start;
           }
+        
           span {
             cursor: pointer;
-            &:first-child {
-              margin-left: 64px;
-              @media (max-width: 756px) {
-                margin-left: 10px;
-              }
-            }
             font-weight: 400;
-            margin: 0 32px;
+            margin: 0 16px; /* Default spacing for desktop */
             transition: 0.3s ease-in-out;
-            @media (max-width:756px) {
-              margin: 25px;
+            padding: 8px 16px; /* Add padding for desktop view */
+        
+            /* Adjust margin and padding for mobile */
+            @media (max-width: 756px) {
+              margin: 0 10px;
+              padding: 4px 12px; 
             }
+        
             &:hover {
               color: #fff;
-              background: $black;
+              background-color: #000; /* Dark background on hover */
               padding: 8px 24px;
               border-radius: 4px;
-              
+        
+              /* Mobile-specific hover adjustments */
+              @media (max-width: 756px) {
+                background-color: #000000;
+                color: white;
+                padding: 4px 12px;
+                border-radius: 2px;
+                transition: none;
+              }
             }
-
-            &:hover {
-              @media (max-width:756px) {
-              transition: none;
-              background-color: #000000;
-              color: white;
-              border-radius: none;
-              padding: 4px 12px;
-            }
-          }
           }
         }
+        
       }
     }
   }

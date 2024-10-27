@@ -139,7 +139,7 @@ const Hamburger = ({ state, swiperRef }) => {
                 </p>
               </div>
               <div className="locations">
-                Locations:
+               Locations:
                 {cities.map((city) => (
                   <span
                     key={city.name}
