@@ -1,3 +1,5 @@
+// MoreInfo.js
+
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useNavigate } from "react-router-dom";
@@ -5,7 +7,28 @@ import projects from './projectsData';
 import useInView from "./useInView";
 import ProjectItem from "./ProjectItem2";
 
+// Define categories array at the top of the file
 const categories = ["All", "Architecture", "Exterior", "Interior", "Masterplanning"];
+
+// Page transition function
+function pageTransition() {
+    const tl = gsap.timeline();
+    tl.to(".loading-screen", {
+        duration: 1.2,
+        width: "100%",
+        left: "0%",
+        ease: "Expo.easeInOut",
+    });
+    tl.to(".loading-screen", {
+        duration: 1,
+        width: "100%",
+        left: "100%",
+        ease: "Expo.easeInOut",
+        delay: 0.3,
+    });
+    tl.set(".loading-screen", { left: "-100%" });
+}
+
 
 const MoreInfo = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -15,7 +38,6 @@ const MoreInfo = () => {
   const projectGridRef = useRef(null);
   const hoverTextRef = useRef(null);
   const navigate = useNavigate();
-
   const [titleRef, isTitleInView] = useInView({ threshold: 0.2, once: true });
 
   useEffect(() => {
@@ -61,18 +83,15 @@ const MoreInfo = () => {
     }
   };
 
-  // Auto-scroll using GSAP
   useEffect(() => {
     const grid = projectGridRef.current;
     let scrollAnimation;
 
     if (isAutoScrolling && grid) {
       const maxScrollLeft = grid.scrollWidth - grid.clientWidth;
-
-      // Smooth, continuous auto-scroll animation
       scrollAnimation = gsap.to(grid, {
         scrollLeft: maxScrollLeft,
-        duration: 40, // Longer duration for slower auto-scroll
+        duration: 40,
         ease: "linear",
         repeat: -1,
         yoyo: true,
@@ -87,17 +106,14 @@ const MoreInfo = () => {
     };
   }, [isAutoScrolling]);
 
-  // Smooth manual scroll using GSAP
   const handleWheelScroll = (e) => {
     if (!isAutoScrolling) {
       e.preventDefault();
       const grid = projectGridRef.current;
-      const scrollAmount = e.deltaY * 2;  // Adjust this for scroll speed
-      
-      // Smooth manual scroll
+      const scrollAmount = e.deltaY * 2;
       gsap.to(grid, {
         scrollLeft: `+=${scrollAmount}`,
-        duration: 1.6,  // Adjusted duration for smooth effect
+        duration: 1.6,
         ease: "power2.out",
         onUpdate: updateScrollProgress,
       });
@@ -124,11 +140,15 @@ const MoreInfo = () => {
   );
 
   const openProjectDetails = (project) => {
-    navigate(`/project-details/${project.id}`, { state: { project } });
+    pageTransition(); // Trigger page transition animation
+    setTimeout(() => {
+      navigate(`/project-details/${project.id}`, { state: { project } });
+    }, 1200); // Sync with transition timing
   };
 
   return (
     <div className="modal-overlay2">
+      <div className="loading-screen"></div> {/* Loading screen div */}
       <div className="modal-content2">
         <section className="project-grid-horizontal" ref={projectGridRef}>
           {filteredProjects.map((project, index) => (
@@ -168,10 +188,7 @@ const MoreInfo = () => {
             ))}
           </div>
 
-       
-
           <h4 className="header-title">
-
             {activeCategory}
             <sup>{filteredProjects.length}</sup>
           </h4>
