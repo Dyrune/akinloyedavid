@@ -147,9 +147,12 @@ const MoreInfo = () => {
         <div className="title-and-info" ref={titleRef}>
           <div className="project-info-panel">
             <h2>{hoveredProject ? hoveredProject.title : `Scroll to Explore ${activeCategory}`}</h2>
-            <p>{hoveredProject ? hoveredProject.location : `${filteredProjects.length} projects`}</p>
+            <p className="jar">{hoveredProject ? hoveredProject.location : `${filteredProjects.length} projects`}
+        <button onClick={toggleAutoScroll} className="scroll-control-btn">
+          {isAutoScrolling ? '||' : '▶'}
+        </button></p>
             <div className="progress-bar">
-              <div className="progress" style={{ width: `${scrollProgress}%` }}></div>
+              <div className="progress" style={{ width: `${scrollProgress}%` }}></div> 
             </div>
           </div>
 
@@ -165,10 +168,7 @@ const MoreInfo = () => {
             ))}
           </div>
 
-        {/* Play/Pause Button using simpler Unicode symbols */}
-        <button onClick={toggleAutoScroll} className="scroll-control-btn">
-          {isAutoScrolling ? '||' : '▶'}
-        </button>
+       
 
           <h4 className="header-title">
 

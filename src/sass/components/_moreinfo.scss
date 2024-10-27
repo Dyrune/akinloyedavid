@@ -53,6 +53,13 @@
     transition: opacity 0.3s ease;
 }
 
+.jar {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .header-title sup {
     font-size: 1.5rem;
     vertical-align: super;
@@ -68,20 +75,20 @@
 
 .filter-btn {
     padding: 10px 20px;
-    color: black;
     height: min-content;
     font-size: 1.5rem;
-    background: none;
-    border: 2px solid black;
+    border: 2px solid;
     cursor: pointer;
     transition: background 0.3s ease, color 0.3s ease;
 }
 
-.filter-btn:hover,
+
+/* Apply variables to .filter-btn.active */
 .filter-btn.active {
-    background: black;
-    color: white;
-}
+    background-color: var(--text-color);
+    color: var(--background-color);
+  }
+
 /* Horizontal grid styling for larger screens */
 .project-grid-horizontal {
     display: flex;
@@ -244,7 +251,7 @@
 
 .progress {
     height: 100%;
-    background-color: black; /* Progress color */
+    background-color: grey; /* Progress color */
     width: 0;
     transition: width 0.2s ease; /* Smooth progress update */
 }
@@ -295,7 +302,7 @@ h3 {
   
     /* Filter buttons styling */
     .filter-buttons {
-        background-color: white;
+        background-color: var(--background-color);
             position: static;
             width: 100%;
     }

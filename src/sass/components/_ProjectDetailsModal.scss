@@ -198,7 +198,7 @@
   }
 
   .project-description p {
-    font-size: 3.8rem;
+    font-size: 2.5rem;
     font-weight: 500;
     line-height: 1.5;
     padding-right: 20px;
@@ -206,7 +206,7 @@
 
   .project-title h1 {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: 12rem;
+    font-size: 9rem;
     padding: 20px 80px;
   }
 
@@ -434,10 +434,8 @@
 }
 
 .scroll-control-btn {
-  font-size: 3rem;
-  color: black;
+  font-size: 2rem;
   cursor: pointer;
-  background-color: transparent;
   @media (max-width:756px) {
     display: none;
   }
