@@ -758,6 +758,9 @@ body {
   position: relative;
   padding: 116px 65px;
   overflow-x: hidden; /* Prevent page from horizontal scrolling */
+  @media (max-width:756px) {
+    position: absolute;
+  }
 }
 
 
