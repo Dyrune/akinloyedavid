@@ -168,6 +168,9 @@ body.loading #fullpage-wrapper {
         }
         .wrapper {
           position: relative;
+          @media (max-width:756px) {
+            height: 65vh;
+          }
           .menu-links {
             display: flex;
             justify-content: space-between;
