@@ -131,9 +131,10 @@ body {
 
 h1 {
   font-size: 3rem; // Smaller font for mobile
-  font-family: 'EB Garamond', serif;
+  font-family: 'Righteous', serif;
   color: --text-color;
   margin-bottom: 20px;
+  font-weight: 200;
   @media (max-width: 768px) {
     font-size: 4rem;
     margin-top: 20px;
@@ -144,7 +145,8 @@ p {
   font-size: 1.2rem; // Smaller font for mobile
   line-height: 1.5;
   padding-right: 10px;
-  font-family: 'EB Garamond', serif;
+  font-family: 'Poiret One', serif;
+  font-weight: 200;
   color: --text-color;
   @media (max-width: 768px) {
     font-size: 1.7rem;
@@ -152,10 +154,11 @@ p {
 }
 
 .discover-btn {
-  font-family: 'EB Garamond', serif;
+  font-family: 'Poiret One', serif;
   margin-top: 20px;
   padding: 10px 0;
   border-bottom: 1px solid;
+  font-weight: 200;
   border-left: none;
   border-right: none;
   border-top: none;

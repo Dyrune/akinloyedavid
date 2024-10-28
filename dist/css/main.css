@@ -10,6 +10,9 @@
   --secondary-color: #555555; /* Secondary text color */
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+
+
 /* Dark Theme */
 
 /* Variables and mixins should be imported early */
@@ -27,8 +30,6 @@
 body {
   background-color: #f0eff1;
 }
-
-
 
 /* Prevent FOUC (Flash of Unstyled Content) by hiding the page until it's ready */
 
@@ -155,8 +156,9 @@ body {
 
 h1 {
   font-size: 3rem;
-  font-family: "EB Garamond", serif;
+  font-family: "Poiret One", serif;
   color: --text-color;
+  font-weight: 200;
   margin-bottom: 20px;
 }
 @media (max-width: 768px) {
@@ -170,7 +172,8 @@ p {
   font-size: 1.2rem;
   line-height: 1.5;
   padding-right: 10px;
-  font-family: "EB Garamond", serif;
+  font-weight: 200;
+  font-family: "Poiret One", serif;
   color: --text-color;
 }
 @media (max-width: 768px) {

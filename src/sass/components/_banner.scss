@@ -49,7 +49,7 @@
       font-size: 13rem;
       font-weight: 500;
       position: relative;
-      letter-spacing: -0.8rem;
+      letter-spacing: 0rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -67,7 +67,7 @@
     }
 
     .row-col {
-      width: 50%;
+      width: 35%;
       display: flex;
       align-content: center;
       justify-content: center;
@@ -91,7 +91,7 @@
         font-weight: 500;
         font-size: 1.8rem;
         line-height: 2.6rem;
-        font-family: 'EB Garamond', serif;
+        font-family: 'Poiret One', serif;
         width: 320px;
 
         @media (max-width: 768px) {
@@ -139,6 +139,10 @@
       }
     }
   }
+}
+
+.banner .banner-row .row-col:first-child {
+  width: 65%;
 }
 
 .transition-image {

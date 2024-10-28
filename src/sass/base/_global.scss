@@ -31,7 +31,7 @@ body.loading #fullpage-wrapper {
   }
   
   
-  
+  @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
   @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,600,800&display=swap");
   
   $red: rgb(237, 237, 237);
@@ -311,9 +311,10 @@ body.loading #fullpage-wrapper {
   
   .menu .button3{
     content: "";
-    font-family: 'EB Garamond', serif;
+    font-family: 'Poiret One', serif;
     margin-left: 20px;
     padding: 10px 10px;
+    font-weight: 200;
     border-bottom: 1px solid;
     cursor: pointer;
     color: --text-color;
@@ -337,9 +338,10 @@ body.loading #fullpage-wrapper {
   
     .menu .button3{
       content: "";
-      font-family: 'EB Garamond', serif;
+      font-family: 'Poiret One', serif;
       margin-left: 20px;
       display: flex;
+      font-weight: 200;
       padding: 10px 10px;
       border-bottom: 1px solid ;
       cursor: pointer;
@@ -403,8 +405,9 @@ body.loading #fullpage-wrapper {
     width: 100%;
   }/* Contact link style */
   .contactt a {
-    font-family: 'EB Garamond', serif;
+    font-family: 'Poiret One', serif;
     padding: 5px 0px;
+    font-weight: 200;
     border-bottom: none; /* Remove the default border-bottom */
     color: --text-color;
     cursor: pointer;
