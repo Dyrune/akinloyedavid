@@ -143,6 +143,9 @@
 
 .banner .banner-row .row-col:first-child {
   width: 65%;
+  @media (max-width:756px) {
+    width: 100%;
+  }
 }
 
 .transition-image {

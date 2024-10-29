@@ -314,6 +314,7 @@ const AboutInfo = () => {
   }, []);
   
   return (
+    <div className='parent-container'>
     <div className="about-info-container" ref={modalRef}>
       {/* Fixed Vertical Sidebar */}
       <div className="vertical-sidebar">
@@ -587,7 +588,7 @@ const AboutInfo = () => {
 
 
      < Footer />
-    </div>
+    </div></div>
   );
 };
 

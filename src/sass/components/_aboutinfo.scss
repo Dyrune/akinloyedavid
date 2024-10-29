@@ -629,6 +629,7 @@ body {
   transform: translate(-50%, -50%);
 }
 
+
 @media (max-width: 756px) {
   .contact-link {
     font-family: "Poiret One", serif;
@@ -751,16 +752,24 @@ body {
 
 
 
-/* General Layout */
+/* Parent container (if any) */
+.parent-container {
+  width: 100%;
+  min-height: 100vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+/* About info container */
 .about-info-container {
   display: grid;
   grid-template-columns: 1fr;
   gap: 2rem;
+  min-height: 100vh;
   width: 100%;
-  margin: auto;
   position: relative;
   padding: 116px 65px;
-  overflow-x: hidden; /* Prevent page from horizontal scrolling */
+  
   @media (max-width:756px) {
     position: absolute;
   }
