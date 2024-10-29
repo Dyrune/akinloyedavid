@@ -127,7 +127,7 @@ body {
 
 .info-column h3 {
   font-size: 3.5rem;
-  font-family: 'Poiret One', serif;
+  font-family: "'Poiret One'", serif !important;
   font-weight: 200;
 }
 
@@ -135,7 +135,7 @@ body {
   font-size: 2.4rem;
   color: black;
   font-weight: bolder;
-  font-family: 'Poiret One', serif;
+  font-family: "'Poiret One'", serif !important;
   font-style: italic;
   text-align: right;
 }
@@ -182,7 +182,7 @@ body {
   text-decoration: underline; /* Remove underline from link */
   color: #222; /* Link color */
   font-size: 2rem;
-  font-family: 'Poiret One', serif;
+  font-family: "'Poiret One'", serif !important;
   padding-left: 20px;
   font-weight: 200;
 }
@@ -632,7 +632,7 @@ body {
 
 @media (max-width: 756px) {
   .contact-link {
-    font-family: "Poiret One", serif;
+    font-family: "'Poiret One'", serif !important;
     font-size: 3rem;
     color: --text-color;
     font-weight: 200;

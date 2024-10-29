@@ -6,7 +6,8 @@
 
 html, body {
   height: 100%;
-  font-family: 'Arial', sans-serif;
+  font-family: "'Poiret One'", sans-serif;
+  font-weight: 200;  
 }
 
 .contact-page {
@@ -90,15 +91,14 @@ html, body {
   display: flex;
   width: 100%;
   align-items: center;
-  font-family: sans-serif;
-  color: --text-color;
+  font-family: "'Poiret One'", sans-serif;
   font-weight: 499;
   font-size: 1.8rem;
   margin: 20px 10px;
   transition: color 0.3s;
   @media (max-width:756px) {
     margin: 10px 0;
-    font-family: "Poiret One", serif;
+    font-family: "'Poiret One'", serif !important;
     font-weight: 200;
   }
 }

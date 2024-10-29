@@ -9,7 +9,8 @@
 
 body {
   height: 100%;
-  font-family: Arial, sans-serif;
+  font-family: "'Poiret One'", sans-serif;
+  font-weight: 200;  
   overflow: hidden;
 }
 
@@ -131,7 +132,7 @@ body {
 
 h1 {
   font-size: 3rem; // Smaller font for mobile
-  font-family: 'Righteous', serif;
+  font-family: 'all-round-gothic', serif;
   color: --text-color;
   margin-bottom: 20px;
   font-weight: 200;
@@ -145,7 +146,7 @@ p {
   font-size: 1.2rem; // Smaller font for mobile
   line-height: 1.5;
   padding-right: 10px;
-  font-family: 'Poiret One', serif;
+  font-family: "'Poiret One'", serif !important;
   font-weight: 200;
   color: --text-color;
   @media (max-width: 768px) {
@@ -154,7 +155,7 @@ p {
 }
 
 .discover-btn {
-  font-family: 'Poiret One', serif;
+  font-family: "'Poiret One'", serif !important;
   margin-top: 20px;
   padding: 10px 0;
   border-bottom: 1px solid;
